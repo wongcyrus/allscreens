@@ -114,7 +114,6 @@ export default class ScreenSharing extends React.Component {
         console.log(lengthComputable, total, loaded);
     }
 
-
     render() {
         console.log('render');
         return (
@@ -124,7 +123,7 @@ export default class ScreenSharing extends React.Component {
                 <button disabled = {(!this.state.enableStartCapture)? "disabled" : ""} onClick={() => this._startCapturing()}>Start screen Sharing</button>
                 <button disabled = {(!this.state.enableStopCapture)? "disabled" : ""} onClick={() => this._stopCapturing()}>Stop screen Sharing</button>
                 <button disabled = {(!this.state.enableDownloadRecording)? "disabled" : ""} onClick={() => this._downloadRecording()}>Download recording</button>
-                <a ref={this.downloadLink} href={this.state.recording} type="video/webm"  download='screen-recording.webm' onProgress={this.onProgress} />
+                <a ref={this.downloadLink} href={this.state.recording} type="video/webm" style={{display: 'none'}} download='screen-recording.webm' onProgress={this.onProgress} />
             </div>
         );
     }
