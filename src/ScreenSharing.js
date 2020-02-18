@@ -8,15 +8,14 @@ export default class ScreenSharing extends React.Component {
         this.state = {
             enableStartCapture: true,
             enableStopCapture: true,
-            enableDownloadRecording: false,
             stream: null,
             chunks: [],
-            mediaRecorder: null,
             status: 'Inactive',
             recording: null
         };
 
-        this.downloadLink = React.createRef();
+        this.screen = React.createRef();
+        this.imageView = React.createRef();
 
     }
 
@@ -33,14 +32,14 @@ export default class ScreenSharing extends React.Component {
         }
     }
 
+
     _startCapturing(e) {
         console.log('Start capturing.');
 
         this.setState({
             status: 'Screen recording started.',
             enableStartCapture: false,
-            enableStopCapture: true,
-            enableDownloadRecording: false,
+            enableStopCapture: true
         });
 
         if (this.state.recording) {
@@ -52,32 +51,36 @@ export default class ScreenSharing extends React.Component {
             recording: null
         });
 
-        ScreenSharing._startScreenCapture().then(stream => {
-            stream.addEventListener('inactive', e => {
-                console.log('Capture stream inactive - stop recording!');
-                this._stopCapturing(e);
+        ScreenSharing._startScreenCapture()
+            .then(stream => {
+                stream.addEventListener('inactive', e => {
+                    console.log('Capture stream inactive - stop recording!');
+                    this._stopCapturing(e);
+                });
+
+                this.screen.current.srcObject = stream;
+                this.setState({
+                    stream: stream
+                });
+
+                this.timer = setInterval(() => {
+                    console.log('Hello, World!');
+                    let canvas = document.createElement("canvas");
+                    let video = this.screen.current;
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+                    canvas.getContext('2d').drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+                    this.imageView.current.setAttribute('src', canvas.toDataURL());
+                    //todo: send dataUrl to API Gateway
+  
+                }, 1000);
             });
 
-            let mediaRecorder = new window.MediaRecorder(stream, { mimeType: 'video/webm' });
-            let that = this;
-            mediaRecorder.addEventListener('dataavailable', event => {
-                if (event.data && event.data.size > 0) {
-                    that.setState((state) => {
-                        state.chunks.push(event.data);
-                        return { chunks: state.chunks };
-                    });
-                }
-            });
-            mediaRecorder.start(10);
-            this.setState({
-                stream: stream,
-                mediaRecorder: mediaRecorder
-            });
-        });
     }
 
     _stopCapturing(e) {
         console.log('Stop capturing.');
+        clearInterval(this.timer);
 
         this.setState({
             status: 'Screen recorded completed.',
@@ -88,42 +91,23 @@ export default class ScreenSharing extends React.Component {
 
         this.setState((state) => {
             console.log(state);
-            if (state.mediaRecorder !== null)
-                state.mediaRecorder.stop();
             if (state.stream !== null)
                 state.stream.getTracks().forEach(track => track.stop());
             return {
-                mediaRecorder: null,
-                stream: null,
-                recording: window.URL.createObjectURL(new window.Blob(state.chunks, { type: 'video/webm' }))
+                stream: null
             };
         });
-    }
-
-    _downloadRecording(e) {
-        console.log('Download recording.');
-        this.setState({
-            enableStartCapture: true,
-            enableStopCapture: false,
-            enableDownloadRecording: false
-        });
-        this.downloadLink.current.click();
-    }
-
-    onProgress = ({ nativeEvent: { lengthComputable, total, loaded } }) => {
-        console.log(lengthComputable, total, loaded);
     }
 
     render() {
         console.log('render');
         return (
             <div>
-                <video controls={this.state.recording !== null} playsInline autoPlay loop muted src={this.state.recording}></video>
+                <img ref={this.imageView} style={{display: 'none' }} alt="Right click to save" />
+                <video ref={this.screen} autoPlay style={{display: 'none' }}></video>
                 <p>Status: {this.state.status}</p>
                 <button disabled = {(!this.state.enableStartCapture)? "disabled" : ""} onClick={() => this._startCapturing()}>Start screen Sharing</button>
                 <button disabled = {(!this.state.enableStopCapture)? "disabled" : ""} onClick={() => this._stopCapturing()}>Stop screen Sharing</button>
-                <button disabled = {(!this.state.enableDownloadRecording)? "disabled" : ""} onClick={() => this._downloadRecording()}>Download recording</button>
-                <a ref={this.downloadLink} href={this.state.recording} type="video/webm" style={{display: 'none'}} download='screen-recording.webm' onProgress={this.onProgress} />
             </div>
         );
     }
