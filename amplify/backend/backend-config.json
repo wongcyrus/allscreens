@@ -12,6 +12,27 @@
 			"service": "Lambda",
 			"providerPlugin": "awscloudformation",
 			"build": true
+		},
+		"screenshotapi": {
+			"service": "Lambda",
+			"providerPlugin": "awscloudformation",
+			"build": true,
+			"dependsOn": [
+				{
+					"category": "auth",
+					"resourceName": "allscreens59d1a2d8",
+					"attributes": [
+						"UserPoolId"
+					]
+				},
+				{
+					"category": "storage",
+					"resourceName": "screenshots",
+					"attributes": [
+						"BucketName"
+					]
+				}
+			]
 		}
 	},
 	"storage": {
@@ -26,6 +47,22 @@
 						"Name",
 						"Arn",
 						"LambdaExecutionRole"
+					]
+				}
+			]
+		}
+	},
+	"api": {
+		"screenshotapi": {
+			"service": "API Gateway",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [
+				{
+					"category": "function",
+					"resourceName": "screenshotapi",
+					"attributes": [
+						"Name",
+						"Arn"
 					]
 				}
 			]

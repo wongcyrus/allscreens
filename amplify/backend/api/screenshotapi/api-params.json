@@ -1,0 +1,41 @@
+{
+    "paths": [
+        {
+            "name": "/screenshots",
+            "lambdaFunction": "screenshotapi",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET",
+                    "/PUT",
+                    "/PATCH",
+                    "/DELETE"
+                ]
+            }
+        }
+    ],
+    "resourceName": "screenshotapi",
+    "apiName": "screenshotapi",
+    "functionArns": [
+        {
+            "lambdaFunction": "screenshotapi"
+        }
+    ],
+    "privacy": {
+        "auth": 1,
+        "unauth": 0,
+        "authRoleName": "amplify-allscreens-master-20525-authRole",
+        "unAuthRoleName": "amplify-allscreens-master-20525-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "screenshotapi",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+{
+    "permissions": {
+        "auth": {
+            "allscreens59d1a2d8": [
+                "create",
+                "read",
+                "update",
+                "delete"
+            ]
+        },
+        "storage": {
+            "screenshots": [
+                "create",
+                "read",
+                "update",
+                "delete"
+            ]
+        }
+    }
+}
