@@ -77,7 +77,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-allscreens-master-20525-deployment",
-					"S3Key": "amplify-builds/screenshotapi-38756472506b366f7739-build.zip"
+					"S3Key": "amplify-builds/screenshotapi-51443131684d41486c69-build.zip"
 				}
 			}
 		},
