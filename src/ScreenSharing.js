@@ -1,4 +1,6 @@
 import React from "react"
+import aws_exports from './aws-exports';
+import { API } from 'aws-amplify';
 
 // Source from https://webrtc.github.io/samples/src/content/getusermedia/getdisplaymedia/js/main.js
 export default class ScreenSharing extends React.Component {
@@ -71,8 +73,21 @@ export default class ScreenSharing extends React.Component {
                     canvas.height = video.videoHeight;
                     canvas.getContext('2d').drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
                     this.imageView.current.setAttribute('src', canvas.toDataURL());
-                    //todo: send dataUrl to API Gateway
-  
+
+                    let apiName = 'screenshotapi'; // replace this with your api name.
+                    let path = '/screenshots'; //replace this with the path you have configured on your API
+                    let myInit = {
+                        body: { dataUrl: canvas.toDataURL() }, // replace this with attributes you need
+                        headers: { 'Content-Type': 'application/json' }
+                    };
+                    
+                    API.post(apiName, path, myInit).then(response => {
+                        // Add your code here
+                        console.log(response);
+                    }).catch(error => {
+                        console.log(error.response);
+                    });
+
                 }, 1000);
             });
 

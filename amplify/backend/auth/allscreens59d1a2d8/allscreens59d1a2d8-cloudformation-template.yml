@@ -9,6 +9,18 @@ Parameters:
     Type: String
   
   
+  
+  
+  functionallscreens59d1a2d8PreSignupArn: 
+    Type: String
+    Default: functionallscreens59d1a2d8PreSignupArn
+  
+  functionallscreens59d1a2d8PreSignupName: 
+    Type: String
+    Default: functionallscreens59d1a2d8PreSignupName
+  
+  
+  
 
     
   identityPoolName:
@@ -46,10 +58,10 @@ Parameters:
                 
   defaultPasswordPolicy:
     Type: String
-                
+            
   passwordPolicyMinLength:
-    Type: Number
-                  
+    Type: String
+                      
   passwordPolicyCharacters:
     Type: CommaDelimitedList
               
@@ -85,8 +97,29 @@ Parameters:
                       
   userPoolGroupList:
     Type: CommaDelimitedList
-                          
+              
   dependsOn:
+    Type: CommaDelimitedList
+        
+  thirdPartyAuth:
+    Type: String
+              
+  userPoolGroups:
+    Type: String
+              
+  adminQueries:
+    Type: String
+            
+  triggers:
+    Type: String
+                
+  hostedUI:
+    Type: String
+                              
+  parentStack:
+    Type: String
+                
+  permissions:
     Type: CommaDelimitedList
     
 Conditions:
@@ -142,6 +175,19 @@ Resources:
         
       
       
+      LambdaConfig:
+        
+        
+        
+        
+        
+        
+        
+          PreSignUp: !Ref functionallscreens59d1a2d8PreSignupArn
+        
+        
+        
+      
       
       AutoVerifiedAttributes: !Ref autoVerifiedAttributes
       
@@ -152,10 +198,10 @@ Resources:
       Policies:
         PasswordPolicy:
           MinimumLength: !Ref passwordPolicyMinLength
-          RequireLowercase: false
-          RequireNumbers: false
-          RequireSymbols: false
-          RequireUppercase: false
+          RequireLowercase: true
+          RequireNumbers: true
+          RequireSymbols: true
+          RequireUppercase: true
           
       MfaConfiguration: !Ref mfaConfiguration
       SmsVerificationMessage: !Ref smsVerificationMessage
@@ -163,6 +209,27 @@ Resources:
         SnsCallerArn: !GetAtt SNSRole.Arn
         ExternalId: allscr59d1a2d8_role_external_id
     
+  
+    
+    
+  
+    
+    
+  
+  
+  UserPoolPreSignupLambdaInvokePermission: 
+    Type: "AWS::Lambda::Permission"
+    DependsOn: UserPool
+    Properties: 
+      Action: "lambda:invokeFunction"
+      Principal: "cognito-idp.amazonaws.com"
+      FunctionName: !Ref functionallscreens59d1a2d8PreSignupName
+      SourceArn: !GetAtt UserPool.Arn
+  
+   
+    
+  # Updating lambda role with permissions to Cognito
+  
   
   UserPoolClientWeb:
   # Created provide application access to user pool

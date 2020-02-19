@@ -739,7 +739,7 @@
         
         
         
-      "DeploymentAPIGWscreenshotapi": {
+      "DeploymentAPIGWscreenshotapi11bdb7f7": {
         "Type": "AWS::ApiGateway::Deployment",
         "Properties": {
           "Description": "The Development stage deployment of your API.",

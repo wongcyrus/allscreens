@@ -1,0 +1,14 @@
+{
+    "trigger": true,
+    "modules": [
+        "email-filter-whitelist"
+    ],
+    "parentResource": "allscreens59d1a2d8",
+    "functionName": "allscreens59d1a2d8PreSignup",
+    "parentStack": "auth",
+    "triggerEnvs": "[]",
+    "triggerTemplate": "PreSignup.json.ejs",
+    "roleName": "allscreens59d1a2d8PreSignup",
+    "skipEdit": true,
+    "resourceName": "allscreens59d1a2d8PreSignup"
+}

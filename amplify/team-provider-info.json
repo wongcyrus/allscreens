@@ -14,6 +14,11 @@
         "categories": {
             "auth": {
                 "allscreens59d1a2d8": {}
+            },
+            "function": {
+                "allscreens59d1a2d8PreSignup": {
+                    "DOMAINWHITELIST": "stu.vtc.edu.hk,vtc.edu.hk"
+                }
             }
         }
     }
