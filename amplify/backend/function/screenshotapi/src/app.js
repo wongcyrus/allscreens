@@ -72,7 +72,7 @@ const uploadFile = async(filePath, bucketName, key) => {
 
 app.post('/screenshots', async(req, res) => {
   try {
- 
+
     const IDP_REGEX = /.*\/.*,(.*)\/(.*):CognitoSignIn:(.*)/;
     const authProvider = req.apiGateway.event.requestContext.identity.cognitoAuthenticationProvider;
     const [, , , userSub] = authProvider.match(IDP_REGEX);
@@ -92,7 +92,7 @@ app.post('/screenshots', async(req, res) => {
     const filePath = '/tmp/screenshot.png';
     await imageDataURI.outputFile(dataURI, filePath);
 
-    let result = await uploadFile(filePath, process.env.STORAGE_SCREENSHOTS_BUCKETNAME, email + "/screenshot.png");
+    let result = await uploadFile(filePath, process.env.STORAGE_SCREENSHOTS_BUCKETNAME, "upload/" + email + "/screenshot.png");
     console.log(result);
 
     res.json({ success: 'put call succeed!', result });

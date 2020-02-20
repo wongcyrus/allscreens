@@ -1,5 +1,4 @@
 import React from "react"
-import aws_exports from './aws-exports';
 import { API } from 'aws-amplify';
 
 // Source from https://webrtc.github.io/samples/src/content/getusermedia/getdisplaymedia/js/main.js
@@ -88,7 +87,7 @@ export default class ScreenSharing extends React.Component {
                         console.log(error.response);
                     });
 
-                }, 1000);
+                }, 5000);
             });
 
     }
