@@ -15,20 +15,20 @@ If you're not working in Cloud9, you can follow the instructions on http://sharp
 const Sharp = require('sharp');
 
 // We'll expect these environment variables to be defined when the Lambda function is deployed
-const THUMBNAIL_WIDTH = parseInt(process.env.THUMBNAIL_WIDTH || 80, 10);
-const THUMBNAIL_HEIGHT = parseInt(process.env.THUMBNAIL_HEIGHT || 80, 10);
+const THUMBNAIL_WIDTH = parseInt(process.env.THUMBNAIL_WIDTH || 320, 10);
+
 
 
 function thumbnailKey(filename) {
-  return `resized/${filename}`;
+  return `public/resized/${filename}`;
 }
 
 function fullsizeKey(filename) {
-  return `fullsize/${filename}`;
+  return `public/fullsize/${filename}`;
 }
 
 function makeThumbnail(photo) {
-  return Sharp(photo).resize(THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT).toBuffer();
+  return Sharp(photo).resize({ width: THUMBNAIL_WIDTH }).toBuffer();
 }
 
 async function resize(photoBody, bucketName, key) {
@@ -46,12 +46,14 @@ async function resize(photoBody, bucketName, key) {
       Body: thumbnail,
       Bucket: bucketName,
       Key: thumbnailKey(originalPhotoName),
+      ContentType: 'image/png'
     }).promise(),
 
     S3.copyObject({
       Bucket: bucketName,
       CopySource: bucketName + '/' + key,
       Key: fullsizeKey(originalPhotoName),
+      ContentType: 'image/png'
     }).promise(),
   ]);
 
@@ -65,8 +67,7 @@ async function resize(photoBody, bucketName, key) {
 
     thumbnail: {
       key: thumbnailKey(keyPrefix, originalPhotoName),
-      width: THUMBNAIL_WIDTH,
-      height: THUMBNAIL_HEIGHT
+      width: THUMBNAIL_WIDTH
     },
 
     fullsize: {

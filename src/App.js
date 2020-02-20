@@ -7,6 +7,7 @@ import { withAuthenticator } from 'aws-amplify-react';
 import { Header } from 'semantic-ui-react';
 
 import ScreenSharing from './ScreenSharing';
+import AllScreenView from './AllScreenView';
 
 Amplify.configure(aws_exports);
 
@@ -17,6 +18,7 @@ function App() {
         Lab Exercise Screen Sharing
       </Header>
       <ScreenSharing></ScreenSharing>
+      <AllScreenView></AllScreenView>
     </div>
   );
 }
