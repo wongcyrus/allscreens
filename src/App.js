@@ -1,4 +1,5 @@
-import React from 'react';
+import './App.css'
+import React from 'react';  
 
 import Amplify from 'aws-amplify';
 import aws_exports from './aws-exports';
@@ -15,9 +16,10 @@ function App() {
   return (
     <div>
       <Header as="h1">
-        Lab Exercise Screen Sharing
+        Share you computer screen and let work on the lab exercise toegther at home!
       </Header>
       <ScreenSharing></ScreenSharing>
+      <p>Don't start auto refresh if you want to save your bandwidth and computer resources!</p>
       <AllScreenView></AllScreenView>
     </div>
   );

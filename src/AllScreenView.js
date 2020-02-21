@@ -7,13 +7,13 @@ export default class AllScreenView extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { modalOpen: false, requirementKey: new Date(), count: 0 , referesh: false };
+        this.state = { modalOpen: false, requirementKey: new Date(), count: 0, referesh: false };
         this.imageView = React.createRef();
     }
 
     componentDidMount() {
         this.interval = setInterval(() => {
-            if(this.state.referesh)
+            if (this.state.referesh)
                 this.setState(({ count }) => ({ count: count + 1 }));
         }, 5000);
     }
@@ -29,8 +29,8 @@ export default class AllScreenView extends React.Component {
         this.setState({ fullSizeKey, email });
         this.setState({ modalOpen: true });
     }
-    
-    toggleRefresh(){
+
+    toggleRefresh() {
         this.setState(({ referesh }) => ({ referesh: !referesh }));
     }
 
@@ -41,15 +41,19 @@ export default class AllScreenView extends React.Component {
             maxWidth: "80%",
             maxHeight: "80%"
         };
+        let divStyle = {
+            display: "inline"
+        };
         return (
-            <div>
-                <button disabled = {(this.state.referesh)? "disabled" : ""} onClick={() => this.toggleRefresh()}>Start Refresh all screens.</button>
-                <button disabled = {(!this.state.referesh)? "disabled" : ""} onClick={() => this.toggleRefresh()}>Stop Refresh all screens</button>
+            <div className="table">
+                <button disabled = {(this.state.referesh)? "disabled" : ""} onClick={() => this.toggleRefresh()}>Start Auto-refresh.</button>
+                <button disabled = {(!this.state.referesh)? "disabled" : ""} onClick={() => this.toggleRefresh()}>Stop Auto-refresh.</button>
                 <S3Album 
                    level="public" 
                    select onSelect={(e)=>this.handleSelect(e)}
                    path={'resized/'} 
                    key={this.state.count}
+                   style={divStyle}
                 />
                 <Modal
                     open={this.state.modalOpen}
