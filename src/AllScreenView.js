@@ -47,7 +47,6 @@ export default class AllScreenView extends React.Component {
                 <Modal
                     open={this.state.modalOpen}
                     onClose={this.handleClose}
-                    basic
                     closeIcon
                     size='fullscreen'
                 >
