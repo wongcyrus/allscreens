@@ -7,13 +7,14 @@ export default class AllScreenView extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { modalOpen: false, requirementKey: new Date(), count: 0 };
+        this.state = { modalOpen: false, requirementKey: new Date(), count: 0 , referesh: false };
         this.imageView = React.createRef();
     }
 
     componentDidMount() {
         this.interval = setInterval(() => {
-            this.setState(({ count }) => ({ count: count + 1 }));
+            if(this.state.referesh)
+                this.setState(({ count }) => ({ count: count + 1 }));
         }, 5000);
     }
 
@@ -28,16 +29,22 @@ export default class AllScreenView extends React.Component {
         this.setState({ fullSizeKey, email });
         this.setState({ modalOpen: true });
     }
+    
+    toggleRefresh(){
+        this.setState(({ referesh }) => ({ referesh: !referesh }));
+    }
 
     handleClose = () => this.setState({ modalOpen: false })
 
     render() {
         let imageStyle = {
-            "max-width": "80%",
-            "max-height": "80%"
+            maxWidth: "80%",
+            maxHeight: "80%"
         };
         return (
             <div>
+                <button disabled = {(this.state.referesh)? "disabled" : ""} onClick={() => this.toggleRefresh()}>Start Refresh all screens.</button>
+                <button disabled = {(!this.state.referesh)? "disabled" : ""} onClick={() => this.toggleRefresh()}>Stop Refresh all screens</button>
                 <S3Album 
                    level="public" 
                    select onSelect={(e)=>this.handleSelect(e)}
