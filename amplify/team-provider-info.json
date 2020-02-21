@@ -25,5 +25,32 @@
                 "screenshots": {}
             }
         }
+    },
+    "master": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-allscreens-master-30103-authRole",
+            "UnauthRoleArn": "arn:aws:iam::467005446488:role/amplify-allscreens-master-30103-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::467005446488:role/amplify-allscreens-master-30103-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-allscreens-master-30103-deployment",
+            "UnauthRoleName": "amplify-allscreens-master-30103-unauthRole",
+            "StackName": "amplify-allscreens-master-30103",
+            "StackId": "arn:aws:cloudformation:us-east-1:467005446488:stack/amplify-allscreens-master-30103/66231fc0-5456-11ea-826d-0e6f11df9e98",
+            "AmplifyAppId": "d3v91vz7ijb82i"
+        },
+        "categories": {
+            "auth": {
+                "allscreens59d1a2d8": {}
+            },
+            "function": {
+                "S3Trigger365318ba": {},
+                "screenshotapi": {},
+                "allscreens59d1a2d8PreSignup": {
+                    "DOMAINWHITELIST": "vtc.edu.hk,stu.vtc.edu.hk"
+                },
+                "allscreens59d1a2d8": {},
+                "screenshots": {}
+            }
+        }
     }
 }
