@@ -1,14 +1,20 @@
 import React from "react"
 import { S3Album, S3Image } from 'aws-amplify-react';
-import { Button, Header, Icon, Modal } from 'semantic-ui-react'
+import { Button, Header, Icon, Modal, Input } from 'semantic-ui-react'
 
 export default class AllScreenView extends React.Component {
 
 
     constructor(props) {
         super(props);
-        this.state = { modalOpen: false, requirementKey: new Date(), count: 0, referesh: false };
-        this.imageView = React.createRef();
+        this.state = {
+            modalOpen: false,
+            count: 0,
+            referesh: false,
+            searchKeyword: undefined
+        };
+        this.search = React.createRef();
+        this.s3Album = React.createRef();
     }
 
     componentDidMount() {
@@ -36,24 +42,40 @@ export default class AllScreenView extends React.Component {
 
     handleClose = () => this.setState({ modalOpen: false })
 
+    filter = item => {
+        console.log(this.state.searchKeyword);
+
+        if (this.state.searchKeyword) {
+            const regex = new RegExp(`${this.state.searchKeyword}`, "i");
+            return item.filter(item => regex.test(item.key));
+        }
+        return item;
+    }
+
+    handleSearch = (event) => {
+        console.log(event.target.value);
+        this.setState({ searchKeyword: event.target.value });
+        this.setState(({ count }) => ({ count: count + 1 }));
+    }
+
     render() {
         let imageStyle = {
             maxWidth: "80%",
             maxHeight: "80%"
         };
-        let divStyle = {
-            display: "inline"
-        };
         return (
             <div className="table">
                 <button disabled = {(this.state.referesh)? "disabled" : ""} onClick={() => this.toggleRefresh()}>Start Auto-refresh.</button>
                 <button disabled = {(!this.state.referesh)? "disabled" : ""} onClick={() => this.toggleRefresh()}>Stop Auto-refresh.</button>
+                <Input ref={this.search} icon='search' placeholder='Search...' onChange={(event)=>this.handleSearch(event)}/>
                 <S3Album 
-                   level="public" 
-                   select onSelect={(e)=>this.handleSelect(e)}
-                   path={'resized/'} 
-                   key={this.state.count}
-                   style={divStyle}
+                    ref={this.s3Album}
+                    level="public" 
+                    select 
+                    onSelect={(e)=>this.handleSelect(e)}
+                    path={'resized/'} 
+                    key={this.state.count}
+                    filter={(item)=>this.filter(item)}
                 />
                 <Modal
                     open={this.state.modalOpen}
