@@ -43,11 +43,6 @@
         }
     },
     "function": {
-        "S3Trigger365318ba": {
-            "service": "Lambda",
-            "providerPlugin": "awscloudformation",
-            "build": true
-        },
         "screenshotapi": {
             "service": "Lambda",
             "providerPlugin": "awscloudformation",
@@ -78,6 +73,11 @@
             "service": "Lambda",
             "providerPlugin": "awscloudformation",
             "build": true
+        },
+        "S3Trigger4122c033": {
+            "service": "Lambda",
+            "providerPlugin": "awscloudformation",
+            "build": true
         }
     },
     "storage": {
@@ -87,11 +87,32 @@
             "dependsOn": [
                 {
                     "category": "function",
-                    "resourceName": "S3Trigger365318ba",
+                    "resourceName": "S3Trigger4122c033",
                     "attributes": [
                         "Name",
                         "Arn",
                         "LambdaExecutionRole"
+                    ]
+                },
+                {
+                    "category": "auth",
+                    "resourceName": "allscreens59d1a2d8",
+                    "attributes": [
+                        "UserPoolId"
+                    ]
+                },
+                {
+                    "category": "auth",
+                    "resourceName": "userPoolGroups",
+                    "attributes": [
+                        "teachersGroupRole"
+                    ]
+                },
+                {
+                    "category": "auth",
+                    "resourceName": "userPoolGroups",
+                    "attributes": [
+                        "studentsGroupRole"
                     ]
                 }
             ]
@@ -108,6 +129,27 @@
                     "attributes": [
                         "Name",
                         "Arn"
+                    ]
+                },
+                {
+                    "category": "auth",
+                    "resourceName": "allscreens59d1a2d8",
+                    "attributes": [
+                        "UserPoolId"
+                    ]
+                },
+                {
+                    "category": "auth",
+                    "resourceName": "userPoolGroups",
+                    "attributes": [
+                        "teachersGroupRole"
+                    ]
+                },
+                {
+                    "category": "auth",
+                    "resourceName": "userPoolGroups",
+                    "attributes": [
+                        "studentsGroupRole"
                     ]
                 }
             ]

@@ -23,6 +23,30 @@
           "functionscreenshotapiArn": {
             "Type": "String",
             "Default": "functionscreenshotapiArn"
+          },
+        
+          
+          
+    
+          "authallscreens59d1a2d8UserPoolId": {
+            "Type": "String",
+            "Default": "authallscreens59d1a2d8UserPoolId"
+          },
+        
+          
+          
+    
+          "authuserPoolGroupsteachersGroupRole": {
+            "Type": "String",
+            "Default": "authuserPoolGroupsteachersGroupRole"
+          },
+        
+          
+          
+    
+          "authuserPoolGroupsstudentsGroupRole": {
+            "Type": "String",
+            "Default": "authuserPoolGroupsstudentsGroupRole"
           }
         
           
@@ -41,15 +65,29 @@
     },
     "Resources": {
         
-        "PolicyAPIGWscreenshotapiauth": {
-            "DependsOn": [
+        
+        
+          
+          
+          "teachersGroupscreenshotsPolicy": {
+          "DependsOn": [
               "screenshotapi"
             ],
-            "Type": "AWS::IAM::Policy",
-            "Properties": {
-              "PolicyName": "PolicyAPIGWscreenshotapiauth",
+          "Type": "AWS::IAM::Policy",
+          "Properties": {
+              "PolicyName": "screenshotapi-screenshots-teachers-group-policy",
               "Roles": [
-                {"Ref": "authRoleName"}
+                {
+                    "Fn::Join": [
+                        "",
+                        [
+                          {
+                            "Ref": "authallscreens59d1a2d8UserPoolId"
+                          },
+                          "-teachersGroupRole"
+                        ]
+                    ]
+                }
               ],
               "PolicyDocument": {
                 "Version": "2012-10-17",
@@ -59,8 +97,7 @@
                     "Action": [
                       "execute-api:Invoke"
                     ],
-                    "Resource": [
-                    
+                     "Resource": [
                     
                     
                       {
@@ -94,7 +131,7 @@
                           ]
                         ]
                       },
-                                            {
+                      {
                         "Fn::Join": [
                           "",
                           [
@@ -114,10 +151,10 @@
                             {
                               "Fn::If": [
                                 "ShouldNotCreateEnvResources",
-                                "Prod", 
+                                "Prod",
                                 {
                                   "Ref": "env"
-                                } 
+                                }
                               ]
                             },
                               "/POST",
@@ -125,273 +162,6 @@
                           ]
                         ]
                       }
-                    
-                      ,
-                    
-                    
-                      {
-                        "Fn::Join": [
-                          "",
-                          [
-                            "arn:aws:execute-api:",
-                            {
-                              "Ref": "AWS::Region"
-                            },
-                            ":",
-                            {
-                              "Ref": "AWS::AccountId"
-                            },
-                            ":",
-                            {
-                              "Ref": "screenshotapi"
-                            },
-                            "/",
-                            {
-                              "Fn::If": [
-                                "ShouldNotCreateEnvResources",
-                                "Prod", 
-                                {
-                                  "Ref": "env"
-                                } 
-                              ]
-                            },
-                              "/GET",
-                            "/screenshots/*"
-                          ]
-                        ]
-                      },
-                                            {
-                        "Fn::Join": [
-                          "",
-                          [
-                            "arn:aws:execute-api:",
-                            {
-                              "Ref": "AWS::Region"
-                            },
-                            ":",
-                            {
-                              "Ref": "AWS::AccountId"
-                            },
-                            ":",
-                            {
-                              "Ref": "screenshotapi"
-                            },
-                            "/",
-                            {
-                              "Fn::If": [
-                                "ShouldNotCreateEnvResources",
-                                "Prod", 
-                                {
-                                  "Ref": "env"
-                                } 
-                              ]
-                            },
-                              "/GET",
-                            "/screenshots"
-                          ]
-                        ]
-                      }
-                    
-                      ,
-                    
-                    
-                      {
-                        "Fn::Join": [
-                          "",
-                          [
-                            "arn:aws:execute-api:",
-                            {
-                              "Ref": "AWS::Region"
-                            },
-                            ":",
-                            {
-                              "Ref": "AWS::AccountId"
-                            },
-                            ":",
-                            {
-                              "Ref": "screenshotapi"
-                            },
-                            "/",
-                            {
-                              "Fn::If": [
-                                "ShouldNotCreateEnvResources",
-                                "Prod", 
-                                {
-                                  "Ref": "env"
-                                } 
-                              ]
-                            },
-                              "/PUT",
-                            "/screenshots/*"
-                          ]
-                        ]
-                      },
-                                            {
-                        "Fn::Join": [
-                          "",
-                          [
-                            "arn:aws:execute-api:",
-                            {
-                              "Ref": "AWS::Region"
-                            },
-                            ":",
-                            {
-                              "Ref": "AWS::AccountId"
-                            },
-                            ":",
-                            {
-                              "Ref": "screenshotapi"
-                            },
-                            "/",
-                            {
-                              "Fn::If": [
-                                "ShouldNotCreateEnvResources",
-                                "Prod", 
-                                {
-                                  "Ref": "env"
-                                } 
-                              ]
-                            },
-                              "/PUT",
-                            "/screenshots"
-                          ]
-                        ]
-                      }
-                    
-                      ,
-                    
-                    
-                      {
-                        "Fn::Join": [
-                          "",
-                          [
-                            "arn:aws:execute-api:",
-                            {
-                              "Ref": "AWS::Region"
-                            },
-                            ":",
-                            {
-                              "Ref": "AWS::AccountId"
-                            },
-                            ":",
-                            {
-                              "Ref": "screenshotapi"
-                            },
-                            "/",
-                            {
-                              "Fn::If": [
-                                "ShouldNotCreateEnvResources",
-                                "Prod", 
-                                {
-                                  "Ref": "env"
-                                } 
-                              ]
-                            },
-                              "/PATCH",
-                            "/screenshots/*"
-                          ]
-                        ]
-                      },
-                                            {
-                        "Fn::Join": [
-                          "",
-                          [
-                            "arn:aws:execute-api:",
-                            {
-                              "Ref": "AWS::Region"
-                            },
-                            ":",
-                            {
-                              "Ref": "AWS::AccountId"
-                            },
-                            ":",
-                            {
-                              "Ref": "screenshotapi"
-                            },
-                            "/",
-                            {
-                              "Fn::If": [
-                                "ShouldNotCreateEnvResources",
-                                "Prod", 
-                                {
-                                  "Ref": "env"
-                                } 
-                              ]
-                            },
-                              "/PATCH",
-                            "/screenshots"
-                          ]
-                        ]
-                      }
-                    
-                      ,
-                    
-                    
-                      {
-                        "Fn::Join": [
-                          "",
-                          [
-                            "arn:aws:execute-api:",
-                            {
-                              "Ref": "AWS::Region"
-                            },
-                            ":",
-                            {
-                              "Ref": "AWS::AccountId"
-                            },
-                            ":",
-                            {
-                              "Ref": "screenshotapi"
-                            },
-                            "/",
-                            {
-                              "Fn::If": [
-                                "ShouldNotCreateEnvResources",
-                                "Prod", 
-                                {
-                                  "Ref": "env"
-                                } 
-                              ]
-                            },
-                              "/DELETE",
-                            "/screenshots/*"
-                          ]
-                        ]
-                      },
-                                            {
-                        "Fn::Join": [
-                          "",
-                          [
-                            "arn:aws:execute-api:",
-                            {
-                              "Ref": "AWS::Region"
-                            },
-                            ":",
-                            {
-                              "Ref": "AWS::AccountId"
-                            },
-                            ":",
-                            {
-                              "Ref": "screenshotapi"
-                            },
-                            "/",
-                            {
-                              "Fn::If": [
-                                "ShouldNotCreateEnvResources",
-                                "Prod", 
-                                {
-                                  "Ref": "env"
-                                } 
-                              ]
-                            },
-                              "/DELETE",
-                            "/screenshots"
-                          ]
-                        ]
-                      }
-                    
-                    
-                    
                     
                     
                     ]
@@ -400,8 +170,109 @@
               }
             }
           },
-        
-        
+          
+          "studentsGroupscreenshotsPolicy": {
+          "DependsOn": [
+              "screenshotapi"
+            ],
+          "Type": "AWS::IAM::Policy",
+          "Properties": {
+              "PolicyName": "screenshotapi-screenshots-students-group-policy",
+              "Roles": [
+                {
+                    "Fn::Join": [
+                        "",
+                        [
+                          {
+                            "Ref": "authallscreens59d1a2d8UserPoolId"
+                          },
+                          "-studentsGroupRole"
+                        ]
+                    ]
+                }
+              ],
+              "PolicyDocument": {
+                "Version": "2012-10-17",
+                "Statement": [
+                  {
+                    "Effect": "Allow",
+                    "Action": [
+                      "execute-api:Invoke"
+                    ],
+                     "Resource": [
+                    
+                    
+                      {
+                        "Fn::Join": [
+                          "",
+                          [
+                            "arn:aws:execute-api:",
+                            {
+                              "Ref": "AWS::Region"
+                            },
+                            ":",
+                            {
+                              "Ref": "AWS::AccountId"
+                            },
+                            ":",
+                            {
+                              "Ref": "screenshotapi"
+                            },
+                            "/",
+                            {
+                              "Fn::If": [
+                                "ShouldNotCreateEnvResources",
+                                "Prod", 
+                                {
+                                  "Ref": "env"
+                                } 
+                              ]
+                            },
+                              "/POST",
+                            "/screenshots/*"
+                          ]
+                        ]
+                      },
+                      {
+                        "Fn::Join": [
+                          "",
+                          [
+                            "arn:aws:execute-api:",
+                            {
+                              "Ref": "AWS::Region"
+                            },
+                            ":",
+                            {
+                              "Ref": "AWS::AccountId"
+                            },
+                            ":",
+                            {
+                              "Ref": "screenshotapi"
+                            },
+                            "/",
+                            {
+                              "Fn::If": [
+                                "ShouldNotCreateEnvResources",
+                                "Prod",
+                                {
+                                  "Ref": "env"
+                                }
+                              ]
+                            },
+                              "/POST",
+                            "/screenshots"
+                          ]
+                        ]
+                      }
+                    
+                    
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          
         
         
         
@@ -739,7 +610,7 @@
         
         
         
-      "DeploymentAPIGWscreenshotapi11bdb7f7": {
+      "DeploymentAPIGWscreenshotapi86cdc29f": {
         "Type": "AWS::ApiGateway::Deployment",
         "Properties": {
           "Description": "The Development stage deployment of your API.",

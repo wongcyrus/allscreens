@@ -4,14 +4,14 @@
             "name": "/screenshots",
             "lambdaFunction": "screenshotapi",
             "privacy": {
-                "private": true,
-                "auth": [
-                    "/POST",
-                    "/GET",
-                    "/PUT",
-                    "/PATCH",
-                    "/DELETE"
-                ]
+                "userPoolGroups": {
+                    "teachers": [
+                        "/POST"
+                    ],
+                    "students": [
+                        "/POST"
+                    ]
+                }
             }
         }
     ],
@@ -23,10 +23,10 @@
         }
     ],
     "privacy": {
-        "auth": 1,
+        "auth": 0,
         "unauth": 0,
-        "authRoleName": "amplify-allscreens-master-20525-authRole",
-        "unAuthRoleName": "amplify-allscreens-master-20525-unauthRole"
+        "authRoleName": "amplify-allscreens-dev-80129-authRole",
+        "unAuthRoleName": "amplify-allscreens-dev-80129-unauthRole"
     },
     "dependsOn": [
         {
@@ -36,7 +36,29 @@
                 "Name",
                 "Arn"
             ]
+        },
+        {
+            "category": "auth",
+            "resourceName": "allscreens59d1a2d8",
+            "attributes": [
+                "UserPoolId"
+            ]
+        },
+        {
+            "category": "auth",
+            "resourceName": "userPoolGroups",
+            "attributes": [
+                "teachersGroupRole"
+            ]
+        },
+        {
+            "category": "auth",
+            "resourceName": "userPoolGroups",
+            "attributes": [
+                "studentsGroupRole"
+            ]
         }
     ],
-    "uuid": "11bdb7f7"
+    "uuid": "86cdc29f",
+    "authResourceName": "allscreens59d1a2d8"
 }

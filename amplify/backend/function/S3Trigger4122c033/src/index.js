@@ -1,4 +1,10 @@
-// eslint-disable-next-line
+/* Amplify Params - DO NOT EDIT
+You can access the following resource attributes as environment variables from your Lambda function
+var environment = process.env.ENV
+var region = process.env.REGION
+var storageScreenshotsBucketName = process.env.STORAGE_SCREENSHOTS_BUCKETNAME
+
+Amplify Params - DO NOT EDIT */// eslint-disable-next-line
 
 
 require('es6-promise').polyfill();
