@@ -12,9 +12,34 @@
                         "Arn",
                         "Name"
                     ]
+                },
+                {
+                    "category": "function",
+                    "resourceName": "allscreens59d1a2d8PostConfirmation",
+                    "triggerProvider": "Cognito",
+                    "attributes": [
+                        "Arn",
+                        "Name"
+                    ]
                 }
             ],
             "customAuth": false
+        },
+        "userPoolGroups": {
+            "service": "Cognito-UserPool-Groups",
+            "providerPlugin": "awscloudformation",
+            "dependsOn": [
+                {
+                    "category": "auth",
+                    "resourceName": "allscreens59d1a2d8",
+                    "attributes": [
+                        "UserPoolId",
+                        "AppClientIDWeb",
+                        "AppClientID",
+                        "IdentityPoolId"
+                    ]
+                }
+            ]
         }
     },
     "function": {
@@ -45,6 +70,11 @@
             ]
         },
         "allscreens59d1a2d8PreSignup": {
+            "service": "Lambda",
+            "providerPlugin": "awscloudformation",
+            "build": true
+        },
+        "allscreens59d1a2d8PostConfirmation": {
             "service": "Lambda",
             "providerPlugin": "awscloudformation",
             "build": true

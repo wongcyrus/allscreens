@@ -15,7 +15,7 @@
     "emailVerificationSubject": "Your verification code",
     "emailVerificationMessage": "Your verification code is {####}",
     "defaultPasswordPolicy": true,
-    "passwordPolicyMinLength": "8",
+    "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [
         "Requires Lowercase",
         "Requires Uppercase",
@@ -23,7 +23,8 @@
         "Requires Symbols"
     ],
     "requiredAttributes": [
-        "email"
+        "email",
+        "phone_number"
     ],
     "userpoolClientGenerateSecret": true,
     "userpoolClientRefreshTokenValidity": 30,
@@ -50,7 +51,10 @@
         ]
     },
     "useDefault": "manual",
-    "userPoolGroupList": [],
+    "userPoolGroupList": [
+        "teachers",
+        "students"
+    ],
     "dependsOn": [
         {
             "category": "function",
@@ -60,15 +64,26 @@
                 "Arn",
                 "Name"
             ]
+        },
+        {
+            "category": "function",
+            "resourceName": "allscreens59d1a2d8PostConfirmation",
+            "triggerProvider": "Cognito",
+            "attributes": [
+                "Arn",
+                "Name"
+            ]
         }
     ],
-    "thirdPartyAuth": false,
     "userPoolGroups": false,
     "adminQueries": false,
-    "triggers": "{\"PreSignup\":[\"email-filter-whitelist\"]}",
+    "triggers": "{\"PostConfirmation\":[\"add-to-group\"],\"PreSignup\":[\"email-filter-whitelist\"]}",
     "hostedUI": false,
     "parentStack": {
         "Ref": "AWS::StackId"
     },
-    "permissions": []
+    "permissions": [
+        "{\"policyName\":\"AddToGroupCognito\",\"trigger\":\"PostConfirmation\",\"effect\":\"Allow\",\"actions\":[\"cognito-idp:AdminAddUserToGroup\",\"cognito-idp:GetGroup\",\"cognito-idp:CreateGroup\"],\"resource\":{\"paramType\":\"!GetAtt\",\"keys\":[\"UserPool\",\"Arn\"]}}"
+    ],
+    "thirdPartyAuth": false
 }

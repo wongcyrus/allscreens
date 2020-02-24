@@ -21,6 +21,16 @@ Parameters:
   
   
   
+  functionallscreens59d1a2d8PostConfirmationArn: 
+    Type: String
+    Default: functionallscreens59d1a2d8PostConfirmationArn
+  
+  functionallscreens59d1a2d8PostConfirmationName: 
+    Type: String
+    Default: functionallscreens59d1a2d8PostConfirmationName
+  
+  
+  
 
     
   identityPoolName:
@@ -58,10 +68,10 @@ Parameters:
                 
   defaultPasswordPolicy:
     Type: String
-            
+                
   passwordPolicyMinLength:
-    Type: String
-                      
+    Type: Number
+                  
   passwordPolicyCharacters:
     Type: CommaDelimitedList
               
@@ -101,9 +111,6 @@ Parameters:
   dependsOn:
     Type: CommaDelimitedList
         
-  thirdPartyAuth:
-    Type: String
-              
   userPoolGroups:
     Type: String
               
@@ -115,13 +122,16 @@ Parameters:
                 
   hostedUI:
     Type: String
-                              
+                  
   parentStack:
     Type: String
                 
   permissions:
     Type: CommaDelimitedList
-    
+        
+  thirdPartyAuth:
+    Type: String
+                      
 Conditions:
   ShouldNotCreateEnvResources: !Equals [ !Ref env, NONE ]
 
@@ -173,6 +183,11 @@ Resources:
           Required: true
           Mutable: true
         
+        -
+          Name: phone_number
+          Required: true
+          Mutable: true
+        
       
       
       LambdaConfig:
@@ -180,6 +195,8 @@ Resources:
         
         
         
+        
+          PostConfirmation: !Ref functionallscreens59d1a2d8PostConfirmationArn
         
         
         
@@ -214,6 +231,15 @@ Resources:
     
   
     
+  
+  UserPoolPostConfirmationLambdaInvokePermission: 
+    Type: "AWS::Lambda::Permission"
+    DependsOn: UserPool
+    Properties: 
+      Action: "lambda:invokeFunction"
+      Principal: "cognito-idp.amazonaws.com"
+      FunctionName: !Ref functionallscreens59d1a2d8PostConfirmationName
+      SourceArn: !GetAtt UserPool.Arn
     
   
   
@@ -229,6 +255,38 @@ Resources:
    
     
   # Updating lambda role with permissions to Cognito
+  
+  
+  allscreens59d1a2d8PostConfirmationAddToGroupCognito:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: allscreens59d1a2d8PostConfirmationAddToGroupCognito
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+            
+              - cognito-idp:AdminAddUserToGroup
+            
+              - cognito-idp:GetGroup
+            
+              - cognito-idp:CreateGroup
+            
+            
+            
+            Resource: !GetAtt
+            
+              - UserPool
+            
+              - Arn
+            
+            
+            
+
+      Roles:
+        - !Join ['',["allscreens59d1a2d8PostConfirmation", '-', !Ref env]]
+  
   
   
   UserPoolClientWeb:

@@ -2,11 +2,7 @@
 	"AWSTemplateFormatVersion": "2010-09-09",
 	"Description": "Lambda resource stack creation using Amplify CLI",
 	"Parameters": {
-		"DOMAINBLACKLIST": {
-			"Type": "String",
-			"Default": ""
-		},
-		"DOMAINWHITELIST": {
+		"GROUP": {
 			"Type": "String",
 			"Default": ""
 		},
@@ -65,12 +61,12 @@
 				"FunctionName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"allscreens59d1a2d8PreSignup",
+						"allscreens59d1a2d8PostConfirmation",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"allscreens59d1a2d8PreSignup",
+									"allscreens59d1a2d8PostConfirmation",
 									"-",
 									{
 										"Ref": "env"
@@ -91,11 +87,8 @@
 						"REGION": {
 							"Ref": "AWS::Region"
 						},
-						"DOMAINWHITELIST": {
-							"Ref": "DOMAINWHITELIST"
-						},
-						"DOMAINBLACKLIST": {
-							"Ref": "DOMAINBLACKLIST"
+						"GROUP": {
+							"Ref": "GROUP"
 						}
 					}
 				},
@@ -109,7 +102,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-allscreens-phone-34011-deployment",
-					"S3Key": "amplify-builds/allscreens59d1a2d8PreSignup-7a41707a6e526a543159-build.zip"
+					"S3Key": "amplify-builds/allscreens59d1a2d8PostConfirmation-4545514f645a37564343-build.zip"
 				}
 			}
 		},
@@ -119,12 +112,12 @@
 				"RoleName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"allscreens59d1a2d8PreSignup",
+						"allscreens59d1a2d8PostConfirmation",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"allscreens59d1a2d8PreSignup",
+									"allscreens59d1a2d8PostConfirmation",
 									"-",
 									{
 										"Ref": "env"

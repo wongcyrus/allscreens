@@ -1,0 +1,14 @@
+{
+    "trigger": true,
+    "modules": [
+        "add-to-group"
+    ],
+    "parentResource": "allscreens59d1a2d8",
+    "functionName": "allscreens59d1a2d8PostConfirmation",
+    "parentStack": "auth",
+    "triggerEnvs": "[]",
+    "triggerTemplate": "PostConfirmation.json.ejs",
+    "roleName": "allscreens59d1a2d8PostConfirmation",
+    "skipEdit": true,
+    "resourceName": "allscreens59d1a2d8PostConfirmation"
+}
