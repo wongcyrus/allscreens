@@ -1,7 +1,7 @@
 import React from "react"
 import { Storage } from 'aws-amplify';
 import { S3Album, S3Image } from 'aws-amplify-react';
-import { Button, Header, Icon, Modal, Input } from 'semantic-ui-react'
+import { Button, Header, Icon, Modal, Input, Container } from 'semantic-ui-react'
 
 export default class AllScreenView extends React.Component {
 
@@ -72,10 +72,10 @@ export default class AllScreenView extends React.Component {
         this.setState(({ count }) => ({ count: count + 1 }));
     }
 
-    clearAllScreenshots = async (event) => {
+    clearAllScreenshots = async(event) => {
         const result = await Storage.list('resized/');
         console.log(result);
-        result.map(c=> Storage.remove(c.key));
+        result.map(c => Storage.remove(c.key));
     }
 
     render() {
@@ -85,10 +85,13 @@ export default class AllScreenView extends React.Component {
         };
         return (
             <div className="table">
-                <button disabled = {(this.state.referesh)? "disabled" : ""} onClick={() => this.toggleRefresh()}>Start Auto-refresh.</button>
-                <button disabled = {(!this.state.referesh)? "disabled" : ""} onClick={() => this.toggleRefresh()}>Stop Auto-refresh.</button>
-                <Input ref={this.search} icon='search' placeholder='Search...' onChange={(event)=>this.handleSearch(event)}/>
-                <button onClick={() => this.clearAllScreenshots()}>Delete all previous screenshots.</button>
+                 <Container>
+                    <p>Don't start auto refresh if you want to save your bandwidth and computer resources!</p>
+                    <button disabled = {(this.state.referesh)? "disabled" : ""} onClick={() => this.toggleRefresh()}>Start Auto-refresh.</button>
+                    <button disabled = {(!this.state.referesh)? "disabled" : ""} onClick={() => this.toggleRefresh()}>Stop Auto-refresh.</button>
+                    <Input ref={this.search} icon='search' placeholder='Search...' onChange={(event)=>this.handleSearch(event)}/>
+                    <button onClick={() => this.clearAllScreenshots()}>Delete all previous screenshots.</button>
+                 </Container>
                 <S3Album 
                     ref={this.s3Album}
                     level="public"

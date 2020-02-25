@@ -29,12 +29,11 @@ class App extends Component {
     return (
       <div>
         <Header as="h1">
-          Share you computer screen and let work on the lab exercise toegther at home!
+          Share you computer screen and let work on lab exercise together online!
         </Header>
         <ScreenSharing></ScreenSharing>
         {this.state.isTeacher ? (
           <div>
-            <p>Don't start auto refresh if you want to save your bandwidth and computer resources!</p>
             <AllScreenView></AllScreenView>
           </div>
         ):""}
