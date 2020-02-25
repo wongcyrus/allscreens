@@ -52,6 +52,19 @@ export default class AllScreenView extends React.Component {
         return item;
     }
 
+    sort = item => {
+        const compare = (a, b) => {
+            if (a.key < b.key) {
+                return -1;
+            }
+            if (a.key > b.key) {
+                return 1;
+            }
+            return 0;
+        };
+        return item.sort(compare);
+    }
+
     handleSearch = (event) => {
         console.log(event.target.value);
         this.setState({ searchKeyword: event.target.value });
@@ -76,6 +89,7 @@ export default class AllScreenView extends React.Component {
                     path={'resized/'} 
                     key={this.state.count}
                     filter={(item)=>this.filter(item)}
+                    sort={(item)=>this.sort(item)}
                 />
                 <Modal
                     open={this.state.modalOpen}
