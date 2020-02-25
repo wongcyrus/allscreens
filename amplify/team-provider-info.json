@@ -1,0 +1,66 @@
+{
+    "test": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-allscreens-test-121919-authRole",
+            "UnauthRoleArn": "arn:aws:iam::467005446488:role/amplify-allscreens-test-121919-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::467005446488:role/amplify-allscreens-test-121919-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-allscreens-test-121919-deployment",
+            "UnauthRoleName": "amplify-allscreens-test-121919-unauthRole",
+            "StackName": "amplify-allscreens-test-121919",
+            "StackId": "arn:aws:cloudformation:us-east-1:467005446488:stack/amplify-allscreens-test-121919/e2322dd0-56ff-11ea-b5ae-12c5c4f78283",
+            "AmplifyAppId": "d2l221pdutuhiq"
+        },
+        "categories": {
+            "auth": {
+                "allscreens59d1a2d8": {},
+                "userPoolGroups": {}
+            },
+            "function": {
+                "screenshotapi": {},
+                "allscreens59d1a2d8PreSignup": {
+                    "DOMAINWHITELIST": "vtc.edu.hk,stu.vtc.edu.hk"
+                },
+                "allscreens59d1a2d8PostConfirmation": {
+                    "GROUP": "students"
+                },
+                "S3Trigger4122c033": {},
+                "allscreens59d1a2d8": {},
+                "screenshots": {},
+                "userPoolGroups": {}
+            }
+        }
+    },
+    "production": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-allscreens-production-40814-authRole",
+            "UnauthRoleArn": "arn:aws:iam::467005446488:role/amplify-allscreens-production-40814-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::467005446488:role/amplify-allscreens-production-40814-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-allscreens-production-40814-deployment",
+            "UnauthRoleName": "amplify-allscreens-production-40814-unauthRole",
+            "StackName": "amplify-allscreens-production-40814",
+            "StackId": "arn:aws:cloudformation:us-east-1:467005446488:stack/amplify-allscreens-production-40814/724cd940-5784-11ea-ad32-0a28f59d0ab4",
+            "AmplifyAppId": "d2l221pdutuhiq"
+        },
+        "categories": {
+            "auth": {
+                "allscreens59d1a2d8": {},
+                "userPoolGroups": {}
+            },
+            "function": {
+                "screenshotapi": {},
+                "allscreens59d1a2d8PreSignup": {
+                    "DOMAINWHITELIST": "vtc.edu.hk,stu.vtc.edu.hk"
+                },
+                "allscreens59d1a2d8PostConfirmation": {
+                    "GROUP": "students"
+                },
+                "S3Trigger4122c033": {},
+                "allscreens59d1a2d8": {},
+                "screenshots": {},
+                "userPoolGroups": {}
+            }
+        }
+    }
+}
