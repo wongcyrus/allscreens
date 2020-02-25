@@ -2,7 +2,8 @@
     "groupPermissionMap": {
         "teachers": [
             "create/update",
-            "read"
+            "read",
+            "delete"
         ],
         "students": [
             "create/update",

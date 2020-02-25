@@ -7,8 +7,10 @@
     "functionName": "allscreens59d1a2d8PostConfirmation",
     "parentStack": "auth",
     "triggerEnvs": "[]",
-    "triggerTemplate": "PostConfirmation.json.ejs",
+    "triggerDir": "/home/ec2-user/.nvm/versions/node/v10.19.0/lib/node_modules/@aws-amplify/cli/node_modules/amplify-category-auth/provider-utils/awscloudformation/utils/../triggers/PostConfirmation",
     "roleName": "allscreens59d1a2d8PostConfirmation",
+    "triggerTemplate": "PostConfirmation.json.ejs",
+    "triggerEventPath": "PostConfirmation.event.json",
     "skipEdit": true,
     "resourceName": "allscreens59d1a2d8PostConfirmation"
 }

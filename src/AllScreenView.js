@@ -17,7 +17,7 @@ export default class AllScreenView extends React.Component {
         this.s3Album = React.createRef();
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         this.interval = setInterval(() => {
             if (this.state.referesh)
                 this.setState(({ count }) => ({ count: count + 1 }));
@@ -70,7 +70,7 @@ export default class AllScreenView extends React.Component {
                 <Input ref={this.search} icon='search' placeholder='Search...' onChange={(event)=>this.handleSearch(event)}/>
                 <S3Album 
                     ref={this.s3Album}
-                    level="public" 
+                    level="public"
                     select 
                     onSelect={(e)=>this.handleSelect(e)}
                     path={'resized/'} 

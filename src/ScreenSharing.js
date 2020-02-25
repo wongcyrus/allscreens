@@ -65,7 +65,6 @@ export default class ScreenSharing extends React.Component {
                 });
 
                 this.timer = setInterval(() => {
-                    console.log('Hello, World!');
                     let canvas = document.createElement("canvas");
                     let video = this.screen.current;
                     canvas.width = video.videoWidth;
