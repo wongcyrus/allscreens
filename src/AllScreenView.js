@@ -43,8 +43,6 @@ export default class AllScreenView extends React.Component {
     handleClose = () => this.setState({ modalOpen: false })
 
     filter = item => {
-        console.log(this.state.searchKeyword);
-
         if (this.state.searchKeyword) {
             const regex = new RegExp(`${this.state.searchKeyword}`, "i");
             return item.filter(item => regex.test(item.key));

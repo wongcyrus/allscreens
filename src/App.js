@@ -1,12 +1,12 @@
 import './App.css';
-import React, { Component } from 'react';
+import React from 'react';
 
 import Amplify, { Auth } from 'aws-amplify';
 import aws_exports from './aws-exports';
 
 import { withAuthenticator } from 'aws-amplify-react';
-import { Grid, Header, Input, List, Segment } from 'semantic-ui-react';
-import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
+import { Menu, Grid } from 'semantic-ui-react';
+import { BrowserRouter as Router, Route,NavLink } from 'react-router-dom';
 
 
 import ScreenSharing from './ScreenSharing';
@@ -15,7 +15,7 @@ import ClassRoom from './ClassRoom';
 
 Amplify.configure(aws_exports);
 
-class App extends Component {
+class App extends React.Component {
   constructor() {
     super();
     this.state = { isTeacher: false };
@@ -29,6 +29,11 @@ class App extends Component {
   }
 
   render() {
+
+    const items = [
+      { key: 'AllScreenView', active: true, name: 'AllScreenView', herf: "/AllScreenView" },
+      { key: 'ClassRoom', name: 'ClassRoom', herf: "/ClassRoom" }
+    ];
     return (
 
       <Router>
@@ -37,8 +42,13 @@ class App extends Component {
             <Route path="/" exact component={ScreenSharing}/>
             {this.state.isTeacher ? (
               <div>
-                <Route path="/" exact component={AllScreenView}/>
-                <Route path="/" exact component={ClassRoom}/>
+                <Menu secondary>
+                  <Menu.Item as={NavLink} to="/" name="ShareScreen" />
+                  <Menu.Item as={NavLink} to="/AllScreenView" name="AllScreenView" />
+                  <Menu.Item as={NavLink} to="/ClassRoom" name="ManageClassRoom" />
+                </Menu>
+                <Route path="/AllScreenView" exact component={AllScreenView}/>
+                <Route path="/ClassRoom" exact component={ClassRoom}/>
               </div>
             ):""}
           </Grid.Column>
