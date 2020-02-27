@@ -4,19 +4,8 @@
 export const onCreateClassRoom = /* GraphQL */ `
   subscription OnCreateClassRoom($owner: String!) {
     onCreateClassRoom(owner: $owner) {
-      id
       name
-      description
-      students {
-        items {
-          id
-          classRoomId
-          email
-          owner
-        }
-        nextToken
-      }
-      status
+      studentEmails
       owner
     }
   }
@@ -24,19 +13,8 @@ export const onCreateClassRoom = /* GraphQL */ `
 export const onUpdateClassRoom = /* GraphQL */ `
   subscription OnUpdateClassRoom($owner: String!) {
     onUpdateClassRoom(owner: $owner) {
-      id
       name
-      description
-      students {
-        items {
-          id
-          classRoomId
-          email
-          owner
-        }
-        nextToken
-      }
-      status
+      studentEmails
       owner
     }
   }
@@ -44,80 +22,33 @@ export const onUpdateClassRoom = /* GraphQL */ `
 export const onDeleteClassRoom = /* GraphQL */ `
   subscription OnDeleteClassRoom($owner: String!) {
     onDeleteClassRoom(owner: $owner) {
-      id
       name
-      description
-      students {
-        items {
-          id
-          classRoomId
-          email
-          owner
-        }
-        nextToken
-      }
-      status
+      studentEmails
       owner
     }
   }
 `;
-export const onCreateStudent = /* GraphQL */ `
-  subscription OnCreateStudent($owner: String!) {
-    onCreateStudent(owner: $owner) {
-      id
-      classRoomId
-      classRooms {
-        items {
-          id
-          name
-          description
-          status
-          owner
-        }
-        nextToken
-      }
+export const onCreateScreenSharingTicket = /* GraphQL */ `
+  subscription OnCreateScreenSharingTicket {
+    onCreateScreenSharingTicket {
       email
-      owner
+      activeBefore
     }
   }
 `;
-export const onUpdateStudent = /* GraphQL */ `
-  subscription OnUpdateStudent($owner: String!) {
-    onUpdateStudent(owner: $owner) {
-      id
-      classRoomId
-      classRooms {
-        items {
-          id
-          name
-          description
-          status
-          owner
-        }
-        nextToken
-      }
+export const onUpdateScreenSharingTicket = /* GraphQL */ `
+  subscription OnUpdateScreenSharingTicket {
+    onUpdateScreenSharingTicket {
       email
-      owner
+      activeBefore
     }
   }
 `;
-export const onDeleteStudent = /* GraphQL */ `
-  subscription OnDeleteStudent($owner: String!) {
-    onDeleteStudent(owner: $owner) {
-      id
-      classRoomId
-      classRooms {
-        items {
-          id
-          name
-          description
-          status
-          owner
-        }
-        nextToken
-      }
+export const onDeleteScreenSharingTicket = /* GraphQL */ `
+  subscription OnDeleteScreenSharingTicket {
+    onDeleteScreenSharingTicket {
       email
-      owner
+      activeBefore
     }
   }
 `;

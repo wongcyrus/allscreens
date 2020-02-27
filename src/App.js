@@ -1,14 +1,17 @@
 import './App.css';
 import React, { Component } from 'react';
 
-import Amplify,{ Auth } from 'aws-amplify';
+import Amplify, { Auth } from 'aws-amplify';
 import aws_exports from './aws-exports';
 
 import { withAuthenticator } from 'aws-amplify-react';
-import { Header } from 'semantic-ui-react';
+import { Grid, Header, Input, List, Segment } from 'semantic-ui-react';
+import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
+
 
 import ScreenSharing from './ScreenSharing';
 import AllScreenView from './AllScreenView';
+import ClassRoom from './ClassRoom';
 
 Amplify.configure(aws_exports);
 
@@ -27,17 +30,20 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <Header as="h1">
-          Share you computer screen and let work on lab exercise together online!
-        </Header>
-        <ScreenSharing></ScreenSharing>
-        {this.state.isTeacher ? (
-          <div>
-            <AllScreenView></AllScreenView>
-          </div>
-        ):""}
-      </div>
+
+      <Router>
+        <Grid padded>
+          <Grid.Column>
+            <Route path="/" exact component={ScreenSharing}/>
+            {this.state.isTeacher ? (
+              <div>
+                <Route path="/" exact component={AllScreenView}/>
+                <Route path="/" exact component={ClassRoom}/>
+              </div>
+            ):""}
+          </Grid.Column>
+        </Grid>
+      </Router>
     );
   }
 }

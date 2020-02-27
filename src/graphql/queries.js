@@ -2,137 +2,64 @@
 // this is an auto generated file. This will be overwritten
 
 export const getClassRoom = /* GraphQL */ `
-  query GetClassRoom($id: ID!) {
-    getClassRoom(id: $id) {
-      id
+  query GetClassRoom($name: String!) {
+    getClassRoom(name: $name) {
       name
-      description
-      students {
-        items {
-          id
-          classRoomId
-          email
-          owner
-        }
-        nextToken
-      }
-      status
+      studentEmails
       owner
     }
   }
 `;
 export const listClassRooms = /* GraphQL */ `
   query ListClassRooms(
+    $name: String
     $filter: ModelClassRoomFilterInput
     $limit: Int
     $nextToken: String
+    $sortDirection: ModelSortDirection
   ) {
-    listClassRooms(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listClassRooms(
+      name: $name
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      sortDirection: $sortDirection
+    ) {
       items {
-        id
         name
-        description
-        students {
-          nextToken
-        }
-        status
+        studentEmails
         owner
       }
       nextToken
     }
   }
 `;
-export const getStudent = /* GraphQL */ `
-  query GetStudent($id: ID!) {
-    getStudent(id: $id) {
-      id
-      classRoomId
-      classRooms {
-        items {
-          id
-          name
-          description
-          status
-          owner
-        }
-        nextToken
-      }
+export const getScreenSharingTicket = /* GraphQL */ `
+  query GetScreenSharingTicket($email: AWSEmail!) {
+    getScreenSharingTicket(email: $email) {
       email
-      owner
+      activeBefore
     }
   }
 `;
-export const listStudents = /* GraphQL */ `
-  query ListStudents(
-    $filter: ModelStudentFilterInput
+export const listScreenSharingTickets = /* GraphQL */ `
+  query ListScreenSharingTickets(
+    $email: AWSEmail
+    $filter: ModelScreenSharingTicketFilterInput
     $limit: Int
     $nextToken: String
-  ) {
-    listStudents(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        classRoomId
-        classRooms {
-          nextToken
-        }
-        email
-        owner
-      }
-      nextToken
-    }
-  }
-`;
-export const listStudentByClassRoom = /* GraphQL */ `
-  query ListStudentByClassRoom(
-    $classRoomId: ID
     $sortDirection: ModelSortDirection
-    $filter: ModelStudentFilterInput
-    $limit: Int
-    $nextToken: String
   ) {
-    listStudentByClassRoom(
-      classRoomId: $classRoomId
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        classRoomId
-        classRooms {
-          nextToken
-        }
-        email
-        owner
-      }
-      nextToken
-    }
-  }
-`;
-export const listStudentByEmail = /* GraphQL */ `
-  query ListStudentByEmail(
-    $email: String
-    $sortDirection: ModelSortDirection
-    $filter: ModelStudentFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listStudentByEmail(
+    listScreenSharingTickets(
       email: $email
-      sortDirection: $sortDirection
       filter: $filter
       limit: $limit
       nextToken: $nextToken
+      sortDirection: $sortDirection
     ) {
       items {
-        id
-        classRoomId
-        classRooms {
-          nextToken
-        }
         email
-        owner
+        activeBefore
       }
       nextToken
     }

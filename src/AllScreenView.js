@@ -1,10 +1,9 @@
 import React from "react"
 import { Storage } from 'aws-amplify';
 import { S3Album, S3Image } from 'aws-amplify-react';
-import { Button, Header, Icon, Modal, Input, Container } from 'semantic-ui-react'
+import { Button, Header, Icon, Modal, Input, Container, Segment } from 'semantic-ui-react'
 
 export default class AllScreenView extends React.Component {
-
 
     constructor(props) {
         super(props);
@@ -84,45 +83,47 @@ export default class AllScreenView extends React.Component {
             maxHeight: "80%"
         };
         return (
-            <div className="table">
-                 <Container>
-                    <p>Don't start auto refresh if you want to save your bandwidth and computer resources!</p>
-                    <button disabled = {(this.state.referesh)? "disabled" : ""} onClick={() => this.toggleRefresh()}>Start Auto-refresh.</button>
-                    <button disabled = {(!this.state.referesh)? "disabled" : ""} onClick={() => this.toggleRefresh()}>Stop Auto-refresh.</button>
-                    <Input ref={this.search} icon='search' placeholder='Search...' onChange={(event)=>this.handleSearch(event)}/>
-                    <button onClick={() => this.clearAllScreenshots()}>Delete all previous screenshots.</button>
-                 </Container>
-                <S3Album 
-                    ref={this.s3Album}
-                    level="public"
-                    select 
-                    onSelect={(e)=>this.handleSelect(e)}
-                    path={'resized/'} 
-                    key={this.state.count}
-                    filter={(item)=>this.filter(item)}
-                    sort={(item)=>this.sort(item)}
-                />
-                <Modal
-                    open={this.state.modalOpen}
-                    onClose={this.handleClose}
-                    closeIcon
-                    size='fullscreen'
-                >
-                    <Header icon='browser' content={this.state.email} />
-                    <Modal.Content>
-                        <S3Image 
-                            level="public" 
-                            imgKey={this.state.fullSizeKey} 
-                            style={imageStyle}
-                        />
-                    </Modal.Content>
-                    <Modal.Actions>
-                      <Button color='green' onClick={this.handleClose} inverted>
-                        <Icon name='checkmark' /> Close it
-                      </Button>
-                    </Modal.Actions>
-                </Modal>
-           </div>
+            <Segment>
+                <div className="table">
+                     <Container>
+                        <p>Don't start auto refresh if you want to save your bandwidth and computer resources!</p>
+                        <button disabled = {(this.state.referesh)? "disabled" : ""} onClick={() => this.toggleRefresh()}>Start Auto-refresh.</button>
+                        <button disabled = {(!this.state.referesh)? "disabled" : ""} onClick={() => this.toggleRefresh()}>Stop Auto-refresh.</button>
+                        <Input ref={this.search} icon='search' placeholder='Search...' onChange={(event)=>this.handleSearch(event)}/>
+                        <button onClick={() => this.clearAllScreenshots()}>Delete all previous screenshots.</button>
+                     </Container>
+                    <S3Album 
+                        ref={this.s3Album}
+                        level="public"
+                        select 
+                        onSelect={(e)=>this.handleSelect(e)}
+                        path={'resized/'} 
+                        key={this.state.count}
+                        filter={(item)=>this.filter(item)}
+                        sort={(item)=>this.sort(item)}
+                    />
+                    <Modal
+                        open={this.state.modalOpen}
+                        onClose={this.handleClose}
+                        closeIcon
+                        size='fullscreen'
+                    >
+                        <Header icon='browser' content={this.state.email} />
+                        <Modal.Content>
+                            <S3Image 
+                                level="public" 
+                                imgKey={this.state.fullSizeKey} 
+                                style={imageStyle}
+                            />
+                        </Modal.Content>
+                        <Modal.Actions>
+                          <Button color='green' onClick={this.handleClose} inverted>
+                            <Icon name='checkmark' /> Close it
+                          </Button>
+                        </Modal.Actions>
+                    </Modal>
+               </div>
+           </Segment>
         );
     }
 }

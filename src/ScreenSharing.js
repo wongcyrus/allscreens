@@ -1,5 +1,6 @@
 import React from "react"
 import { API } from 'aws-amplify';
+import { Header, Segment } from 'semantic-ui-react'
 
 // Source from https://webrtc.github.io/samples/src/content/getusermedia/getdisplaymedia/js/main.js
 export default class ScreenSharing extends React.Component {
@@ -78,7 +79,7 @@ export default class ScreenSharing extends React.Component {
                         body: { dataUrl: canvas.toDataURL() }, // replace this with attributes you need
                         headers: { 'Content-Type': 'application/json' }
                     };
-                    
+
                     API.post(apiName, path, myInit).then(response => {
                         // Add your code here
                         console.log(response);
@@ -115,13 +116,16 @@ export default class ScreenSharing extends React.Component {
     render() {
         console.log('render');
         return (
-            <div>
+            <Segment>
+                <Header as="h1">
+                  Share you computer screen and let work on lab exercise together online!
+                </Header>
                 <img ref={this.imageView} style={{display: 'none' }} alt="Right click to save" />
                 <video ref={this.screen} autoPlay style={{display: 'none' }}></video>
                 <p>Status: {this.state.status}</p>
                 <button disabled = {(!this.state.enableStartCapture)? "disabled" : ""} onClick={() => this._startCapturing()}>Start screen Sharing</button>
                 <button disabled = {(!this.state.enableStopCapture)? "disabled" : ""} onClick={() => this._stopCapturing()}>Stop screen Sharing</button>
-            </div>
+            </Segment>
         );
     }
 }

@@ -7,19 +7,8 @@ export const createClassRoom = /* GraphQL */ `
     $condition: ModelClassRoomConditionInput
   ) {
     createClassRoom(input: $input, condition: $condition) {
-      id
       name
-      description
-      students {
-        items {
-          id
-          classRoomId
-          email
-          owner
-        }
-        nextToken
-      }
-      status
+      studentEmails
       owner
     }
   }
@@ -30,19 +19,8 @@ export const updateClassRoom = /* GraphQL */ `
     $condition: ModelClassRoomConditionInput
   ) {
     updateClassRoom(input: $input, condition: $condition) {
-      id
       name
-      description
-      students {
-        items {
-          id
-          classRoomId
-          email
-          owner
-        }
-        nextToken
-      }
-      status
+      studentEmails
       owner
     }
   }
@@ -53,89 +31,42 @@ export const deleteClassRoom = /* GraphQL */ `
     $condition: ModelClassRoomConditionInput
   ) {
     deleteClassRoom(input: $input, condition: $condition) {
-      id
       name
-      description
-      students {
-        items {
-          id
-          classRoomId
-          email
-          owner
-        }
-        nextToken
-      }
-      status
+      studentEmails
       owner
     }
   }
 `;
-export const createStudent = /* GraphQL */ `
-  mutation CreateStudent(
-    $input: CreateStudentInput!
-    $condition: ModelStudentConditionInput
+export const createScreenSharingTicket = /* GraphQL */ `
+  mutation CreateScreenSharingTicket(
+    $input: CreateScreenSharingTicketInput!
+    $condition: ModelScreenSharingTicketConditionInput
   ) {
-    createStudent(input: $input, condition: $condition) {
-      id
-      classRoomId
-      classRooms {
-        items {
-          id
-          name
-          description
-          status
-          owner
-        }
-        nextToken
-      }
+    createScreenSharingTicket(input: $input, condition: $condition) {
       email
-      owner
+      activeBefore
     }
   }
 `;
-export const updateStudent = /* GraphQL */ `
-  mutation UpdateStudent(
-    $input: UpdateStudentInput!
-    $condition: ModelStudentConditionInput
+export const updateScreenSharingTicket = /* GraphQL */ `
+  mutation UpdateScreenSharingTicket(
+    $input: UpdateScreenSharingTicketInput!
+    $condition: ModelScreenSharingTicketConditionInput
   ) {
-    updateStudent(input: $input, condition: $condition) {
-      id
-      classRoomId
-      classRooms {
-        items {
-          id
-          name
-          description
-          status
-          owner
-        }
-        nextToken
-      }
+    updateScreenSharingTicket(input: $input, condition: $condition) {
       email
-      owner
+      activeBefore
     }
   }
 `;
-export const deleteStudent = /* GraphQL */ `
-  mutation DeleteStudent(
-    $input: DeleteStudentInput!
-    $condition: ModelStudentConditionInput
+export const deleteScreenSharingTicket = /* GraphQL */ `
+  mutation DeleteScreenSharingTicket(
+    $input: DeleteScreenSharingTicketInput!
+    $condition: ModelScreenSharingTicketConditionInput
   ) {
-    deleteStudent(input: $input, condition: $condition) {
-      id
-      classRoomId
-      classRooms {
-        items {
-          id
-          name
-          description
-          status
-          owner
-        }
-        nextToken
-      }
+    deleteScreenSharingTicket(input: $input, condition: $condition) {
       email
-      owner
+      activeBefore
     }
   }
 `;
