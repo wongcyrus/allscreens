@@ -1,0 +1,31 @@
+type ClassRoom 
+@model 
+@auth(rules: [
+    {allow: owner},
+    {allow: groups, groups: ["students"], groupClaim: "user_groups", operations: [read]}
+]) {
+    id: ID!
+    name: String
+    description: String!
+    students: [Student] @connection(keyName: "byClassRoom", fields: ["id"])
+    status: ClassRoomStatus
+}
+
+enum ClassRoomStatus {
+    active
+    inactive
+}
+
+type Student 
+@model 
+@key(name: "byClassRoom", fields: ["classRoomId"], queryField: "listStudentByClassRoom")
+@key(name: "byEmail", fields: ["email"], queryField: "listStudentByEmail")
+@auth(rules: [
+    {allow: owner},
+    {allow: groups, groups: ["students"], groupClaim: "user_groups", operations: [read]}
+]) {
+    id: ID!
+    classRoomId: ID!
+    classRooms: [ClassRoom] @connection(fields: ["classRoomId"])
+    email: String
+}
