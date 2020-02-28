@@ -29,13 +29,7 @@ class App extends React.Component {
   }
 
   render() {
-
-    const items = [
-      { key: 'AllScreenView', active: true, name: 'AllScreenView', herf: "/AllScreenView" },
-      { key: 'ClassRoom', name: 'ClassRoom', herf: "/ClassRoom" }
-    ];
     return (
-
       <Router>
         <Grid padded>
           <Grid.Column>

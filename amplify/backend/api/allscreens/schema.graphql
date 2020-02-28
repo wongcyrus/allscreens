@@ -9,12 +9,20 @@ type ClassRoom
 }
 
 type ScreenSharingTicket 
-@model
+@model(subscriptions: null) 
 @key(fields: ["email"])
 @auth(rules: [
-    {allow: groups, groups: ["teachers"], groupClaim: "user_groups"},
+    {allow: owner },
     {allow: groups, groups: ["students"], groupClaim: "user_groups", operations: [read]}
 ]) {
     email: AWSEmail!
-    activeBefore: AWSDateTime!
+    activeUntil: AWSDateTime!
+}
+
+
+type Subscription {
+  onCreateScreenSharingTicket(email: AWSEmail!): ScreenSharingTicket
+    @aws_subscribe(mutations: ["createScreenSharingTicket"])
+  onUpdateScreenSharingTicket(email: AWSEmail!): ScreenSharingTicket
+    @aws_subscribe(mutations: ["updateScreenSharingTicket"])    
 }

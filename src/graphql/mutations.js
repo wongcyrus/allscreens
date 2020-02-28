@@ -44,7 +44,7 @@ export const createScreenSharingTicket = /* GraphQL */ `
   ) {
     createScreenSharingTicket(input: $input, condition: $condition) {
       email
-      activeBefore
+      activeUntil
     }
   }
 `;
@@ -55,7 +55,7 @@ export const updateScreenSharingTicket = /* GraphQL */ `
   ) {
     updateScreenSharingTicket(input: $input, condition: $condition) {
       email
-      activeBefore
+      activeUntil
     }
   }
 `;
@@ -66,7 +66,7 @@ export const deleteScreenSharingTicket = /* GraphQL */ `
   ) {
     deleteScreenSharingTicket(input: $input, condition: $condition) {
       email
-      activeBefore
+      activeUntil
     }
   }
 `;

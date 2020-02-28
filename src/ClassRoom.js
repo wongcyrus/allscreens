@@ -1,11 +1,11 @@
 import React from 'react';
-import Amplify, { Auth } from 'aws-amplify';
-import API, { graphqlOperation } from '@aws-amplify/api'
-import { Button, Header, Segment, Form, List } from 'semantic-ui-react'
+import { Auth } from 'aws-amplify';
+import API, { graphqlOperation } from '@aws-amplify/api';
+import { Button, Header, Segment, Form, List, Divider } from 'semantic-ui-react';
 
-import * as queries from './graphql/queries'
-import * as mutations from './graphql/mutations'
-import * as subscriptions from './graphql/subscriptions'
+import * as queries from './graphql/queries';
+import * as mutations from './graphql/mutations';
+import * as subscriptions from './graphql/subscriptions';
 
 export default class ClassRoom extends React.Component {
 
@@ -18,15 +18,14 @@ export default class ClassRoom extends React.Component {
 
 
     async componentDidMount() {
-        let { data } = await API.graphql(graphqlOperation(queries.listClassRooms));
+        const { username } = await Auth.currentAuthenticatedUser();
+
+        let { data } = await API.graphql(graphqlOperation(queries.listClassRooms, { owner: username }));
         console.log(data);
         this.setState({ classrooms: data.listClassRooms.items });
 
-
-        const {username} = await Auth.currentAuthenticatedUser();
-
-        this.subscription = API.graphql(
-            graphqlOperation(subscriptions.onDeleteClassRoom,{owner: username})
+        this.onDeleteClassRoomSubscription = API.graphql(
+            graphqlOperation(subscriptions.onDeleteClassRoom, { owner: username })
         ).subscribe({
             next: data => {
                 console.log(data);
@@ -39,9 +38,9 @@ export default class ClassRoom extends React.Component {
                 this.setState({ classrooms });
             }
         });
-        
-        this.subscription = API.graphql(
-            graphqlOperation(subscriptions.onCreateClassRoom,{owner: username})
+
+        this.onCreateClassRoomSubscription = API.graphql(
+            graphqlOperation(subscriptions.onCreateClassRoom, { owner: username })
         ).subscribe({
             next: data => {
                 console.log(data);
@@ -56,9 +55,9 @@ export default class ClassRoom extends React.Component {
     }
 
     componentWillUnmount() {
-        this.subscription.unsubscribe();
+        this.onDeleteClassRoomSubscription.unsubscribe();
+        this.onCreateClassRoomSubscription.unsubscribe();
     }
-
 
     handleChange = (e, { name, value }) => this.setState({
         [name]: value
@@ -72,13 +71,25 @@ export default class ClassRoom extends React.Component {
             console.log({ name, emails });
             const emailsList = emails.split("\n");
 
-            let result = await API.graphql(graphqlOperation(mutations.createClassRoom, {
-                input: {
-                    name,
-                    studentEmails: emailsList
-                }
-            }));
-            console.log(result);
+            if (this.state.classrooms.find(c => c.name === name)) {
+                let result = await API.graphql(graphqlOperation(mutations.updateClassRoom, {
+                    input: {
+                        name,
+                        studentEmails: emailsList
+                    }
+                }));
+                console.log(result);
+            }
+            else {
+                let result = await API.graphql(graphqlOperation(mutations.createClassRoom, {
+                    input: {
+                        name,
+                        studentEmails: emailsList
+                    }
+                }));
+                console.log(result);
+            }
+
         }
         catch (err) {
             console.error(err);
@@ -98,7 +109,6 @@ export default class ClassRoom extends React.Component {
         console.log(result);
     }
 
-
     render() {
         const { classrooms } = this.state;
 
@@ -113,7 +123,8 @@ export default class ClassRoom extends React.Component {
         );
         const ListClassRoom = () => (classrooms.length > 0 ? (
             <div>
-                <Header as='h3'>Click and delete the classroom</Header>
+                <Divider section />
+                <Header as='h3'>Click to delete the classroom:</Header>
                 <List>
                     {ClassRoomItems}
                 </List>
@@ -137,7 +148,7 @@ export default class ClassRoom extends React.Component {
                 <Form.TextArea 
                     name='emails' 
                     label='Student Emails' 
-                    placeholder='One email per line' 
+                    placeholder='Each student email per line' 
                     value={this.state.emails} 
                     required  
                     onChange={this.handleChange}/>

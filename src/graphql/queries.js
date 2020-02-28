@@ -38,7 +38,7 @@ export const getScreenSharingTicket = /* GraphQL */ `
   query GetScreenSharingTicket($email: AWSEmail!) {
     getScreenSharingTicket(email: $email) {
       email
-      activeBefore
+      activeUntil
     }
   }
 `;
@@ -59,7 +59,7 @@ export const listScreenSharingTickets = /* GraphQL */ `
     ) {
       items {
         email
-        activeBefore
+        activeUntil
       }
       nextToken
     }

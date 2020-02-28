@@ -1,6 +1,22 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onCreateScreenSharingTicket = /* GraphQL */ `
+  subscription OnCreateScreenSharingTicket($email: AWSEmail!) {
+    onCreateScreenSharingTicket(email: $email) {
+      email
+      activeUntil
+    }
+  }
+`;
+export const onUpdateScreenSharingTicket = /* GraphQL */ `
+  subscription OnUpdateScreenSharingTicket($email: AWSEmail!) {
+    onUpdateScreenSharingTicket(email: $email) {
+      email
+      activeUntil
+    }
+  }
+`;
 export const onCreateClassRoom = /* GraphQL */ `
   subscription OnCreateClassRoom($owner: String!) {
     onCreateClassRoom(owner: $owner) {
@@ -25,30 +41,6 @@ export const onDeleteClassRoom = /* GraphQL */ `
       name
       studentEmails
       owner
-    }
-  }
-`;
-export const onCreateScreenSharingTicket = /* GraphQL */ `
-  subscription OnCreateScreenSharingTicket {
-    onCreateScreenSharingTicket {
-      email
-      activeBefore
-    }
-  }
-`;
-export const onUpdateScreenSharingTicket = /* GraphQL */ `
-  subscription OnUpdateScreenSharingTicket {
-    onUpdateScreenSharingTicket {
-      email
-      activeBefore
-    }
-  }
-`;
-export const onDeleteScreenSharingTicket = /* GraphQL */ `
-  subscription OnDeleteScreenSharingTicket {
-    onDeleteScreenSharingTicket {
-      email
-      activeBefore
     }
   }
 `;
