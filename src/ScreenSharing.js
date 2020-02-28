@@ -1,6 +1,11 @@
-import React from "react"
-import { API } from 'aws-amplify';
-import { Header, Segment } from 'semantic-ui-react'
+import React from "react";
+
+import { Header, Segment } from 'semantic-ui-react';
+
+import { Auth, Storage } from 'aws-amplify';
+import API, { graphqlOperation } from '@aws-amplify/api';
+
+import * as subscriptions from './graphql/subscriptions';
 
 // Source from https://webrtc.github.io/samples/src/content/getusermedia/getdisplaymedia/js/main.js
 export default class ScreenSharing extends React.Component {
@@ -13,7 +18,8 @@ export default class ScreenSharing extends React.Component {
             stream: null,
             chunks: [],
             status: 'Inactive',
-            recording: null
+            recording: null,
+            ticket: null
         };
 
         this.screen = React.createRef();
@@ -21,6 +27,25 @@ export default class ScreenSharing extends React.Component {
 
     }
 
+    async componentDidMount() {
+        const user = await Auth.currentAuthenticatedUser();
+        const email = user.attributes.email;
+        console.log(email);
+
+        this.onCreateScreenSharingTicketSubscription = API.graphql(
+            graphqlOperation(subscriptions.onCreateScreenSharingTicket, { email })
+        ).subscribe({
+            next: data => {
+                const ticket = data.value.data.onCreateScreenSharingTicket;
+                console.log(ticket);
+                this.setState({ ticket });
+            }
+        });
+    }
+
+    componentWillUnmount() {
+        this.onCreateScreenSharingTicketSubscription.unsubscribe();
+    }
 
     static _startScreenCapture() {
         if (window.navigator.getDisplayMedia) {
@@ -66,26 +91,40 @@ export default class ScreenSharing extends React.Component {
                 });
 
                 this.timer = setInterval(() => {
-                    let canvas = document.createElement("canvas");
-                    let video = this.screen.current;
-                    canvas.width = video.videoWidth;
-                    canvas.height = video.videoHeight;
-                    canvas.getContext('2d').drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
-                    this.imageView.current.setAttribute('src', canvas.toDataURL());
 
-                    let apiName = 'screenshotapi'; // replace this with your api name.
-                    let path = '/screenshots'; //replace this with the path you have configured on your API
-                    let myInit = {
-                        body: { dataUrl: canvas.toDataURL() }, // replace this with attributes you need
-                        headers: { 'Content-Type': 'application/json' }
-                    };
+                    if (this.state.ticket !== null) {
+                        const now = new Date();
+                        const endDate = new Date(this.state.ticket.activeUntil);
+                        const withValidTicket = (endDate.getTime() - now.getTime()) > 0;
+                        console.log("withValidTicket", withValidTicket);
+                        if (!withValidTicket) return;
 
-                    API.post(apiName, path, myInit).then(response => {
-                        // Add your code here
-                        console.log(response);
-                    }).catch(error => {
-                        console.log(error.response);
-                    });
+                        let canvas = document.createElement("canvas");
+                        let video = this.screen.current;
+                        canvas.width = video.videoWidth;
+                        canvas.height = video.videoHeight;
+                        canvas.getContext('2d').drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+                        this.imageView.current.setAttribute('src', canvas.toDataURL());
+
+                        Storage.put("upload/" + this.state.ticket.email + "/screenshot.txt", canvas.toDataURL())
+                            .then(result => console.log(result))
+                            .catch(err => console.log(err));
+                    }
+
+
+                    // let apiName = 'screenshotapi'; // replace this with your api name.
+                    // let path = '/screenshots'; //replace this with the path you have configured on your API
+                    // let myInit = {
+                    //     body: { dataUrl: canvas.toDataURL() }, // replace this with attributes you need
+                    //     headers: { 'Content-Type': 'application/json' }
+                    // };
+
+                    // API.post(apiName, path, myInit).then(response => {
+                    //     // Add your code here
+                    //     console.log(response);
+                    // }).catch(error => {
+                    //     console.log(error.response);
+                    // });
 
                 }, 5000);
             });

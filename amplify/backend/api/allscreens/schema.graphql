@@ -23,6 +23,4 @@ type ScreenSharingTicket
 type Subscription {
   onCreateScreenSharingTicket(email: AWSEmail!): ScreenSharingTicket
     @aws_subscribe(mutations: ["createScreenSharingTicket"])
-  onUpdateScreenSharingTicket(email: AWSEmail!): ScreenSharingTicket
-    @aws_subscribe(mutations: ["updateScreenSharingTicket"])    
 }

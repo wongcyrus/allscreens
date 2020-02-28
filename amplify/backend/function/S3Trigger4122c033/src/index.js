@@ -4,13 +4,17 @@ var environment = process.env.ENV
 var region = process.env.REGION
 var storageScreenshotsBucketName = process.env.STORAGE_SCREENSHOTS_BUCKETNAME
 
-Amplify Params - DO NOT EDIT */// eslint-disable-next-line
+Amplify Params - DO NOT EDIT */ // eslint-disable-next-line
 
 
 require('es6-promise').polyfill();
 require('isomorphic-fetch');
+const imageDataURI = require('image-data-uri');
 const AWS = require('aws-sdk');
 const S3 = new AWS.S3({ signatureVersion: 'v4' });
+const fs = require('fs');
+const { promisify } = require('util');
+const readFileAsync = promisify(fs.readFile);
 
 /*
 Note: Sharp requires native extensions to be installed in a way that is compatible
@@ -38,12 +42,12 @@ function makeThumbnail(photo) {
 }
 
 async function resize(photoBody, bucketName, key) {
-  const keyPrefix = "";//key.substr(0, key.indexOf('/upload/'));
-  const originalPhotoName = key.substring(key.indexOf('/')+1);
+  const keyPrefix = ""; //key.substr(0, key.indexOf('/upload/'));
+  const originalPhotoName = key.substring(key.indexOf('/') + 1);
   const originalPhotoDimensions = await Sharp(photoBody).metadata();
 
   console.log(keyPrefix, key);
-  
+
 
   const thumbnail = await makeThumbnail(photoBody);
 
@@ -84,6 +88,19 @@ async function resize(photoBody, bucketName, key) {
   };
 }
 
+const uploadFile = async(filePath, bucketName, key) => {
+  const s3 = new AWS.S3();
+  let data = await readFileAsync(filePath);
+  let base64data = new Buffer(data, 'binary');
+  let params = {
+    Bucket: bucketName,
+    Key: key,
+    Body: base64data
+  };
+  console.log(params);
+  return s3.upload(params).promise();
+};
+
 async function processRecord(record) {
   const bucketName = record.s3.bucket.name;
   const key = decodeURIComponent(record.s3.object.key.replace(/\+/g, " "));
@@ -96,11 +113,21 @@ async function processRecord(record) {
 
   const originalPhoto = await S3.getObject({ Bucket: bucketName, Key: key }).promise();
 
-  const metadata = originalPhoto.Metadata;
-  console.log('metadata', JSON.stringify(metadata));
-  console.log('resize');
-  const sizes = await resize(originalPhoto.Body, bucketName, key);
-  console.log('sizes', JSON.stringify(sizes));
+  if (key.endsWith(".txt")) {
+    let dataURI = originalPhoto.Body.toString('utf-8');
+    const filePath = '/tmp/screenshot.png';
+    await imageDataURI.outputFile(dataURI, filePath);
+    const email = key.split("/")[2];
+    let result = await uploadFile(filePath, bucketName, "upload/" + email + "/screenshot.png");
+    console.log("Text to png", result);
+  }
+  else {
+    const metadata = originalPhoto.Metadata;
+    console.log('metadata', JSON.stringify(metadata));
+    console.log('resize');
+    const sizes = await resize(originalPhoto.Body, bucketName, key);
+    console.log('sizes', JSON.stringify(sizes));
+  }
 }
 
 

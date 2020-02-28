@@ -1,12 +1,12 @@
 import React from "react";
 import { Storage } from 'aws-amplify';
 import { S3Album, S3Image } from 'aws-amplify-react';
-import { Button, Header, Icon, Modal, Input, Container, Segment, Select, Form} from 'semantic-ui-react';
+import { Button, Header, Icon, Modal, Container, Segment, Form } from 'semantic-ui-react';
 
 import API, { graphqlOperation } from '@aws-amplify/api';
 
 import * as queries from './graphql/queries';
-
+import * as mutations from './graphql/mutations';
 
 export default class AllScreenView extends React.Component {
 
@@ -98,6 +98,21 @@ export default class AllScreenView extends React.Component {
         }
     }
 
+    generateScreenSharingTickets = async () => {
+        const studentEmails = this.state.studentEmails;
+        let expire = new Date();
+        expire.setHours(expire.getHours() + 3);
+
+        let create3HoursTickets = async (email) => await API.graphql(graphqlOperation(mutations.createScreenSharingTicket, {
+            input: {
+                email,
+                activeUntil:expire
+            }
+        }));
+        studentEmails.map(create3HoursTickets);
+    }
+
+
     render() {
         let imageStyle = {
             maxWidth: "80%",
@@ -114,6 +129,7 @@ export default class AllScreenView extends React.Component {
                         <Form>
                             <Form.Group widths='equal'>
                                 <Form.Select placeholder='Select your classroom' options={classrooms} onChange={(event)=>this.onClassroomSelectChange(event)}/>
+                                <Form.Button onClick={() => this.generateScreenSharingTickets()}>Generate 3 hours Screen Sharing Tickets.</Form.Button>
                                 <Form.Button disabled = {this.state.referesh} onClick={() => this.toggleRefresh()}>Start Auto-refresh.</Form.Button>
                                 <Form.Button disabled = {!this.state.referesh} onClick={() => this.toggleRefresh()}>Stop Auto-refresh.</Form.Button>
                                 <Form.Input icon='search' placeholder='Search...' onChange={(event)=>this.handleSearch(event)}/>
