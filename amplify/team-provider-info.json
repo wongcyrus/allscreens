@@ -17,7 +17,6 @@
                 "userPoolGroups": {}
             },
             "function": {
-                "screenshotapi": {},
                 "allscreens59d1a2d8PreSignup": {
                     "DOMAINWHITELIST": "vtc.edu.hk,stu.vtc.edu.hk"
                 },
