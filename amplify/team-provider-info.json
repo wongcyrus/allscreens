@@ -1,46 +1,39 @@
 {
-    "test": {
+    "devt": {
         "awscloudformation": {
-            "AuthRoleName": "amplify-allscreens-test-121919-authRole",
-            "UnauthRoleArn": "arn:aws:iam::467005446488:role/amplify-allscreens-test-121919-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::467005446488:role/amplify-allscreens-test-121919-authRole",
+            "AuthRoleName": "amplify-allscreens-devt-82746-authRole",
+            "UnauthRoleArn": "arn:aws:iam::111964674713:role/amplify-allscreens-devt-82746-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::111964674713:role/amplify-allscreens-devt-82746-authRole",
             "Region": "us-east-1",
-            "DeploymentBucketName": "amplify-allscreens-test-121919-deployment",
-            "UnauthRoleName": "amplify-allscreens-test-121919-unauthRole",
-            "StackName": "amplify-allscreens-test-121919",
-            "StackId": "arn:aws:cloudformation:us-east-1:467005446488:stack/amplify-allscreens-test-121919/e2322dd0-56ff-11ea-b5ae-12c5c4f78283",
-            "AmplifyAppId": "d2l221pdutuhiq"
+            "DeploymentBucketName": "amplify-allscreens-devt-82746-deployment",
+            "UnauthRoleName": "amplify-allscreens-devt-82746-unauthRole",
+            "StackName": "amplify-allscreens-devt-82746",
+            "StackId": "arn:aws:cloudformation:us-east-1:111964674713:stack/amplify-allscreens-devt-82746/32af9c00-5a04-11ea-a8ed-12e346dd5d0c",
+            "AmplifyAppId": "d1f2tkqa0mbtw2"
         },
         "categories": {
-            "auth": {
-                "allscreens59d1a2d8": {},
-                "userPoolGroups": {}
-            },
             "function": {
                 "allscreens59d1a2d8PreSignup": {
-                    "DOMAINWHITELIST": "vtc.edu.hk,stu.vtc.edu.hk"
+                    "DOMAINWHITELIST": "stu.vtc.edu.hk,vtc.edu.hk"
                 },
                 "allscreens59d1a2d8PostConfirmation": {
                     "GROUP": "students"
                 },
-                "S3Trigger4122c033": {},
-                "allscreens59d1a2d8": {},
-                "screenshots": {},
-                "userPoolGroups": {}
+                "S3Trigger4122c033": {}
             }
         }
     },
     "production": {
         "awscloudformation": {
-            "AuthRoleName": "amplify-allscreens-production-40814-authRole",
-            "UnauthRoleArn": "arn:aws:iam::467005446488:role/amplify-allscreens-production-40814-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::467005446488:role/amplify-allscreens-production-40814-authRole",
+            "AuthRoleName": "amplify-allscreens-production-90014-authRole",
+            "UnauthRoleArn": "arn:aws:iam::111964674713:role/amplify-allscreens-production-90014-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::111964674713:role/amplify-allscreens-production-90014-authRole",
             "Region": "us-east-1",
-            "DeploymentBucketName": "amplify-allscreens-production-40814-deployment",
-            "UnauthRoleName": "amplify-allscreens-production-40814-unauthRole",
-            "StackName": "amplify-allscreens-production-40814",
-            "StackId": "arn:aws:cloudformation:us-east-1:467005446488:stack/amplify-allscreens-production-40814/724cd940-5784-11ea-ad32-0a28f59d0ab4",
-            "AmplifyAppId": "d2l221pdutuhiq"
+            "DeploymentBucketName": "amplify-allscreens-production-90014-deployment",
+            "UnauthRoleName": "amplify-allscreens-production-90014-unauthRole",
+            "StackName": "amplify-allscreens-production-90014",
+            "StackId": "arn:aws:cloudformation:us-east-1:111964674713:stack/amplify-allscreens-production-90014/bc6f4b30-5a08-11ea-b56c-0e706f74ed45",
+            "AmplifyAppId": "d1f2tkqa0mbtw2"
         },
         "categories": {
             "auth": {
@@ -49,15 +42,12 @@
             },
             "function": {
                 "allscreens59d1a2d8PreSignup": {
-                    "DOMAINWHITELIST": "vtc.edu.hk,stu.vtc.edu.hk"
+                    "DOMAINWHITELIST": "stu.vtc.edu.hk,vtc.edu.hk"
                 },
                 "allscreens59d1a2d8PostConfirmation": {
                     "GROUP": "students"
                 },
-                "S3Trigger4122c033": {},
-                "allscreens59d1a2d8": {},
-                "screenshots": {},
-                "userPoolGroups": {}
+                "S3Trigger4122c033": {}
             }
         }
     }
