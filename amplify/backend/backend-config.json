@@ -43,27 +43,6 @@
 		}
 	},
 	"function": {
-		"screenshotapi": {
-			"service": "Lambda",
-			"providerPlugin": "awscloudformation",
-			"build": true,
-			"dependsOn": [
-				{
-					"category": "auth",
-					"resourceName": "allscreens59d1a2d8",
-					"attributes": [
-						"UserPoolId"
-					]
-				},
-				{
-					"category": "storage",
-					"resourceName": "screenshots",
-					"attributes": [
-						"BucketName"
-					]
-				}
-			]
-		},
 		"allscreens59d1a2d8PreSignup": {
 			"service": "Lambda",
 			"providerPlugin": "awscloudformation",
@@ -119,41 +98,6 @@
 		}
 	},
 	"api": {
-		"screenshotapi": {
-			"service": "API Gateway",
-			"providerPlugin": "awscloudformation",
-			"dependsOn": [
-				{
-					"category": "function",
-					"resourceName": "screenshotapi",
-					"attributes": [
-						"Name",
-						"Arn"
-					]
-				},
-				{
-					"category": "auth",
-					"resourceName": "allscreens59d1a2d8",
-					"attributes": [
-						"UserPoolId"
-					]
-				},
-				{
-					"category": "auth",
-					"resourceName": "userPoolGroups",
-					"attributes": [
-						"teachersGroupRole"
-					]
-				},
-				{
-					"category": "auth",
-					"resourceName": "userPoolGroups",
-					"attributes": [
-						"studentsGroupRole"
-					]
-				}
-			]
-		},
 		"allscreens": {
 			"service": "AppSync",
 			"providerPlugin": "awscloudformation",
