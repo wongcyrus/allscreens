@@ -9,14 +9,6 @@ export const onCreateScreenSharingTicket = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateScreenSharingTicket = /* GraphQL */ `
-  subscription OnUpdateScreenSharingTicket($email: AWSEmail!) {
-    onUpdateScreenSharingTicket(email: $email) {
-      email
-      activeUntil
-    }
-  }
-`;
 export const onCreateClassRoom = /* GraphQL */ `
   subscription OnCreateClassRoom($owner: String!) {
     onCreateClassRoom(owner: $owner) {
