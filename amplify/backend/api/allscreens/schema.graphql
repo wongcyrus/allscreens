@@ -19,8 +19,21 @@ type ScreenSharingTicket
     activeUntil: AWSDateTime!
 }
 
+type Message
+@model(subscriptions: null) 
+@key(fields: ["email"])
+@auth(rules: [
+    {allow: owner },
+    {allow: groups, groups: ["students"], groupClaim: "user_groups", operations: [read]}
+]) {
+    email: AWSEmail!
+    content: String!
+}
 
 type Subscription {
   onCreateScreenSharingTicket(email: AWSEmail!): ScreenSharingTicket
     @aws_subscribe(mutations: ["createScreenSharingTicket"])
+    
+  onCreateMessage(email: AWSEmail!): Message
+    @aws_subscribe(mutations: ["createMessage"])    
 }

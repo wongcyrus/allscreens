@@ -18,7 +18,9 @@ export default class AllScreenView extends React.Component {
             referesh: false,
             searchKeyword: undefined,
             classrooms: [],
-            studentEmails: []
+            studentEmails: [],
+            message:"",
+            privateMessage:""
         };
         this.s3Album = React.createRef();
     }
@@ -112,6 +114,41 @@ export default class AllScreenView extends React.Component {
         studentEmails.map(create3HoursTickets);
     }
 
+    updateMessageToAllStudents = (event) => {
+        console.log(event.target.value);
+        this.setState({ message: event.target.value });
+    }
+    
+    sendMessageToAllStudents = async (event) => {
+        const studentEmails = this.state.studentEmails;
+        const content = this.state.message;
+        console.log("sendMessageToAllStudents");
+
+        let createMessage = async (email) => await API.graphql(graphqlOperation(mutations.createMessage, {
+            input: {
+                email,
+                content
+            }
+        }));
+        studentEmails.map(createMessage);
+    }
+    
+    updatePrivateMessage = (event) => {
+        console.log(event.target.value);
+        this.setState({ privateMessage: event.target.value });
+    }
+    
+    sendPrivateMessageToStudent= async (event) => {
+        const email = this.state.email;
+        const content = this.state.privateMessage;
+        console.log("sendPrivateMessageToStudent");
+        await API.graphql(graphqlOperation(mutations.createMessage, {
+            input: {
+                email,
+                content
+            }
+        }));
+    }
 
     render() {
         let imageStyle = {
@@ -134,6 +171,8 @@ export default class AllScreenView extends React.Component {
                                 <Form.Button disabled = {!this.state.referesh} onClick={() => this.toggleRefresh()}>Stop Auto-refresh.</Form.Button>
                                 <Form.Input icon='search' placeholder='Search...' onChange={(event)=>this.handleSearch(event)}/>
                                 <Form.Button onClick={() => this.clearAllScreenshots()}>Delete cached screenshots.</Form.Button>
+                                <Form.Input placeholder='Message' onChange={(event)=>this.updateMessageToAllStudents(event)}/>
+                                <Form.Button onClick={() => this.sendMessageToAllStudents()}>Send Message to all students.</Form.Button>
                             </Form.Group>
                         </Form>
                      </Container>
@@ -155,6 +194,13 @@ export default class AllScreenView extends React.Component {
                     >
                         <Header icon='browser' content={this.state.email} />
                         <Modal.Content>
+                            <Form>
+                                <Form.Group widths='equal'>
+                                    <Form.Input placeholder='Message' onChange={(event)=>this.updatePrivateMessage(event)}/>
+                                    <Form.Button onClick={() => this.sendPrivateMessageToStudent()}>Send Message.</Form.Button>
+                                </Form.Group>
+                            </Form>   
+                                    
                             <S3Image 
                                 level="public" 
                                 imgKey={this.state.fullSizeKey} 

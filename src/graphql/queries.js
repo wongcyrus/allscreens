@@ -65,3 +65,34 @@ export const listScreenSharingTickets = /* GraphQL */ `
     }
   }
 `;
+export const getMessage = /* GraphQL */ `
+  query GetMessage($email: AWSEmail!) {
+    getMessage(email: $email) {
+      email
+      content
+    }
+  }
+`;
+export const listMessages = /* GraphQL */ `
+  query ListMessages(
+    $email: AWSEmail
+    $filter: ModelMessageFilterInput
+    $limit: Int
+    $nextToken: String
+    $sortDirection: ModelSortDirection
+  ) {
+    listMessages(
+      email: $email
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      sortDirection: $sortDirection
+    ) {
+      items {
+        email
+        content
+      }
+      nextToken
+    }
+  }
+`;

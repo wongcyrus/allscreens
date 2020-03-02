@@ -4,7 +4,7 @@ import React from 'react';
 import Amplify, { Auth } from 'aws-amplify';
 import aws_exports from './aws-exports';
 
-import { withAuthenticator, SumerianScene } from 'aws-amplify-react';
+import { withAuthenticator } from 'aws-amplify-react';
 import { Menu, Grid } from 'semantic-ui-react';
 import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
 
@@ -12,6 +12,8 @@ import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
 import ScreenSharing from './ScreenSharing';
 import AllScreenView from './AllScreenView';
 import ClassRoom from './ClassRoom';
+import VirtualTutor from './VirtualTutor';
+
 
 Amplify.configure(aws_exports);
 
@@ -35,7 +37,6 @@ class App extends React.Component {
         <Grid padded>
           <Grid.Column>
             <Route path="/" exact component={ScreenSharing}/>
-            <SumerianScene sceneName="VirtualTutor" muted={false}/>
             {this.state.isTeacher ? (
               <div>
                 <Menu secondary>
@@ -46,7 +47,7 @@ class App extends React.Component {
                 <Route path="/AllScreenView" exact component={AllScreenView}/>
                 <Route path="/ClassRoom" exact component={ClassRoom}/>
               </div>
-            ):""}
+            ):<VirtualTutor/>}
           </Grid.Column>
         </Grid>
       </Router>
