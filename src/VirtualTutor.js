@@ -11,12 +11,17 @@ export default class VirtualTutor extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {isStudent: false };
     }
 
     async componentDidMount() {
         const user = await Auth.currentAuthenticatedUser();
         const email = user.attributes.email;
         console.log(email);
+
+        const group = user.signInUserSession.accessToken.payload["cognito:groups"][0];
+        console.log(group);
+        this.setState({ isStudent: "students" === group });
 
         this.onCreateMessage = API.graphql(
             graphqlOperation(subscriptions.onCreateMessage, { email })
@@ -33,8 +38,10 @@ export default class VirtualTutor extends React.Component {
         this.onCreateMessage.unsubscribe();
     }
     render() {
-        return (
-            <SumerianScene sceneName="VirtualTutor" muted={false}/>
-        );
+        if(this.state.isStudent)
+            return (
+                <SumerianScene sceneName="VirtualTutor" />
+            );
+        else return "";
     }
 }

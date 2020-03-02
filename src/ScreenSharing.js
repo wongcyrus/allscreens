@@ -13,8 +13,8 @@ export default class ScreenSharing extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            enableStartCapture: true,
-            enableStopCapture: true,
+            enableStartCapture: false,
+            enableStopCapture: false,
             stream: null,
             chunks: [],
             status: 'Inactive',
@@ -39,6 +39,8 @@ export default class ScreenSharing extends React.Component {
                 const ticket = data.value.data.onCreateScreenSharingTicket;
                 console.log(ticket);
                 this.setState({ ticket });
+                this.setState({ enableStartCapture: true });
+                window.postMessage("Please click on the start screen sharing button and share your screen to me.");
             }
         });
     }
@@ -110,22 +112,6 @@ export default class ScreenSharing extends React.Component {
                             .then(result => console.log(result))
                             .catch(err => console.log(err));
                     }
-
-
-                    // let apiName = 'screenshotapi'; // replace this with your api name.
-                    // let path = '/screenshots'; //replace this with the path you have configured on your API
-                    // let myInit = {
-                    //     body: { dataUrl: canvas.toDataURL() }, // replace this with attributes you need
-                    //     headers: { 'Content-Type': 'application/json' }
-                    // };
-
-                    // API.post(apiName, path, myInit).then(response => {
-                    //     // Add your code here
-                    //     console.log(response);
-                    // }).catch(error => {
-                    //     console.log(error.response);
-                    // });
-
                 }, 5000);
             });
 
