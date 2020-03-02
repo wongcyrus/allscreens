@@ -4,9 +4,9 @@ import React from 'react';
 import Amplify, { Auth } from 'aws-amplify';
 import aws_exports from './aws-exports';
 
-import { withAuthenticator } from 'aws-amplify-react';
+import { withAuthenticator, SumerianScene } from 'aws-amplify-react';
 import { Menu, Grid } from 'semantic-ui-react';
-import { BrowserRouter as Router, Route,NavLink } from 'react-router-dom';
+import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
 
 
 import ScreenSharing from './ScreenSharing';
@@ -26,6 +26,7 @@ class App extends React.Component {
     const group = user.signInUserSession.accessToken.payload["cognito:groups"][0];
     console.log(group);
     this.setState({ isTeacher: "teachers" === group });
+    
   }
 
   render() {
@@ -34,6 +35,7 @@ class App extends React.Component {
         <Grid padded>
           <Grid.Column>
             <Route path="/" exact component={ScreenSharing}/>
+            <SumerianScene sceneName="VirtualTutor" muted={false}/>
             {this.state.isTeacher ? (
               <div>
                 <Menu secondary>

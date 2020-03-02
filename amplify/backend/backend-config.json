@@ -113,5 +113,11 @@
 				}
 			}
 		}
+	},
+	"xr": {
+		"VirtualTutor": {
+			"service": "Sumerian",
+			"providerPlugin": "awscloudformation"
+		}
 	}
 }

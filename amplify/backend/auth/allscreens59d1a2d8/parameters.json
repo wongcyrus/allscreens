@@ -1,6 +1,6 @@
 {
     "identityPoolName": "allscreens59d1a2d8_identitypool_59d1a2d8",
-    "allowUnauthenticatedIdentities": false,
+    "allowUnauthenticatedIdentities": true,
     "resourceNameTruncated": "allscr59d1a2d8",
     "userPoolName": "allscreens59d1a2d8_userpool_59d1a2d8",
     "autoVerifiedAttributes": [
