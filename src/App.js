@@ -9,14 +9,11 @@ import { Menu, Grid } from 'semantic-ui-react';
 import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
 import { AmazonAIPredictionsProvider } from '@aws-amplify/predictions';
 
-
-
 import ScreenSharing from './ScreenSharing';
 import AllScreenView from './AllScreenView';
 import ClassRoom from './ClassRoom';
 import VirtualTutor from './VirtualTutor';
 import Recorder from './Recorder';
-
 
 Amplify.configure(aws_exports);
 Amplify.addPluggable(new AmazonAIPredictionsProvider());
@@ -41,18 +38,22 @@ class App extends React.Component {
         <Route path="/" exact component={ScreenSharing}/>
         <Route path="/AllScreenView" exact component={AllScreenView}/>
         <Route path="/ClassRoom" exact component={ClassRoom}/>
-        <Recorder/>
         <Grid celled padded style={{height: '100vh'}}>
           <Grid.Row style={{height: '100%'}}>
-            <Grid.Column>
               {this.state.isTeacher ? (
+              <Grid.Column>
                 <Menu secondary>
                   <Menu.Item as={NavLink} to="/" name="ShareScreen" />
                   <Menu.Item as={NavLink} to="/AllScreenView" name="AllScreenView" />
                   <Menu.Item as={NavLink} to="/ClassRoom" name="ManageClassRoom" />
                 </Menu>
-              ):<VirtualTutor/>}
-            </Grid.Column>
+              </Grid.Column>
+              ):(
+              <Grid.Column>
+                <Recorder/>
+                <VirtualTutor/>
+              </Grid.Column>
+              )}
           </Grid.Row>
         </Grid>
       </Router>

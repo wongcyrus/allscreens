@@ -6,6 +6,7 @@ import { Auth, Storage } from 'aws-amplify';
 import API, { graphqlOperation } from '@aws-amplify/api';
 
 import * as subscriptions from './graphql/subscriptions';
+import Recorder from './Recorder';
 
 // Source from https://webrtc.github.io/samples/src/content/getusermedia/getdisplaymedia/js/main.js
 export default class ScreenSharing extends React.Component {
@@ -150,6 +151,7 @@ export default class ScreenSharing extends React.Component {
                 <p>Status: {this.state.status}</p>
                 <button disabled = {(!this.state.enableStartCapture)? "disabled" : ""} onClick={() => this._startCapturing()}>Start screen Sharing</button>
                 <button disabled = {(!this.state.enableStopCapture)? "disabled" : ""} onClick={() => this._stopCapturing()}>Stop screen Sharing</button>
+                
             </Segment>
         );
     }

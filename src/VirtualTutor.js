@@ -2,7 +2,6 @@ import React from "react";
 import { Auth } from 'aws-amplify';
 import { SumerianScene } from 'aws-amplify-react';
 
-
 import API, { graphqlOperation } from '@aws-amplify/api';
 
 import * as subscriptions from './graphql/subscriptions';

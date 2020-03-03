@@ -1,5 +1,6 @@
 import React from 'react';
 import { Predictions } from 'aws-amplify';
+import { Icon } from 'semantic-ui-react';
 
 import mic from 'microphone-stream';
 
@@ -44,7 +45,8 @@ export default class Recorder extends React.Component {
         };
     }
 
-    startRecording() {
+    startRecording(event) {
+        if (this.state.recording) return;
         console.log('start recording');
         this.state.audioBuffer.reset();
 
@@ -68,7 +70,8 @@ export default class Recorder extends React.Component {
 
     }
 
-    stopRecording() {
+    stopRecording(event) {
+        if (!this.state.recording) return;
         console.log('stop recording');
 
         this.state.micStream.stop();
@@ -78,8 +81,6 @@ export default class Recorder extends React.Component {
         });
 
         const bytes = this.state.audioBuffer.getData();
-        console.log(bytes);
-
         Predictions.convert({
                 transcription: {
                     source: {
@@ -87,15 +88,24 @@ export default class Recorder extends React.Component {
                     },
                     language: "en-US"
                 },
-            }).then((a) => console.log(a))
+            }).then(({
+                transcription: { fullText }
+            }) => console.log(fullText))
             .catch(err => console.error(err));
     }
 
+
     render() {
         return (
-            <div>
-          {this.state.recording && <button onClick={()=>this.stopRecording()}>Stop recording</button>}
-          {!this.state.recording && <button onClick={()=>this.startRecording()}>Start recording</button>}
+        <div>
+           <Icon name='microphone' size='big'           
+                onTouchStart={()=>this.stopRecording()}
+                onTouchEnd={()=>this.startRecording()}
+                onMouseDown={()=>this.startRecording()}
+                onMouseUp={()=>this.stopRecording()}
+                onMouseLeave={()=>this.stopRecording()} />
+            { this.state.recording && <Icon name='record' size='big' /> }
+            
         </div>
         );
     }
