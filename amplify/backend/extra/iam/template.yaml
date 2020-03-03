@@ -1,0 +1,65 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+Description: S3 resource stack creation using Amplify CLI
+Parameters:
+  bucketName:
+    Type: String
+  env:
+    Type: String
+  authallscreens59d1a2d8UserPoolId:
+    Type: String
+  authuserPoolGroupsteachersGroupRole:
+    Type: String
+  authuserPoolGroupsstudentsGroupRole:
+    Type: String    
+Conditions:
+  ShouldNotCreateEnvResources:
+    Fn::Equals:
+    - Ref: env
+    - NONE
+Resources: 
+  studentsGroupPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: students-group-extra-policy
+      Roles:
+      - Fn::Join:
+        - ''
+        - - Ref: authallscreens59d1a2d8UserPoolId
+          - "-studentsGroupRole"
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Action:
+          - sumerian:ViewRelease
+          Resource:
+          - "*"
+        - Effect: Allow
+          Action:
+          - polly:DescribeVoices
+          - polly:GetLexicon
+          - polly:GetSpeechSynthesisTask
+          - polly:ListLexicons
+          - polly:ListSpeechSynthesisTasks
+          - polly:SynthesizeSpeech
+          Resource:
+          - "*"          
+          
+  teachersGroupPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: teacher-group-extra-policy
+      Roles:
+      - Fn::Join:
+        - ''
+        - - Ref: authallscreens59d1a2d8UserPoolId
+          - "-teachersGroupRole"
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Action:
+            - s3:ListBucket
+          Resource:
+            - !Join [ "", ["arn:aws:s3:::", !Ref bucketName, !Select [ 3, !Split [ "-", !Ref "AWS::StackName" ]], "-", !Ref env ] ]
