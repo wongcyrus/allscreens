@@ -7,15 +7,19 @@ import aws_exports from './aws-exports';
 import { withAuthenticator } from 'aws-amplify-react';
 import { Menu, Grid } from 'semantic-ui-react';
 import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
+import { AmazonAIPredictionsProvider } from '@aws-amplify/predictions';
+
 
 
 import ScreenSharing from './ScreenSharing';
 import AllScreenView from './AllScreenView';
 import ClassRoom from './ClassRoom';
 import VirtualTutor from './VirtualTutor';
+import Recorder from './Recorder';
 
 
 Amplify.configure(aws_exports);
+Amplify.addPluggable(new AmazonAIPredictionsProvider());
 
 class App extends React.Component {
   constructor() {
@@ -37,6 +41,7 @@ class App extends React.Component {
         <Route path="/" exact component={ScreenSharing}/>
         <Route path="/AllScreenView" exact component={AllScreenView}/>
         <Route path="/ClassRoom" exact component={ClassRoom}/>
+        <Recorder/>
         <Grid celled padded style={{height: '100vh'}}>
           <Grid.Row style={{height: '100%'}}>
             <Grid.Column>

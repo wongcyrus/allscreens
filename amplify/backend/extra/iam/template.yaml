@@ -43,6 +43,7 @@ Resources:
           - polly:ListLexicons
           - polly:ListSpeechSynthesisTasks
           - polly:SynthesizeSpeech
+          - transcribe:StartStreamTranscriptionWebSocket
           Resource:
           - "*"          
           
