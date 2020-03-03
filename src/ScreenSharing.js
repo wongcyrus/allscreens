@@ -6,7 +6,6 @@ import { Auth, Storage } from 'aws-amplify';
 import API, { graphqlOperation } from '@aws-amplify/api';
 
 import * as subscriptions from './graphql/subscriptions';
-import Recorder from './Recorder';
 
 // Source from https://webrtc.github.io/samples/src/content/getusermedia/getdisplaymedia/js/main.js
 export default class ScreenSharing extends React.Component {

@@ -40,3 +40,7 @@
 .table > div > div > div {
   display: inline-block;
 }
+
+.chatmessage{
+  width: 350px;
+}

@@ -13,7 +13,7 @@ import ScreenSharing from './ScreenSharing';
 import AllScreenView from './AllScreenView';
 import ClassRoom from './ClassRoom';
 import VirtualTutor from './VirtualTutor';
-import Recorder from './Recorder';
+import Chatbot from './Chatbot';
 
 Amplify.configure(aws_exports);
 Amplify.addPluggable(new AmazonAIPredictionsProvider());
@@ -50,7 +50,7 @@ class App extends React.Component {
               </Grid.Column>
               ):(
               <Grid.Column>
-                <Recorder/>
+                <Chatbot/>
                 <VirtualTutor/>
               </Grid.Column>
               )}
