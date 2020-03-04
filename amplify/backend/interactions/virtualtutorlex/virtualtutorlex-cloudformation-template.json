@@ -79,7 +79,7 @@
 				"Timeout": "300",
 				"Code": {
 					"S3Bucket": "amplify-allscreens-iamfix-75450-deployment",
-					"S3Key": "amplify-builds/virtualtutorlex-56516c58354641597170-build.zip"
+					"S3Key": "amplify-builds/virtualtutorlex-4e306a65713437626567-build.zip"
 				}
 			}
 		},

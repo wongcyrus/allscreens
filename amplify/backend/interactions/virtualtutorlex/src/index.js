@@ -6676,8 +6676,6 @@ exports.handler = function(event, context) {
         },
 
         "voiceId": "Joanna",
-
-
         "idleSessionTTLInSeconds": "300"
 
     };

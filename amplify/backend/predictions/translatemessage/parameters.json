@@ -1,0 +1,14 @@
+{
+    "resourceName": "translatemessage",
+    "convertPolicyName": "translateTextPolicy00188c4f",
+    "authRoleName": {
+        "Ref": "AuthRoleName"
+    },
+    "unauthRoleName": {
+        "Ref": "UnauthRoleName"
+    },
+    "convertType": "translateText",
+    "sourceLang": "zh-TW",
+    "targetLang": "en",
+    "access": "auth"
+}

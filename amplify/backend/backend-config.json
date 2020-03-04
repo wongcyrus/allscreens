@@ -144,6 +144,13 @@
 					"attributes": [
 						"studentsGroupRole"
 					]
+				},
+				{
+					"category": "interactions",
+					"resourceName": "virtualtutorlex",
+					"attributes": [
+						"BotName"
+					]
 				}
 			]
 		}
@@ -153,6 +160,16 @@
 			"providerPlugin": "awscloudformation",
 			"service": "Transcribe",
 			"convertType": "transcription"
+		},
+		"interprettextmessage": {
+			"providerPlugin": "awscloudformation",
+			"service": "Comprehend",
+			"interpretType": "interpretText"
+		},
+		"translatemessage": {
+			"providerPlugin": "awscloudformation",
+			"service": "Translate",
+			"convertType": "translateText"
 		}
 	},
 	"interactions": {

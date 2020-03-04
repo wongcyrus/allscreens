@@ -26,6 +26,15 @@ exports.handler = function(event, context) {
         <% } %>
     ];
     let intentParams = [
+        {
+            "name": "VirtualTutorFallback",
+            "fulfillmentActivity": {
+                "type": "ReturnIntent"
+            },
+            "sampleUtterances": [],
+            "slots": [],
+            "parentIntentSignature": "AMAZON.FallbackIntent"
+        },
         <% for(var i = 0; i < props.intents.length; i++) { %>
         {
             "name": "<%- props.intents[i].intentName %>",
@@ -117,7 +126,10 @@ exports.handler = function(event, context) {
 
     let botParams = {
         "name": botName,
-        "intents": [
+        "intents": [{
+                "intentName": "VirtualTutorFallback",
+                "intentVersion": "$LATEST"
+            },
         <% for(var i = 0; i < props.intents.length; i++) { %>
             {
                 "intentName": "<%- props.intents[i].intentName %>",
@@ -325,7 +337,7 @@ function ensureLambdaFunctionAccess(intent){
 }
 
 function getBot(botParams){
-    params = {
+    let params = {
         'name': botParams.name,
         'versionOrAlias': '$LATEST'
     }; 

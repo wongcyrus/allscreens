@@ -29,7 +29,7 @@ class App extends React.Component {
     const group = user.signInUserSession.accessToken.payload["cognito:groups"][0];
     console.log(group);
     this.setState({ isTeacher: "teachers" === group });
-    
+
   }
 
   render() {

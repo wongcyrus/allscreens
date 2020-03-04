@@ -11,7 +11,9 @@ Parameters:
   authuserPoolGroupsteachersGroupRole:
     Type: String
   authuserPoolGroupsstudentsGroupRole:
-    Type: String    
+    Type: String
+  interactionsvirtualtutorlexBotName:
+    Type: String
 Conditions:
   ShouldNotCreateEnvResources:
     Fn::Equals:
@@ -33,10 +35,6 @@ Resources:
         - Effect: Allow
           Action:
           - sumerian:ViewRelease
-          Resource:
-          - "*"
-        - Effect: Allow
-          Action:
           - polly:DescribeVoices
           - polly:GetLexicon
           - polly:GetSpeechSynthesisTask
@@ -44,8 +42,20 @@ Resources:
           - polly:ListSpeechSynthesisTasks
           - polly:SynthesizeSpeech
           - transcribe:StartStreamTranscriptionWebSocket
+          - comprehend:DetectSentiment
+          - comprehend:DetectEntities
+          - comprehend:DetectDominantLanguage
+          - comprehend:DetectSyntax
+          - comprehend:DetectKeyPhrase
+          - translate:TranslateText
           Resource:
           - "*"          
+        - Effect: Allow
+          Action:
+          - lex:PostContent
+          - lex:PostText
+          Resource:
+          - !Sub 'arn:aws:lex:${AWS::Region}:${AWS::AccountId}:bot:${interactionsvirtualtutorlexBotName}:*'
           
   teachersGroupPolicy:
     Type: AWS::IAM::Policy
