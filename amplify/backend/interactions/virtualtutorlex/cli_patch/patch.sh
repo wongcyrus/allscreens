@@ -1,0 +1,1 @@
+cp index.js.ejs ~/.nvm/versions/node/v10.19.0/lib/node_modules/@aws-amplify/cli/node_modules/amplify-category-interactions/provider-utils/awscloudformation/function-template-dir/index.js.ejs

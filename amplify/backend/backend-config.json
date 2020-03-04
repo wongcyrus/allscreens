@@ -154,5 +154,12 @@
 			"service": "Transcribe",
 			"convertType": "transcription"
 		}
+	},
+	"interactions": {
+		"virtualtutorlex": {
+			"service": "Lex",
+			"providerPlugin": "awscloudformation",
+			"build": true
+		}
 	}
 }

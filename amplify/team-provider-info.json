@@ -111,8 +111,8 @@
                     "projectName": "Drafts-assumed-role/CrossAccountSignin/cyrus"
                 }
             },
-            "extra":{
-                "iam":{}
+            "extra": {
+                "iam": {}
             }
         }
     }

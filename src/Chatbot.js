@@ -1,8 +1,10 @@
 import React from 'react';
-import { Predictions } from 'aws-amplify';
-import { Icon, Input, Button, Message } from 'semantic-ui-react';
+import { Predictions, Interactions } from 'aws-amplify';
+import { Icon, Input, Button } from 'semantic-ui-react';
 
 import mic from 'microphone-stream';
+
+import aws_exports from './aws-exports';
 
 
 export default class Chatbot extends React.Component {
@@ -98,9 +100,13 @@ export default class Chatbot extends React.Component {
       .catch(err => console.error(err));
   }
 
-  sendChatMessage(event) {
+  async sendChatMessage(event) {
     console.log(this.state.fullText);
     this.setState({ sending: true });
+    const response = await Interactions.send(aws_exports.aws_bots_config.name, this.state.fullText);
+
+    console.log(response);
+    window.postMessage(response.message);
   }
 
   updateChatMessage(event) {
