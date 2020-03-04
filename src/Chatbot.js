@@ -1,11 +1,10 @@
 import React from 'react';
-import { Predictions, Interactions } from 'aws-amplify';
+import { Predictions, Interactions, API } from 'aws-amplify';
 import { Icon, Input, Button } from 'semantic-ui-react';
 
 import mic from 'microphone-stream';
 
 import aws_exports from './aws-exports';
-
 
 export default class Chatbot extends React.Component {
 
@@ -131,7 +130,7 @@ export default class Chatbot extends React.Component {
     this.setState({ sending: true });
     const response = await Interactions.send(aws_exports.aws_bots_config[0].name, message);
 
-   
+
     if (response.intentName) {
       let responseMessage = response.message;
       console.log(responseMessage);
@@ -157,15 +156,44 @@ export default class Chatbot extends React.Component {
           break;
         case "MIXED":
           responseMessage = '<mark name="gesture:movement"/>' + responseMessage + '<break time="1000ms"/>';
+          break;
+        default:
+          break;
       }
       window.postMessage(responseMessage);
-    }else{
-      window.postMessage("Let me check yuor question with kendra!");
+    }
+    else {
+      window.postMessage("Let me check your question with kendra!");
+      let answer = await this.getAnswerFromKendra(message);
+      console.log(answer);
+      window.postMessage(answer);
     }
   }
 
+  async getAnswerFromKendra(question) {
+    let path = '/search';
+    let myInit = {
+      headers: { 'Content-Type': 'application/json' },
+      queryStringParameters: { // OPTIONAL
+        question
+      }
+    };
+    let data = await API.get("kendraApi", path, myInit);
+    await new Promise(r => setTimeout(r, 3000));
+    if (data.result.ResultItems[0]) {
+      let title = data.result.ResultItems[0].DocumentTitle.Text;
+      let text = data.result.ResultItems[0].DocumentExcerpt.Text;
+
+      let tmp = document.createElement("DIV");
+      tmp.innerHTML = text;
+      text = tmp.textContent || tmp.innerText || "";
+
+      return `You can check ${title} and ,in short, ${text}.`;
+    }
+    return '<mark name="gesture:in"/>We cannot get the answer for you and please Google it or ask your teacher!<break time="1000ms"/>';
+  }
+
   updateChatMessage(event) {
-    console.log(event.target.value);
     this.setState({ fullText: event.target.value });
   }
 

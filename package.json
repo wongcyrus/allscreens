@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^7.2.1",
     "aws-amplify": "^2.2.5",
     "aws-amplify-react": "^3.1.6",
+    "aws-sdk": "^2.632.0",
     "es6-promise": "^4.2.8",
     "isomorphic-fetch": "^2.2.1",
     "microphone-stream": "^5.0.1",

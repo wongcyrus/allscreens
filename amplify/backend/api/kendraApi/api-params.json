@@ -1,0 +1,53 @@
+{
+    "paths": [
+        {
+            "name": "/search",
+            "lambdaFunction": "searchKendra",
+            "privacy": {
+                "userPoolGroups": {
+                    "students": [
+                        "/GET"
+                    ]
+                }
+            }
+        }
+    ],
+    "resourceName": "kendraApi",
+    "apiName": "kendraApi",
+    "authResourceName": "allscreens59d1a2d8",
+    "functionArns": [
+        {
+            "lambdaFunction": "searchKendra"
+        }
+    ],
+    "privacy": {
+        "auth": 0,
+        "unauth": 0,
+        "authRoleName": "amplify-allscreens-iamfix-75450-authRole",
+        "unAuthRoleName": "amplify-allscreens-iamfix-75450-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "searchKendra",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "auth",
+            "resourceName": "allscreens59d1a2d8",
+            "attributes": [
+                "UserPoolId"
+            ]
+        },
+        {
+            "category": "auth",
+            "resourceName": "userPoolGroups",
+            "attributes": [
+                "studentsGroupRole"
+            ]
+        }
+    ]
+}
