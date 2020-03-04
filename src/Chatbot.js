@@ -184,9 +184,12 @@ export default class Chatbot extends React.Component {
       let title = data.result.ResultItems[0].DocumentTitle.Text;
       let text = data.result.ResultItems[0].DocumentExcerpt.Text;
 
-      let tmp = document.createElement("DIV");
-      tmp.innerHTML = text;
-      text = tmp.textContent || tmp.innerText || "";
+      const removeHtml = text => {
+        let tmp = document.createElement("DIV");
+        tmp.innerHTML = text;
+        return tmp.textContent || tmp.innerText || "";
+      };
+      text = removeHtml(text);
 
       return `You can check ${title} and ,in short, ${text}.`;
     }
