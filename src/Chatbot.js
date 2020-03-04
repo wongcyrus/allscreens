@@ -135,30 +135,32 @@ export default class Chatbot extends React.Component {
     if (response.intentName) {
       let responseMessage = response.message;
       console.log(responseMessage);
-      // let sentiment = await Predictions.interpret({
-      //   text: {
-      //     source: {
-      //       text: responseMessage,
-      //     },
-      //     type: "SENTIMENT"
-      //   }
-      // });
-      // console.log(sentiment);
-      // switch (sentiment) {
-      //   case "POSITIVE":
-      //     responseMessage = '<mark name="gesture:heart"/>' + responseMessage + '<break time="1000ms"/>';
-      //     break;
-      //   case "NEGATIVE":
-      //     responseMessage = '<mark name="gesture:defense"/>' + responseMessage + '<break time="1000ms"/>';
-      //     break;
-      //   case "NEUTRAL":
-      //     responseMessage = '<mark name="gesture:self"/>' + responseMessage + '<break time="1000ms"/>';
-      //     break;
-      //   case "MIXED":
-      //     responseMessage = '<mark name="gesture:movement"/>' + responseMessage + '<break time="1000ms"/>';
-      // }
-
+      let result = await Predictions.interpret({
+        text: {
+          source: {
+            text: responseMessage,
+          },
+          type: "ALL"
+        }
+      });
+      const sentiment = result.textInterpretation.sentiment.predominant;
+      console.log(sentiment);
+      switch (sentiment) {
+        case "POSITIVE":
+          responseMessage = '<mark name="gesture:heart"/>' + responseMessage + '<break time="1000ms"/>';
+          break;
+        case "NEGATIVE":
+          responseMessage = '<mark name="gesture:defense"/>' + responseMessage + '<break time="1000ms"/>';
+          break;
+        case "NEUTRAL":
+          responseMessage = '<mark name="gesture:self"/>' + responseMessage + '<break time="1000ms"/>';
+          break;
+        case "MIXED":
+          responseMessage = '<mark name="gesture:movement"/>' + responseMessage + '<break time="1000ms"/>';
+      }
       window.postMessage(responseMessage);
+    }else{
+      window.postMessage("Let me check yuor question with kendra!");
     }
   }
 

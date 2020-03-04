@@ -46,7 +46,7 @@ Resources:
           - comprehend:DetectEntities
           - comprehend:DetectDominantLanguage
           - comprehend:DetectSyntax
-          - comprehend:DetectKeyPhrase
+          - comprehend:DetectKeyPhrases
           - translate:TranslateText
           Resource:
           - "*"          
