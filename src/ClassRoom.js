@@ -11,8 +11,9 @@ export default class ClassRoom extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { name: "", email: "", classrooms: [] };
+        this.state = { name: "", email: "", kendraIndexId: "", classrooms: [] };
         this.name = React.createRef();
+        this.kendraIndexId = React.createRef();
         this.emails = React.createRef();
     }
 
@@ -66,15 +67,18 @@ export default class ClassRoom extends React.Component {
     handleSubmit = async(event) => {
         event.preventDefault();
         try {
-            const { name, emails } = this.state;
+            let { name, kendraIndexId, emails } = this.state;
 
-            console.log({ name, emails });
+            kendraIndexId = kendraIndexId || "null";
+
+            console.log({ name, kendraIndexId, emails });
             const emailsList = emails.split("\n");
 
             if (this.state.classrooms.find(c => c.name === name)) {
                 let result = await API.graphql(graphqlOperation(mutations.updateClassRoom, {
                     input: {
                         name,
+                        kendraIndexId,
                         studentEmails: emailsList
                     }
                 }));
@@ -84,6 +88,7 @@ export default class ClassRoom extends React.Component {
                 let result = await API.graphql(graphqlOperation(mutations.createClassRoom, {
                     input: {
                         name,
+                        kendraIndexId,
                         studentEmails: emailsList
                     }
                 }));
@@ -144,6 +149,13 @@ export default class ClassRoom extends React.Component {
                     fluid
                     required  
                     onChange={this.handleChange}/>
+                  <Form.Input 
+                    name='kendraIndexId' 
+                    label='Kendra Index ID (Optional)' 
+                    placeholder='Kendra Index ID' 
+                    value={this.state.kendraIndexId} 
+                    fluid
+                    onChange={this.handleChange}/>                    
                 </Form.Group>
                 <Form.TextArea 
                     name='emails' 

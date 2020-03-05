@@ -5,6 +5,7 @@ export const onCreateScreenSharingTicket = /* GraphQL */ `
   subscription OnCreateScreenSharingTicket($email: AWSEmail!) {
     onCreateScreenSharingTicket(email: $email) {
       email
+      kendraIndexId
       activeUntil
     }
   }
@@ -21,6 +22,7 @@ export const onCreateClassRoom = /* GraphQL */ `
   subscription OnCreateClassRoom($owner: String!) {
     onCreateClassRoom(owner: $owner) {
       name
+      kendraIndexId
       studentEmails
       owner
     }
@@ -30,6 +32,7 @@ export const onUpdateClassRoom = /* GraphQL */ `
   subscription OnUpdateClassRoom($owner: String!) {
     onUpdateClassRoom(owner: $owner) {
       name
+      kendraIndexId
       studentEmails
       owner
     }
@@ -39,6 +42,7 @@ export const onDeleteClassRoom = /* GraphQL */ `
   subscription OnDeleteClassRoom($owner: String!) {
     onDeleteClassRoom(owner: $owner) {
       name
+      kendraIndexId
       studentEmails
       owner
     }

@@ -63,7 +63,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-allscreens-iamfix-75450-deployment",
-					"S3Key": "amplify-builds/searchKendra-304964574e486d367951-build.zip"
+					"S3Key": "amplify-builds/searchKendra-6f354e43767a69716879-build.zip"
 				}
 			}
 		},

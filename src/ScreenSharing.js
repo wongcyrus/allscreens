@@ -40,7 +40,9 @@ export default class ScreenSharing extends React.Component {
                 console.log(ticket);
                 this.setState({ ticket });
                 this.setState({ enableStartCapture: true });
-                window.postMessage("Please click on the start screen sharing button and share your screen to me.");
+                if (this.state.stream == null) {
+                    window.postMessage("Please click on the start screen sharing button and share your screen to me.");
+                }
             }
         });
     }
@@ -124,8 +126,7 @@ export default class ScreenSharing extends React.Component {
         this.setState({
             status: 'Screen recorded completed.',
             enableStartCapture: true,
-            enableStopCapture: false,
-            enableDownloadRecording: true
+            enableStopCapture: false
         });
 
         this.setState((state) => {
@@ -150,7 +151,6 @@ export default class ScreenSharing extends React.Component {
                 <p>Status: {this.state.status}</p>
                 <button disabled = {(!this.state.enableStartCapture)? "disabled" : ""} onClick={() => this._startCapturing()}>Start screen Sharing</button>
                 <button disabled = {(!this.state.enableStopCapture)? "disabled" : ""} onClick={() => this._stopCapturing()}>Stop screen Sharing</button>
-                
             </Segment>
         );
     }

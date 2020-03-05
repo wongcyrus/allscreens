@@ -33,7 +33,7 @@ app.use((req, res, next) => {
 app.get('/search', async(req, res) => {
   const kendra = new AWS.Kendra();
   let params = {
-    IndexId: '0b1135a1-dc9a-4dd1-adc9-31f0e52a31a7',
+    IndexId: req.query.kendraIndexId,
     /* required */
     QueryText: req.query.question,
     /* required */

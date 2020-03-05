@@ -19,8 +19,9 @@ export default class AllScreenView extends React.Component {
             searchKeyword: undefined,
             classrooms: [],
             studentEmails: [],
-            message:"",
-            privateMessage:""
+            kendraIndexId: "",
+            message: "",
+            privateMessage: ""
         };
         this.s3Album = React.createRef();
     }
@@ -94,21 +95,24 @@ export default class AllScreenView extends React.Component {
 
     onClassroomSelectChange = (event) => {
         if (event.target.textContent !== "") {
-            const studentEmails = this.state.classrooms.find(c => c.name === event.target.textContent).studentEmails;
-            console.log(studentEmails);
-            this.setState({ studentEmails });
+            const classroom = this.state.classrooms.find(c => c.name === event.target.textContent);
+            const { studentEmails, kendraIndexId } = classroom;
+            console.log(kendraIndexId, studentEmails);
+            this.setState({ studentEmails, kendraIndexId });
         }
     }
 
-    generateScreenSharingTickets = async () => {
+    generateScreenSharingTickets = async() => {
         const studentEmails = this.state.studentEmails;
+        const kendraIndexId = this.state.kendraIndexId;
         let expire = new Date();
         expire.setHours(expire.getHours() + 3);
 
-        let create3HoursTickets = async (email) => await API.graphql(graphqlOperation(mutations.createScreenSharingTicket, {
+        let create3HoursTickets = async(email) => await API.graphql(graphqlOperation(mutations.createScreenSharingTicket, {
             input: {
                 email,
-                activeUntil:expire
+                kendraIndexId,
+                activeUntil: expire
             }
         }));
         studentEmails.map(create3HoursTickets);
@@ -118,13 +122,13 @@ export default class AllScreenView extends React.Component {
         console.log(event.target.value);
         this.setState({ message: event.target.value });
     }
-    
-    sendMessageToAllStudents = async (event) => {
+
+    sendMessageToAllStudents = async(event) => {
         const studentEmails = this.state.studentEmails;
         const content = this.state.message;
         console.log("sendMessageToAllStudents");
 
-        let createMessage = async (email) => await API.graphql(graphqlOperation(mutations.createMessage, {
+        let createMessage = async(email) => await API.graphql(graphqlOperation(mutations.createMessage, {
             input: {
                 email,
                 content
@@ -132,13 +136,13 @@ export default class AllScreenView extends React.Component {
         }));
         studentEmails.map(createMessage);
     }
-    
+
     updatePrivateMessage = (event) => {
         console.log(event.target.value);
         this.setState({ privateMessage: event.target.value });
     }
-    
-    sendPrivateMessageToStudent= async (event) => {
+
+    sendPrivateMessageToStudent = async(event) => {
         const email = this.state.email;
         const content = this.state.privateMessage;
         console.log("sendPrivateMessageToStudent");

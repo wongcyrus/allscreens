@@ -8,6 +8,7 @@ export const createClassRoom = /* GraphQL */ `
   ) {
     createClassRoom(input: $input, condition: $condition) {
       name
+      kendraIndexId
       studentEmails
       owner
     }
@@ -20,6 +21,7 @@ export const updateClassRoom = /* GraphQL */ `
   ) {
     updateClassRoom(input: $input, condition: $condition) {
       name
+      kendraIndexId
       studentEmails
       owner
     }
@@ -32,6 +34,7 @@ export const deleteClassRoom = /* GraphQL */ `
   ) {
     deleteClassRoom(input: $input, condition: $condition) {
       name
+      kendraIndexId
       studentEmails
       owner
     }
@@ -44,6 +47,7 @@ export const createScreenSharingTicket = /* GraphQL */ `
   ) {
     createScreenSharingTicket(input: $input, condition: $condition) {
       email
+      kendraIndexId
       activeUntil
     }
   }
@@ -55,6 +59,7 @@ export const updateScreenSharingTicket = /* GraphQL */ `
   ) {
     updateScreenSharingTicket(input: $input, condition: $condition) {
       email
+      kendraIndexId
       activeUntil
     }
   }
@@ -66,6 +71,7 @@ export const deleteScreenSharingTicket = /* GraphQL */ `
   ) {
     deleteScreenSharingTicket(input: $input, condition: $condition) {
       email
+      kendraIndexId
       activeUntil
     }
   }

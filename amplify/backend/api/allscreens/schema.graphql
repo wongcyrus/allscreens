@@ -4,7 +4,8 @@ type ClassRoom
 @auth(rules: [
     {allow: owner}
 ]) {
-    name: String!
+    name: String!,
+    kendraIndexId: String!
     studentEmails:[AWSEmail]!
 }
 
@@ -16,6 +17,7 @@ type ScreenSharingTicket
     {allow: groups, groups: ["students"], groupClaim: "user_groups", operations: [read]}
 ]) {
     email: AWSEmail!
+    kendraIndexId: String!
     activeUntil: AWSDateTime!
 }
 
