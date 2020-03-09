@@ -59,7 +59,7 @@
 				"Runtime": "nodejs10.x",
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "amplify-allscreens-iamfix-75450-deployment",
+					"S3Bucket": "amplify-allscreens-test-121919-deployment",
 					"S3Key": "amplify-builds/S3Trigger4122c033-4b4f3345463347596c77-build.zip"
 				}
 			}

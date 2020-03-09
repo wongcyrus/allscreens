@@ -125,8 +125,9 @@ export default class AllScreenView extends React.Component {
 
     sendMessageToAllStudents = async(event) => {
         const studentEmails = this.state.studentEmails;
-        const content = this.state.message;
+        const content = `<mark name="gesture:wave"/>${this.state.message}<break time="1000ms"/>`;
         console.log("sendMessageToAllStudents");
+
 
         let createMessage = async(email) => await API.graphql(graphqlOperation(mutations.createMessage, {
             input: {
