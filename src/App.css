@@ -37,10 +37,15 @@
   }
 }
 
-.table > div > div > div {
+.table>div>div>div {
   display: inline-block;
 }
 
-.chatmessage{
+.chatmessage {
   width: 350px;
+}
+
+.hiddenVideo {
+  position: absolute;
+  left: -2000px;
 }

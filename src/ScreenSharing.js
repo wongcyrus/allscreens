@@ -49,6 +49,7 @@ export default class ScreenSharing extends React.Component {
 
     componentWillUnmount() {
         this.onCreateScreenSharingTicketSubscription.unsubscribe();
+        clearInterval(this.timer);
     }
 
     static _startScreenCapture() {

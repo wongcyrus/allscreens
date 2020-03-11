@@ -14,6 +14,7 @@ import AllScreenView from './AllScreenView';
 import ClassRoom from './ClassRoom';
 import VirtualTutor from './VirtualTutor';
 import Chatbot from './Chatbot';
+import WebCam from "./WebCam";
 
 Amplify.configure(aws_exports);
 Amplify.addPluggable(new AmazonAIPredictionsProvider());
@@ -50,6 +51,7 @@ class App extends React.Component {
               </Grid.Column>
               ):(
               <Grid.Column>
+                <WebCam/>
                 <Chatbot/>
                 <VirtualTutor/>
               </Grid.Column>
