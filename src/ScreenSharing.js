@@ -110,7 +110,7 @@ export default class ScreenSharing extends React.Component {
                         canvas.getContext('2d').drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
                         this.imageView.current.setAttribute('src', canvas.toDataURL());
 
-                        window.postMessage({ screenCaptureUrl: canvas.toDataURL() });
+                        window.postMessage({ VideoScreen1: canvas.toDataURL() });
                         Storage.put("upload/" + this.state.ticket.email + "/screenshot.txt", canvas.toDataURL())
                             .then(result => console.log(result))
                             .catch(err => console.log(err));
@@ -141,7 +141,6 @@ export default class ScreenSharing extends React.Component {
     }
 
     render() {
-        console.log('render');
         return (
             <Segment>
                 <Header as="h1">
