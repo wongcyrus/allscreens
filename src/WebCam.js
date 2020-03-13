@@ -16,7 +16,8 @@ export default class WebCam extends React.Component {
         this.state = {
             isStudent: false,
             webcamEnabled: false,
-            preferredCameraDeviceId: ""
+            preferredCameraDeviceId: "",
+            skipCounter: 0
         };
 
         this.webcamRef = React.createRef();
@@ -68,13 +69,24 @@ export default class WebCam extends React.Component {
     async captureWebcam() {
         const imageSrc = this.webcamRef.current.getScreenshot();
         this.image.current.src = imageSrc;
+
+        if (this.state.skipCounter > 0) {
+            this.setState({ skipCounter: this.state.skipCounter - 1 });
+            window.postMessage({ VideoScreen2: imageSrc });
+            return;
+        }
+
+
         try {
-            const detectionsWithLandmarks = await faceapi
+            let detectionsWithLandmarks = await faceapi
                 .detectAllFaces(this.image.current)
                 .withFaceLandmarks();
 
+            detectionsWithLandmarks = detectionsWithLandmarks.filter(c => c.detection.score > 0.8);
+
             if (detectionsWithLandmarks.length > 0) {
-                 console.log("With student!");
+                const numberOfFace = detectionsWithLandmarks.length;
+                console.log("With student!" + detectionsWithLandmarks.length);
                 console.log(detectionsWithLandmarks);
                 let ctx = this.canvas.current.getContext("2d");
                 ctx.drawImage(this.image.current, 0, 0, 1280, 720);
@@ -82,8 +94,13 @@ export default class WebCam extends React.Component {
                 faceapi.draw.drawDetections(this.canvas.current, resizedResults);
                 faceapi.draw.drawFaceLandmarks(this.canvas.current, resizedResults);
                 window.postMessage({ VideoScreen2: this.canvas.current.toDataURL() });
+
+                if (numberOfFace > 1) {
+                    this.setState({ skipCounter: 10 });
+                    window.postMessage("You have to work on your text alone!");
+                }
             }
-            else{
+            else {
                 console.log("No student!");
                 window.postMessage({ VideoScreen2: imageSrc });
             }

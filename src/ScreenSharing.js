@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Header, Segment } from 'semantic-ui-react';
+import { Header, Segment, Grid, Message } from 'semantic-ui-react';
 
 import { Auth, Storage } from 'aws-amplify';
 import API, { graphqlOperation } from '@aws-amplify/api';
@@ -144,14 +144,16 @@ export default class ScreenSharing extends React.Component {
     render() {
         return (
             <Segment>
-                <Header as="h1">
-                  Share you computer screen and let work on lab exercise together online!
-                </Header>
-                <img ref={this.imageView} style={{display: 'none' }} alt="Right click to save" />
-                <video ref={this.screen} autoPlay style={{display: 'none' }}></video>
-                <p>Status: {this.state.status}</p>
-                <button disabled = {(!this.state.enableStartCapture)? "disabled" : ""} onClick={() => this._startCapturing()}>Start screen Sharing</button>
-                <button disabled = {(!this.state.enableStopCapture)? "disabled" : ""} onClick={() => this._stopCapturing()}>Stop screen Sharing</button>
+                <Grid>
+                    <Header as="h1">
+                      Share you computer screen and let work on lab exercise together online!
+                    </Header>
+                    <img ref={this.imageView} style={{display: 'none' }} alt="Right click to save" />
+                    <video ref={this.screen} autoPlay style={{display: 'none' }}></video>
+                    <Message>Status: {this.state.status}</Message>
+                    <button disabled = {(!this.state.enableStartCapture)? "disabled" : ""} onClick={() => this._startCapturing()}>Start screen Sharing</button>
+                    <button disabled = {(!this.state.enableStopCapture)? "disabled" : ""} onClick={() => this._stopCapturing()}>Stop screen Sharing</button>
+                </Grid>
             </Segment>
         );
     }
