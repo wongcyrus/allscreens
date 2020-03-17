@@ -8,6 +8,8 @@ import API, { graphqlOperation } from '@aws-amplify/api';
 import * as queries from './graphql/queries';
 import * as mutations from './graphql/mutations';
 
+import OnlineReport from './OnlineReport';
+
 export default class AllScreenView extends React.Component {
 
     constructor(props) {
@@ -18,7 +20,9 @@ export default class AllScreenView extends React.Component {
             referesh: false,
             searchKeyword: undefined,
             classrooms: [],
+            currentClassroom: undefined,
             studentEmails: [],
+            studentAttendanceRecords: [],
             kendraIndexId: "",
             message: "",
             privateMessage: ""
@@ -65,7 +69,15 @@ export default class AllScreenView extends React.Component {
             const studentEmails = this.state.studentEmails;
             let isRecent = lastModified => ((currentTime.getTime() - (new Date(lastModified)).getTime()) / 1000) < 3600;
             let isInClass = key => studentEmails.find(c => c === key.split("/")[1]) !== undefined;
-            return item.filter(item => isRecent(item.lastModified) && isInClass(item.key));
+            const online = item.filter(item => isRecent(item.lastModified) && isInClass(item.key));
+
+            const onlineEmails = online.map(c => c.key.split("/")[1]);
+            const studentAttendanceRecords = [];
+            studentAttendanceRecords.push(...studentEmails.map(email => {
+                return { email, isOnline: "" + onlineEmails.includes(email) };
+            }));
+            this.setState({ studentAttendanceRecords });
+            return online;
         }
     }
 
@@ -95,10 +107,10 @@ export default class AllScreenView extends React.Component {
 
     onClassroomSelectChange = (event) => {
         if (event.target.textContent !== "") {
-            const classroom = this.state.classrooms.find(c => c.name === event.target.textContent);
-            const { studentEmails, kendraIndexId } = classroom;
+            const currentClassroom = this.state.classrooms.find(c => c.name === event.target.textContent);
+            const { studentEmails, kendraIndexId } = currentClassroom;
             console.log(kendraIndexId, studentEmails);
-            this.setState({ studentEmails, kendraIndexId });
+            this.setState({ studentEmails, kendraIndexId, currentClassroom });
         }
     }
 
@@ -174,6 +186,9 @@ export default class AllScreenView extends React.Component {
                                 <Form.Button onClick={() => this.generateScreenSharingTickets()}>Generate 3 hours Screen Sharing Tickets.</Form.Button>
                                 <Form.Button disabled = {this.state.referesh} onClick={() => this.toggleRefresh()}>Start Auto-refresh.</Form.Button>
                                 <Form.Button disabled = {!this.state.referesh} onClick={() => this.toggleRefresh()}>Stop Auto-refresh.</Form.Button>
+                                {this.state.currentClassroom? (
+                                <OnlineReport currentClassroom={this.state.currentClassroom.name} data={this.state.studentAttendanceRecords}/>
+                                ) : ""}
                                 <Form.Input icon='search' placeholder='Search...' onChange={(event)=>this.handleSearch(event)}/>
                                 <Form.Button onClick={() => this.clearAllScreenshots()}>Delete cached screenshots.</Form.Button>
                                 <Form.Input placeholder='Message' onChange={(event)=>this.updateMessageToAllStudents(event)}/>
