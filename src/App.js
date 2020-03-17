@@ -36,21 +36,22 @@ class App extends React.Component {
   render() {
     return (
       <Router>
-        <Route path="/" exact component={ScreenSharing}/>
-        <Route path="/AllScreenView" exact component={AllScreenView}/>
-        <Route path="/ClassRoom" exact component={ClassRoom}/>
         <Grid celled padded style={{height: '100vh'}}>
           <Grid.Row style={{height: '100%'}}>
               {this.state.isTeacher ? (
-              <Grid.Column>
-                <Menu secondary>
-                  <Menu.Item as={NavLink} to="/" name="ShareScreen" />
-                  <Menu.Item as={NavLink} to="/AllScreenView" name="AllScreenView" />
-                  <Menu.Item as={NavLink} to="/ClassRoom" name="ManageClassRoom" />
-                </Menu>
-              </Grid.Column>
+              <div>
+                <Route path="/" exact component={AllScreenView}/>
+                <Route path="/ClassRoom" exact component={ClassRoom}/>
+                <Grid.Column>
+                  <Menu secondary>
+                    <Menu.Item as={NavLink} to="/" name="AllScreenView" />
+                    <Menu.Item as={NavLink} to="/ClassRoom" name="ManageClassRoom" />
+                  </Menu>
+                </Grid.Column>
+              </div>
               ):(
               <Grid.Column>
+                <Route path="/" exact component={ScreenSharing}/>
                 <WebCam/>
                 <Chatbot/>
                 <VirtualTutor/>

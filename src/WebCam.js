@@ -57,8 +57,13 @@ export default class WebCam extends React.Component {
     }
 
     async loadModels() {
-        await faceapi.loadFaceDetectionModel(MODEL_URL);
-        await faceapi.loadFaceLandmarkModel(MODEL_URL);
+        try {
+            await faceapi.loadFaceDetectionModel(MODEL_URL);
+            await faceapi.loadFaceLandmarkModel(MODEL_URL);
+        }
+        catch (err) {
+            console.error(err);
+        }
     }
 
     componentWillUnmount() {
@@ -76,13 +81,13 @@ export default class WebCam extends React.Component {
             return;
         }
 
-
         try {
             let detectionsWithLandmarks = await faceapi
                 .detectAllFaces(this.image.current)
                 .withFaceLandmarks();
 
-            detectionsWithLandmarks = detectionsWithLandmarks.filter(c => c.detection.score > 0.8);
+            console.log(detectionsWithLandmarks);
+            detectionsWithLandmarks = detectionsWithLandmarks.filter(c => c.detection.score > 0.6);
 
             if (detectionsWithLandmarks.length > 0) {
                 const numberOfFace = detectionsWithLandmarks.length;
@@ -93,7 +98,8 @@ export default class WebCam extends React.Component {
                 const resizedResults = faceapi.resizeResults(detectionsWithLandmarks, { width: 1280, height: 720 });
                 faceapi.draw.drawDetections(this.canvas.current, resizedResults);
                 faceapi.draw.drawFaceLandmarks(this.canvas.current, resizedResults);
-                window.postMessage({ VideoScreen2: this.canvas.current.toDataURL() });
+                let dataUrl = this.canvas.current.toDataURL();
+                window.postMessage({ VideoScreen2: dataUrl });
 
                 if (numberOfFace > 1) {
                     this.setState({ skipCounter: 10 });
@@ -111,7 +117,7 @@ export default class WebCam extends React.Component {
     }
     enableWebcam = () => {
         this.setState({ webcamEnabled: true });
-        this.intervalId = setInterval(this.captureWebcam.bind(this), 1000);
+        this.intervalId = setInterval(this.captureWebcam.bind(this), 3000);
     }
 
     disableWebcam = () => {
