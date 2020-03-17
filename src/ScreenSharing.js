@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Header, Segment, Grid, Message } from 'semantic-ui-react';
+import { Header, Segment, Grid, Message, Button } from 'semantic-ui-react';
 
 import { Auth, Storage } from 'aws-amplify';
 import API, { graphqlOperation } from '@aws-amplify/api';
@@ -151,8 +151,8 @@ export default class ScreenSharing extends React.Component {
                     <img ref={this.imageView} style={{display: 'none' }} alt="Right click to save" />
                     <video ref={this.screen} autoPlay style={{display: 'none' }}></video>
                     <Message>Status: {this.state.status}</Message>
-                    <button disabled = {(!this.state.enableStartCapture)? "disabled" : ""} onClick={() => this._startCapturing()}>Start screen Sharing</button>
-                    <button disabled = {(!this.state.enableStopCapture)? "disabled" : ""} onClick={() => this._stopCapturing()}>Stop screen Sharing</button>
+                    <Button disabled = {!this.state.enableStartCapture} onClick={() => this._startCapturing()}>Start screen Sharing</Button>
+                    <Button disabled = {!this.state.enableStopCapture} onClick={() => this._stopCapturing()}>Stop screen Sharing</Button>
                 </Grid>
             </Segment>
         );

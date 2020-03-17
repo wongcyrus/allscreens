@@ -1,7 +1,7 @@
 import React from "react";
 import { Auth } from 'aws-amplify';
 import Webcam from "react-webcam";
-import { Button, Grid } from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
 import * as faceapi from 'face-api.js';
 import API, { graphqlOperation } from '@aws-amplify/api';
 import * as subscriptions from './graphql/subscriptions';
@@ -117,7 +117,7 @@ export default class WebCam extends React.Component {
     }
     enableWebcam = () => {
         this.setState({ webcamEnabled: true });
-        this.intervalId = setInterval(this.captureWebcam.bind(this), 3000);
+        this.intervalId = setInterval(this.captureWebcam.bind(this), 1000);
     }
 
     disableWebcam = () => {
@@ -136,7 +136,7 @@ export default class WebCam extends React.Component {
 
         if (this.state.webcamEnabled)
             return (
-                <Grid>
+                <div>
                     <Button onClick={this.disableWebcam}>
                         Disable webcam
                     </Button>
@@ -151,14 +151,14 @@ export default class WebCam extends React.Component {
                      />
                     <img ref={this.image}  className={"hiddenVideo"} alt="webcam buffer screen."/>
                     <canvas ref={this.canvas} width={1280} height={720} className={"hiddenVideo"}/>
-                </Grid>
+                </div>
             );
         else return (
-            <Grid>
+            <div>
                 <Button onClick={()=>this.enableWebcam()}>
                     Enable webcam
                 </Button>
-            </Grid>
+            </div>
         );
     }
 }

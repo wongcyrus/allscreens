@@ -36,29 +36,35 @@ class App extends React.Component {
   render() {
     return (
       <Router>
-        <Grid celled padded style={{height: '100vh'}}>
-          <Grid.Row style={{height: '100%'}}>
-              {this.state.isTeacher ? (
-              <div>
+        {this.state.isTeacher ? (
+          <Grid celled padded>
+            <Grid.Row>
+              <Grid.Column>
+                <Menu secondary>
+                  <Menu.Item as={NavLink} to="/" name="AllScreenView" />
+                  <Menu.Item as={NavLink} to="/ClassRoom" name="ManageClassRoom" />
+                </Menu>
+              </Grid.Column>
+             </Grid.Row>
+            <Grid.Row>
+              <Grid.Column>   
                 <Route path="/" exact component={AllScreenView}/>
                 <Route path="/ClassRoom" exact component={ClassRoom}/>
-                <Grid.Column>
-                  <Menu secondary>
-                    <Menu.Item as={NavLink} to="/" name="AllScreenView" />
-                    <Menu.Item as={NavLink} to="/ClassRoom" name="ManageClassRoom" />
-                  </Menu>
-                </Grid.Column>
-              </div>
-              ):(
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        ):(
+          <Grid celled padded style={{height: '100vh'}}>
+            <Grid.Row>
               <Grid.Column>
                 <Route path="/" exact component={ScreenSharing}/>
                 <WebCam/>
                 <Chatbot/>
                 <VirtualTutor/>
               </Grid.Column>
-              )}
-          </Grid.Row>
-        </Grid>
+             </Grid.Row>
+          </Grid>
+        )}
       </Router>
     );
   }
