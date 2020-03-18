@@ -5,7 +5,7 @@ import Amplify, { Auth } from 'aws-amplify';
 import aws_exports from './aws-exports';
 
 import { withAuthenticator } from 'aws-amplify-react';
-import { Menu, Grid } from 'semantic-ui-react';
+import { Menu, Grid, Divider, Container, Header } from 'semantic-ui-react';
 import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
 import { AmazonAIPredictionsProvider } from '@aws-amplify/predictions';
 
@@ -65,6 +65,19 @@ class App extends React.Component {
              </Grid.Row>
           </Grid>
         )}
+        <Divider inverted section />
+        <Container textAlign='center'>
+          <Grid.Column width={7}>
+            <Header inverted as='h4' content='Footer Header' />
+            <p>
+              Developed by <a href="https://www.vtc.edu.hk/admission/en/programme/it114115-higher-diploma-in-cloud-and-data-centre-administration/" target="_blank" rel="noopener noreferrer">
+              Higher Diploma in Cloud and Data Centre Administration</a> team (Free and opensource).
+              <br/> Learn more - 
+              <a href="https://www.linkedin.com/pulse/how-build-online-learning-platform-engages-educates-wong/" target="_blank" rel="noopener noreferrer">
+              How to build an online learning platform that engages and educates students at scale with Amazon Kendra, Amazon Comprehend, Amazon Translate,and more.</a>
+            </p>
+          </Grid.Column>
+         </Container>
       </Router>
     );
   }
