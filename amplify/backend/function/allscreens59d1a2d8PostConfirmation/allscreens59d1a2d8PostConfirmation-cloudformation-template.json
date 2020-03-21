@@ -101,7 +101,7 @@
 				"Runtime": "nodejs10.x",
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "amplify-allscreens-production-40814-deployment",
+					"S3Bucket": "amplify-allscreens-test-121919-deployment",
 					"S3Key": "amplify-builds/allscreens59d1a2d8PostConfirmation-4545514f645a37564343-build.zip"
 				}
 			}

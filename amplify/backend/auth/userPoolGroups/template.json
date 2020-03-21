@@ -78,7 +78,11 @@
                             "Principal": {
                                 "Federated": "cognito-identity.amazonaws.com"
                             },
-                            "Action": "sts:AssumeRoleWithWebIdentity"
+                            "Action": "sts:AssumeRoleWithWebIdentity",
+                            "Condition": {
+                              "StringEquals": {"cognito-identity.amazonaws.com:aud": {"Ref":"authallscreens59d1a2d8IdentityPoolId"}},
+                              "ForAnyValue:StringLike": {"cognito-identity.amazonaws.com:amr": "authenticated"}
+                            }
                         }
                     ]
                 }
@@ -124,7 +128,11 @@
                             "Principal": {
                                 "Federated": "cognito-identity.amazonaws.com"
                             },
-                            "Action": "sts:AssumeRoleWithWebIdentity"
+                            "Action": "sts:AssumeRoleWithWebIdentity",
+                            "Condition": {
+                              "StringEquals": {"cognito-identity.amazonaws.com:aud": {"Ref":"authallscreens59d1a2d8IdentityPoolId"}},
+                              "ForAnyValue:StringLike": {"cognito-identity.amazonaws.com:amr": "authenticated"}
+                            }
                         }
                     ]
                 }
