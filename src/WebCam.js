@@ -9,6 +9,7 @@ import * as subscriptions from './graphql/subscriptions';
 const MODEL_URL = '/models';
 
 export default class WebCam extends React.Component {
+    _isMounted = false;
 
     constructor(props) {
         super(props);
@@ -26,13 +27,19 @@ export default class WebCam extends React.Component {
     }
 
     async componentDidMount() {
+        this._isMounted = true;
+
         const user = await Auth.currentAuthenticatedUser();
         const email = user.attributes.email;
         console.log(email);
 
         const group = user.signInUserSession.accessToken.payload["cognito:groups"][0];
         console.log(group);
-        this.setState({ isStudent: "students" === group });
+        if (this._isMounted) {
+            this.setState({ isStudent: "students" === group });
+        }
+
+
 
         this.onCreateMessage = API.graphql(
             graphqlOperation(subscriptions.onCreateMessage, { email })
@@ -49,7 +56,7 @@ export default class WebCam extends React.Component {
         if (devices) {
             let webcam = devices.find(c => c.kind === "videoinput" && c.label.toLowerCase().includes("camera"));
             console.log(webcam);
-            if (webcam)
+            if (webcam && this._isMounted)
                 this.setState({ preferredCameraDeviceId: webcam.deviceId });
         }
 
@@ -67,6 +74,7 @@ export default class WebCam extends React.Component {
     }
 
     componentWillUnmount() {
+        this._isMounted = false;
         this.onCreateMessage.unsubscribe();
         clearInterval(this.intervalId);
     }
