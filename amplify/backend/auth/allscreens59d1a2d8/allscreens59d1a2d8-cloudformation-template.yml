@@ -131,7 +131,7 @@ Parameters:
         
   thirdPartyAuth:
     Type: String
-          
+                      
 Conditions:
   ShouldNotCreateEnvResources: !Equals [ !Ref env, NONE ]
 
@@ -208,9 +208,6 @@ Resources:
       
       AutoVerifiedAttributes: !Ref autoVerifiedAttributes
       
-      
-      EmailVerificationMessage: !Ref emailVerificationMessage
-      EmailVerificationSubject: !Ref emailVerificationSubject
             
       Policies:
         PasswordPolicy:
@@ -296,6 +293,9 @@ Resources:
     Properties:
       ClientName: allscr59d1a2d8_app_clientWeb
       
+      ReadAttributes: !Ref userpoolClientReadAttributes
+      WriteAttributes: !Ref userpoolClientWriteAttributes
+      
       RefreshTokenValidity: !Ref userpoolClientRefreshTokenValidity
       UserPoolId: !Ref UserPool
     DependsOn: UserPool
@@ -305,6 +305,9 @@ Resources:
     Type: "AWS::Cognito::UserPoolClient"
     Properties:
       ClientName: allscr59d1a2d8_app_client
+      
+      ReadAttributes: !Ref userpoolClientReadAttributes
+      WriteAttributes: !Ref userpoolClientWriteAttributes
       
       GenerateSecret: !Ref userpoolClientGenerateSecret
       RefreshTokenValidity: !Ref userpoolClientRefreshTokenValidity

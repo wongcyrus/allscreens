@@ -16,6 +16,8 @@ import VirtualTutor from './VirtualTutor';
 import Chatbot from './Chatbot';
 import WebCam from "./WebCam";
 
+
+
 Amplify.configure(aws_exports);
 Amplify.addPluggable(new AmazonAIPredictionsProvider());
 
@@ -30,7 +32,6 @@ class App extends React.Component {
     const group = user.signInUserSession.accessToken.payload["cognito:groups"][0];
     console.log(group);
     this.setState({ isTeacher: "teachers" === group });
-
   }
 
   render() {

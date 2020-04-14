@@ -1,10 +1,10 @@
 {
     "identityPoolName": "allscreens59d1a2d8_identitypool_59d1a2d8",
-    "allowUnauthenticatedIdentities": true,
+    "allowUnauthenticatedIdentities": false,
     "resourceNameTruncated": "allscr59d1a2d8",
     "userPoolName": "allscreens59d1a2d8_userpool_59d1a2d8",
     "autoVerifiedAttributes": [
-        "email"
+        "phone_number"
     ],
     "mfaConfiguration": "OFF",
     "mfaTypes": [
@@ -29,13 +29,22 @@
     "userpoolClientGenerateSecret": true,
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [
-        "email"
+        "email",
+        "phone_number"
     ],
     "userpoolClientReadAttributes": [
-        "email"
+        "email",
+        "family_name",
+        "middle_name",
+        "given_name",
+        "name",
+        "nickname",
+        "phone_number",
+        "preferred_username",
+        "phone_number_verified"
     ],
     "userpoolClientLambdaRole": "allscr59d1a2d8_userpoolclient_lambda_role",
-    "userpoolClientSetAttributes": false,
+    "userpoolClientSetAttributes": true,
     "resourceName": "allscreens59d1a2d8",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {

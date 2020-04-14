@@ -9,6 +9,7 @@ import * as queries from './graphql/queries';
 import * as mutations from './graphql/mutations';
 
 import OnlineReport from './OnlineReport';
+import CallOuts from "./CallOuts";
 
 export default class AllScreenView extends React.Component {
 
@@ -186,13 +187,17 @@ export default class AllScreenView extends React.Component {
                                 <Form.Button onClick={() => this.generateScreenSharingTickets()}>Generate 3 hours Screen Sharing Tickets.</Form.Button>
                                 <Form.Button disabled = {this.state.referesh} onClick={() => this.toggleRefresh()}>Start Auto-refresh.</Form.Button>
                                 <Form.Button disabled = {!this.state.referesh} onClick={() => this.toggleRefresh()}>Stop Auto-refresh.</Form.Button>
-                                {this.state.currentClassroom? (
-                                <OnlineReport currentClassroom={this.state.currentClassroom.name} data={this.state.studentAttendanceRecords}/>
-                                ) : ""}
+                    
                                 <Form.Input icon='search' placeholder='Search...' onChange={(event)=>this.handleSearch(event)}/>
                                 <Form.Button onClick={() => this.clearAllScreenshots()}>Delete cached screenshots.</Form.Button>
                                 <Form.Input placeholder='Message' onChange={(event)=>this.updateMessageToAllStudents(event)}/>
                                 <Form.Button onClick={() => this.sendMessageToAllStudents()}>Send Message to all students.</Form.Button>
+                                {this.state.currentClassroom && this.state.referesh? (
+                                    <OnlineReport currentClassroom={this.state.currentClassroom.name} data={this.state.studentAttendanceRecords}/>
+                                ) : ""}
+                                {this.state.currentClassroom && this.state.referesh? (
+                                    <CallOuts studentAttendanceRecords={this.state.studentAttendanceRecords} studentEmails={this.state.studentEmails} />
+                                ) : ""}
                             </Form.Group>
                         </Form>
                      </Container>

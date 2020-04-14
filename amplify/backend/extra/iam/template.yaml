@@ -2,7 +2,9 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: S3 resource stack creation using Amplify CLI
 Parameters:
-  bucketName:
+  CallsOutQueueArn:
+    Type: String
+  storagescreenshotsBucketName:
     Type: String
   env:
     Type: String
@@ -62,10 +64,7 @@ Resources:
     Properties:
       PolicyName: teacher-group-extra-policy
       Roles:
-      - Fn::Join:
-        - ''
-        - - Ref: authallscreens59d1a2d8UserPoolId
-          - "-teachersGroupRole"
+        - !Sub '${authallscreens59d1a2d8UserPoolId}-teachersGroupRole'
       PolicyDocument:
         Version: '2012-10-17'
         Statement:
@@ -73,4 +72,19 @@ Resources:
           Action:
             - s3:ListBucket
           Resource:
-            - !Join [ "", ["arn:aws:s3:::", !Ref bucketName, !Select [ 3, !Split [ "-", !Ref "AWS::StackName" ]], "-", !Ref env ] ]
+            - !Sub 'arn:aws:s3:::${storagescreenshotsBucketName}'
+        - Effect: Allow
+          Action:
+            - sqs:SendMessage
+          Resource:
+            - !Ref CallsOutQueueArn           
+        - Effect: Allow
+          Action:
+            - cognito-idp:ListUsersInGroup
+            - cognito-idp:GetUser
+          Resource:
+            - !Sub arn:aws:cognito-idp:${AWS::Region}:${AWS::AccountId}:userpool/${authallscreens59d1a2d8UserPoolId} 
+
+Outputs:
+  CallsOutQueueArn:
+    Value: !Ref CallsOutQueueArn
