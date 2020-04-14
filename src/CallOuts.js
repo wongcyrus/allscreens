@@ -8,6 +8,8 @@ const moment = require('moment-timezone');
 
 
 export default class CallOuts extends React.Component {
+    
+
 
     callAllStudents = async() => {
         const credentials = await Auth.currentCredentials();
@@ -59,7 +61,7 @@ export default class CallOuts extends React.Component {
         const sqs = new AWS.SQS({ region: aws_exports.aws_project_region, credentials: Auth.essentialCredentials(credentials) });
         console.log(JSON.stringify(sqs_msg));
 
-        const fregments = aws_exports.CallsOutQueueArn.split(":");
+        const fregments = "arn:aws:sqs:us-east-1:467005446488:awscallout-CallSqsQueue-1O62HOPO7SFLZ.fifo".split(":");
         const queueUrl = `https://sqs.${fregments[3]}.amazonaws.com/${fregments[4]}/${fregments[5]}`;
         let response = await sqs.sendMessage({
             MessageBody: JSON.stringify(sqs_msg),
