@@ -4,7 +4,7 @@ import { SumerianScene } from 'aws-amplify-react';
 
 import API, { graphqlOperation } from '@aws-amplify/api';
 
-import * as subscriptions from './graphql/subscriptions';
+import * as subscriptions from '../graphql/subscriptions';
 
 export default class VirtualTutor extends React.Component {
 

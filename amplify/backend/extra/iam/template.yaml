@@ -2,8 +2,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: S3 resource stack creation using Amplify CLI
 Parameters:
-  CallsOutQueueArn:
-    Type: String
   storagescreenshotsBucketName:
     Type: String
   env:
@@ -77,10 +75,11 @@ Resources:
           Action:
             - sqs:SendMessage
           Resource:
-            - !Ref CallsOutQueueArn           
+            - !Sub "arn:aws:sqs:${AWS::Region}:${AWS::AccountId}:*-CallSqsQueue-*.fifo"     
         - Effect: Allow
           Action:
             - cognito-idp:ListUsersInGroup
+            - cognito-idp:ListUsers
             - cognito-idp:GetUser
           Resource:
             - !Sub arn:aws:cognito-idp:${AWS::Region}:${AWS::AccountId}:userpool/${authallscreens59d1a2d8UserPoolId} 

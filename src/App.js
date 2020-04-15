@@ -9,12 +9,12 @@ import { Menu, Grid, Divider, Container, Header } from 'semantic-ui-react';
 import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
 import { AmazonAIPredictionsProvider } from '@aws-amplify/predictions';
 
-import ScreenSharing from './ScreenSharing';
-import AllScreenView from './AllScreenView';
-import ClassRoom from './ClassRoom';
-import VirtualTutor from './VirtualTutor';
-import Chatbot from './Chatbot';
-import WebCam from "./WebCam";
+import ScreenSharing from './components/ScreenSharing';
+import AllScreenView from './components/AllScreenView';
+import ClassRoom from './components/ClassRoom';
+import VirtualTutor from './components/VirtualTutor';
+import Chatbot from './components/Chatbot';
+import WebCam from "./components/WebCam";
 
 
 

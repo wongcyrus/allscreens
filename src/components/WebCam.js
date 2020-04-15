@@ -4,7 +4,7 @@ import Webcam from "react-webcam";
 import { Button } from 'semantic-ui-react';
 import * as faceapi from 'face-api.js';
 import API, { graphqlOperation } from '@aws-amplify/api';
-import * as subscriptions from './graphql/subscriptions';
+import * as subscriptions from '../graphql/subscriptions';
 
 const MODEL_URL = '/models';
 
@@ -38,8 +38,6 @@ export default class WebCam extends React.Component {
         if (this._isMounted) {
             this.setState({ isStudent: "students" === group });
         }
-
-
 
         this.onCreateMessage = API.graphql(
             graphqlOperation(subscriptions.onCreateMessage, { email })

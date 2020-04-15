@@ -4,8 +4,8 @@ import { Icon, Input, Button, Grid, Message } from 'semantic-ui-react';
 
 import mic from 'microphone-stream';
 
-import aws_exports from './aws-exports';
-import * as subscriptions from './graphql/subscriptions';
+import aws_exports from '../aws-exports';
+import * as subscriptions from '../graphql/subscriptions';
 
 export default class Chatbot extends React.Component {
 

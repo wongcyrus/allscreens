@@ -3,9 +3,9 @@ import { Auth } from 'aws-amplify';
 import API, { graphqlOperation } from '@aws-amplify/api';
 import { Button, Header, Segment, Form, List, Divider } from 'semantic-ui-react';
 
-import * as queries from './graphql/queries';
-import * as mutations from './graphql/mutations';
-import * as subscriptions from './graphql/subscriptions';
+import * as queries from '../graphql/queries';
+import * as mutations from '../graphql/mutations';
+import * as subscriptions from '../graphql/subscriptions';
 
 export default class ClassRoom extends React.Component {
 

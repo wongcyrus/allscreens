@@ -5,8 +5,8 @@ import { Button, Header, Icon, Modal, Container, Segment, Form } from 'semantic-
 
 import API, { graphqlOperation } from '@aws-amplify/api';
 
-import * as queries from './graphql/queries';
-import * as mutations from './graphql/mutations';
+import * as queries from '../graphql/queries';
+import * as mutations from '../graphql/mutations';
 
 import OnlineReport from './OnlineReport';
 import CallOuts from "./CallOuts";
@@ -196,7 +196,7 @@ export default class AllScreenView extends React.Component {
                                     <OnlineReport currentClassroom={this.state.currentClassroom.name} data={this.state.studentAttendanceRecords}/>
                                 ) : ""}
                                 {this.state.currentClassroom && this.state.referesh? (
-                                    <CallOuts studentAttendanceRecords={this.state.studentAttendanceRecords} studentEmails={this.state.studentEmails} />
+                                    <CallOuts studentAttendanceRecords={this.state.studentAttendanceRecords} text="Call absent students"/>
                                 ) : ""}
                             </Form.Group>
                         </Form>
@@ -220,9 +220,10 @@ export default class AllScreenView extends React.Component {
                         <Header icon='browser' content={this.state.email} />
                         <Modal.Content>
                             <Form>
-                                <Form.Group widths='equal'>
-                                    <Form.Input placeholder='Message' onChange={(event)=>this.updatePrivateMessage(event)}/>
-                                    <Form.Button onClick={() => this.sendPrivateMessageToStudent()}>Send Message.</Form.Button>
+                                <Form.Group>
+                                    <Form.Input style={{width: "500px"}} placeholder='Message' onChange={(event)=>this.updatePrivateMessage(event)}/>
+                                    <Form.Button onClick={() => this.sendPrivateMessageToStudent()}>Send Message</Form.Button>
+                                    <CallOuts message={this.state.privateMessage} email={this.state.email} text="Call"/>
                                 </Form.Group>
                             </Form>   
                                     
