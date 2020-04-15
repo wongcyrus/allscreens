@@ -3,6 +3,7 @@ import React from 'react';
 
 import Amplify, { Auth } from 'aws-amplify';
 import aws_exports from './aws-exports';
+import config from './config';
 
 import { withAuthenticator } from 'aws-amplify-react';
 import { Menu, Grid, Divider, Container, Header } from 'semantic-ui-react';
@@ -15,7 +16,6 @@ import ClassRoom from './components/ClassRoom';
 import VirtualTutor from './components/VirtualTutor';
 import Chatbot from './components/Chatbot';
 import WebCam from "./components/WebCam";
-
 
 
 Amplify.configure(aws_exports);
@@ -87,6 +87,6 @@ class App extends React.Component {
 export default withAuthenticator(App, {
   includeGreetings: true,
   signUpConfig: {
-    defaultCountryCode: "852"
+    defaultCountryCode: config.defaultCountryCode
   }
 });
