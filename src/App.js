@@ -43,7 +43,7 @@ class App extends React.Component {
               <Grid.Column>
                 <Menu secondary>
                   <Menu.Item as={NavLink} to="/" name="AllScreenView" />
-                  <Menu.Item as={NavLink} to="/ClassRoom" name="ManageClassRoom" />
+                  <Menu.Item as={NavLink} to="/ClassRoom" name="ManageClassroom" />
                 </Menu>
               </Grid.Column>
              </Grid.Row>

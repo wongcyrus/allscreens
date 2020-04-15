@@ -151,8 +151,8 @@ export default class ScreenSharing extends React.Component {
                     <img ref={this.imageView} style={{display: 'none' }} alt="Right click to save" />
                     <video ref={this.screen} autoPlay style={{display: 'none' }}></video>
                     <Message>Status: {this.state.status}</Message>
-                    <Button disabled = {!this.state.enableStartCapture} onClick={() => this._startCapturing()}>Start screen Sharing</Button>
-                    <Button disabled = {!this.state.enableStopCapture} onClick={() => this._stopCapturing()}>Stop screen Sharing</Button>
+                    <Button disabled = {!this.state.enableStartCapture} onClick={() => this._startCapturing()}>Start screen sharing</Button>
+                    <Button disabled = {!this.state.enableStopCapture} onClick={() => this._stopCapturing()}>Stop screen sharing</Button>
                 </Grid>
             </Segment>
         );

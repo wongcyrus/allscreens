@@ -21,7 +21,7 @@ export default class OnlineReport extends React.Component {
         return (
             <ExcelFile 
                 filename={"OnlineRecords" + this.props.currentClassroom + "-" + getFormattedTime()} 
-                element={<Button>Download Attendance Record.</Button>}
+                element={<Button>Download attendance record</Button>}
             >
                 <ExcelSheet data={this.props.data} name="Online">
                     <ExcelColumn label="Email" value="email"/>

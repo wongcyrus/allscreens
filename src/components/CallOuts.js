@@ -117,7 +117,7 @@ export default class CallOuts extends React.Component {
 
     render() {
         return (
-            <Form.Button onClick={this.call}>
+            <Form.Button disabled={this.props.disabled} onClick={this.call}>
                 {this.props.text}
             </Form.Button>
         );
