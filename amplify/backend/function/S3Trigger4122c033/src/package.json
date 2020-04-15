@@ -7,7 +7,7 @@
   "dependencies": {
     "es6-promise": "^4.2.8",
     "isomorphic-fetch": "^2.2.1",
-    "sharp": "^0.24.0",
+    "sharp": "^0.25.2",
     "image-data-uri": "^2.0.1"
   }
 }

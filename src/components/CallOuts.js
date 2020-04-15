@@ -20,7 +20,7 @@ export default class CallOuts extends React.Component {
         ]));
 
         console.log(this.props);
-        if (this.props.studentAttendanceRecords) {
+        if (this.props.studentAttendanceRecords || this.props.studentEmails) {
             const getStudents = async(nextToken) => {
                 const params = {
                     GroupName: 'students',
@@ -36,29 +36,41 @@ export default class CallOuts extends React.Component {
                     return response.Users;
             };
             const allStudents = await getStudents();
-            const emailAndPhoneMap = getEmailAndUserMap(allStudents);
-            const absentStudentEmailList = this.props.studentAttendanceRecords.filter(s => s.isOnline === "false").map(c => emailAndPhoneMap.get(c.email));
-            console.log(absentStudentEmailList);
+            const emailAndUserMap = getEmailAndUserMap(allStudents);
 
-            const receivers = absentStudentEmailList.map((student, index) => {
-                return {
-                    id: `CallAbsentStudents_${moment().unix()}_${index}`,
-                    receiver_id: "Student" + index,
-                    username: student.username,
-                    phone_number: student.phone
+            console.log(emailAndUserMap);
+
+            let receivers;
+            let message;
+            let students;
+            if (this.props.studentAttendanceRecords) {
+                students = this.props.studentAttendanceRecords.filter(s => s.isOnline === "false").map(c => emailAndUserMap.get(c.email));
+                message = "Please attend your lab class and share your screen to your teacher.";
+            }
+            else if (this.props.studentEmails && this.props.message) {
+                students = this.props.studentEmails.map(c => emailAndUserMap.get(c));
+                message = this.props.message;
+            }
+            if (students && message) {
+                receivers = students.map((student, index) => {
+                    return {
+                        id: `CallAbsentStudents_${moment().unix()}_${index}`,
+                        receiver_id: "Student" + index,
+                        username: student.username,
+                        phone_number: student.phone
+                    };
+                });
+                sqs_msg = {
+                    task_id: `CallStudents${moment().unix()}`,
+                    greeting: "Hi {{ username }},",
+                    ending: "Good Bye {{ username }} and have a nice day!",
+                    questions: [{
+                        question_template: message,
+                        question_type: "OK"
+                    }],
+                    receivers: receivers
                 };
-            });
-
-            sqs_msg = {
-                task_id: `CallStudents${moment().unix()}`,
-                greeting: "Hi {{ username }},",
-                ending: "Good Bye {{ username }} and have a nice day!",
-                questions: [{
-                    question_template: "Please attend your lab class and share your screen to your teacher.",
-                    question_type: "OK"
-                }],
-                receivers: receivers
-            };
+            }
         }
         else if (this.props.message && this.props.email) {
             const params = {

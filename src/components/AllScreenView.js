@@ -184,16 +184,22 @@ export default class AllScreenView extends React.Component {
                         <Form>
                             <Form.Group widths='equal'>
                                 <Form.Select placeholder='Select your classroom' options={classrooms} onChange={(event)=>this.onClassroomSelectChange(event)}/>
-                                <Form.Button onClick={() => this.generateScreenSharingTickets()}>Generate 3 hours Screen Sharing Tickets.</Form.Button>
-                                <Form.Button disabled = {this.state.referesh} onClick={() => this.toggleRefresh()}>Start Auto-refresh.</Form.Button>
-                                <Form.Button disabled = {!this.state.referesh} onClick={() => this.toggleRefresh()}>Stop Auto-refresh.</Form.Button>
-                    
+                                <Form.Button onClick={() => this.generateScreenSharingTickets()}>Generate 3 hours screen sharing tickets</Form.Button>
+                                <Form.Button disabled = {this.state.referesh} onClick={() => this.toggleRefresh()}>Start auto-refresh</Form.Button>
+                                <Form.Button disabled = {!this.state.referesh} onClick={() => this.toggleRefresh()}>Stop auto-refresh</Form.Button>
                                 <Form.Input icon='search' placeholder='Search...' onChange={(event)=>this.handleSearch(event)}/>
                                 <Form.Button onClick={() => this.clearAllScreenshots()}>Delete cached screenshots.</Form.Button>
-                                <Form.Input placeholder='Message' onChange={(event)=>this.updateMessageToAllStudents(event)}/>
-                                <Form.Button onClick={() => this.sendMessageToAllStudents()}>Send Message to all students.</Form.Button>
+                                {this.state.currentClassroom? (
+                                    <Form.Input placeholder='Message' onChange={(event)=>this.updateMessageToAllStudents(event)}/>
+                                ) : ""}
+                                {this.state.currentClassroom? (
+                                    <Form.Button onClick={() => this.sendMessageToAllStudents()}>Send message to all students.</Form.Button>
+                                ) : ""}
                                 {this.state.currentClassroom && this.state.referesh? (
                                     <OnlineReport currentClassroom={this.state.currentClassroom.name} data={this.state.studentAttendanceRecords}/>
+                                ) : ""}
+                                {this.state.currentClassroom? (
+                                    <CallOuts studentEmails={this.state.studentEmails} message={this.state.message} text="Call all students"/>
                                 ) : ""}
                                 {this.state.currentClassroom && this.state.referesh? (
                                     <CallOuts studentAttendanceRecords={this.state.studentAttendanceRecords} text="Call absent students"/>
