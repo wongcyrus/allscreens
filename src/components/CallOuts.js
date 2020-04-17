@@ -61,7 +61,10 @@ export default class CallOuts extends React.Component {
             else if (this.props.studentEmails && this.props.questions) {
                 students = this.props.studentEmails.map(c => emailAndUserMap.get(c));
             }
-
+            console.log(this.props.studentEmails);
+            console.log(students);
+            students = students.filter(s=>s!==undefined);
+            console.log(students);
             if (students) {
                 receivers = students.map((student, index) => {
                     return {
