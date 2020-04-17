@@ -20,6 +20,12 @@ export default class CallOuts extends React.Component {
         ]));
 
         console.log(this.props);
+
+        if (this.props.preCallhook) {
+            let isValid = this.props.preCallhook();
+            if (!isValid) return;
+        }
+
         if (this.props.studentAttendanceRecords || this.props.studentEmails) {
             const getStudents = async(nextToken) => {
                 const params = {
@@ -43,15 +49,20 @@ export default class CallOuts extends React.Component {
             let receivers;
             let message;
             let students;
-            if (this.props.studentAttendanceRecords) {
+            let questions = this.props.questions;
+            if (this.props.studentAttendanceRecords) { //Call absent student
                 students = this.props.studentAttendanceRecords.filter(s => s.isOnline === "false").map(c => emailAndUserMap.get(c.email));
                 message = "Please attend your lab class and share your screen to your teacher.";
             }
-            else if (this.props.studentEmails && this.props.message) {
+            else if (this.props.studentEmails && this.props.message) { //Call whole call with simple message.
                 students = this.props.studentEmails.map(c => emailAndUserMap.get(c));
                 message = this.props.message;
             }
-            if (students && message) {
+            else if (this.props.studentEmails && this.props.questions) {
+                students = this.props.studentEmails.map(c => emailAndUserMap.get(c));
+            }
+
+            if (students) {
                 receivers = students.map((student, index) => {
                     return {
                         id: `CallAbsentStudents_${moment().unix()}_${index}`,
@@ -60,19 +71,31 @@ export default class CallOuts extends React.Component {
                         phone_number: student.phone
                     };
                 });
-                sqs_msg = {
-                    task_id: `CallStudents${moment().unix()}`,
-                    greeting: "Hi {{ username }},",
-                    ending: "Good Bye {{ username }} and have a nice day!",
-                    questions: [{
-                        question_template: message,
-                        question_type: "OK"
-                    }],
-                    receivers: receivers
-                };
+                if (message) {
+                    sqs_msg = {
+                        task_id: `CallStudents${moment().unix()}`,
+                        greeting: "Hi {{ username }},",
+                        ending: "Good Bye {{ username }} and have a nice day!",
+                        questions: [{
+                            question_template: message,
+                            question_type: "OK"
+                        }],
+                        receivers
+                    };
+                }
+                else if (questions) {
+                    sqs_msg = {
+                        task_id: `CallStudents${moment().unix()}`,
+                        greeting: "Hi {{ username }},",
+                        ending: "Good Bye {{ username }} and have a nice day!",
+                        questions,
+                        receivers
+                    };
+                }
             }
+
         }
-        else if (this.props.message && this.props.email) {
+        else if (this.props.message && this.props.email) { //Individual call case
             const params = {
                 UserPoolId: aws_exports.aws_user_pools_id,
                 Filter: `email="${this.props.email}"`,
@@ -99,6 +122,7 @@ export default class CallOuts extends React.Component {
                 }]
             };
         }
+
 
         if (sqs_msg) {
             const sqs = new AWS.SQS({ region: aws_exports.aws_project_region, credentials: Auth.essentialCredentials(credentials) });

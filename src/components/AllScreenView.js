@@ -10,13 +10,15 @@ import * as mutations from '../graphql/mutations';
 
 import OnlineReport from './OnlineReport';
 import CallOuts from "./CallOuts";
+import CallQuzz from "./CallQuzz";
 
 export default class AllScreenView extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            modalOpen: false,
+            modalLargeViewOpen: false,
+            modalQuestionViewOpen: false,
             count: 0,
             referesh: false,
             searchKeyword: undefined,
@@ -51,14 +53,12 @@ export default class AllScreenView extends React.Component {
         let email = e.key.split("/")[1];
         let fullSizeKey = "fullsize/" + e.key.split("/")[1] + "/" + e.key.split("/")[2];
         this.setState({ fullSizeKey, email });
-        this.setState({ modalOpen: true });
+        this.setState({ modalLargeViewOpen: true });
     }
 
     toggleRefresh() {
         this.setState(({ referesh }) => ({ referesh: !referesh }));
     }
-
-    handleClose = () => this.setState({ modalOpen: false })
 
     filter = item => {
         if (this.state.searchKeyword) {
@@ -136,12 +136,13 @@ export default class AllScreenView extends React.Component {
         this.setState({ message: event.target.value });
     }
 
-    sendMessageToAllStudents = async(event) => {
-        const studentEmails = this.state.studentEmails;
-        const content = `<mark name="gesture:wave"/>${this.state.message}<break time="1000ms"/>`;
+    sendMessageToAllStudentsHandler = async(event) => {
+        this.sendMessageToAllStudents(this.state.studentEmails,this.state.message);
+    }
+
+    sendMessageToAllStudents = async(studentEmails, message) => {
+        const content = `<mark name="gesture:wave"/>${message}<break time="1000ms"/>`;
         console.log("sendMessageToAllStudents");
-
-
         let createMessage = async(email) => await API.graphql(graphqlOperation(mutations.createMessage, {
             input: {
                 email,
@@ -150,6 +151,7 @@ export default class AllScreenView extends React.Component {
         }));
         studentEmails.map(createMessage);
     }
+
 
     updatePrivateMessage = (event) => {
         console.log(event.target.value);
@@ -169,10 +171,6 @@ export default class AllScreenView extends React.Component {
     }
 
     render() {
-        let imageStyle = {
-            maxWidth: "80%",
-            maxHeight: "80%"
-        };
         let classrooms = this.state.classrooms.map(c => { return { key: c.name, value: c.name, text: c.name } });
         classrooms = classrooms.sort((a, b) => (a.key > b.key) ? 1 : -1);
         return (
@@ -190,10 +188,12 @@ export default class AllScreenView extends React.Component {
                                 <Form.Input icon='search' placeholder='Search...' onChange={(event)=>this.handleSearch(event)}/>
                                 <Form.Button onClick={() => this.clearAllScreenshots()}>Delete cached screenshots</Form.Button>
                                 <Form.Input disabled={this.state.currentClassroom === undefined}  placeholder='Message' onChange={(event)=>this.updateMessageToAllStudents(event)}/>
-                                <Form.Button disabled={this.state.currentClassroom === undefined} onClick={() => this.sendMessageToAllStudents()}>Send message to all students</Form.Button>
-
+                                <Form.Button disabled={this.state.currentClassroom === undefined} onClick={() => this.sendMessageToAllStudentsHandler()}>Message all students</Form.Button>
                                 <CallOuts disabled={this.state.currentClassroom === undefined} studentEmails={this.state.studentEmails} message={this.state.message} text="Call all students"/>
-                                <CallOuts disabled={this.state.currentClassroom === undefined} studentAttendanceRecords={this.state.studentAttendanceRecords} text="Call absent students"/>
+                                <Form.Button disabled={this.state.currentClassroom === undefined} onClick={() =>{ this.setState({ modalQuestionViewOpen: true })}}>Quzze</Form.Button>
+                                {this.state.currentClassroom && this.state.referesh? (
+                                    <CallOuts disabled={this.state.currentClassroom === undefined} studentAttendanceRecords={this.state.studentAttendanceRecords} text="Call absent students"/>
+                                ) : ""}
                                 {this.state.currentClassroom && this.state.referesh? (
                                     <OnlineReport currentClassroom={this.state.currentClassroom.name} data={this.state.studentAttendanceRecords}/>
                                 ) : ""}
@@ -211,8 +211,8 @@ export default class AllScreenView extends React.Component {
                         sort={(item)=>this.sort(item)}
                     />
                     <Modal
-                        open={this.state.modalOpen}
-                        onClose={this.handleClose}
+                        open={this.state.modalLargeViewOpen}
+                        onClose={() => this.setState({ modalLargeViewOpen: false })}
                         closeIcon
                         size='fullscreen'
                     >
@@ -225,11 +225,12 @@ export default class AllScreenView extends React.Component {
                                     <CallOuts message={this.state.privateMessage} email={this.state.email} text="Call"/>
                                 </Form.Group>
                             </Form>   
-                                    
                             <S3Image 
                                 level="public" 
                                 imgKey={this.state.fullSizeKey} 
-                                style={imageStyle}
+                                theme={{
+                                    photoImg: { maxWidth: "100%", maxHeight: "100%" }
+                                }}
                             />
                         </Modal.Content>
                         <Modal.Actions>
@@ -238,6 +239,22 @@ export default class AllScreenView extends React.Component {
                           </Button>
                         </Modal.Actions>
                     </Modal>
+                    <Modal
+                        open={this.state.modalQuestionViewOpen}
+                        onClose={() => this.setState({ modalQuestionViewOpen: false })}
+                        closeIcon
+                        size='fullscreen'
+                    >
+                        <Header icon='browser' content={this.state.email} />
+                        <Modal.Content>
+                            <CallQuzz sendMessageToAllStudents={this.sendMessageToAllStudents} studentEmails={this.state.studentEmails} />
+                        </Modal.Content>
+                        <Modal.Actions>
+                          <Button color='green' onClick={this.handleClose} inverted>
+                            <Icon name='checkmark' /> Close it
+                          </Button>
+                        </Modal.Actions>
+                    </Modal>                    
                </div>
            </Segment>
         );
