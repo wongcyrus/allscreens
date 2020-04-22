@@ -8,6 +8,6 @@
         "Ref": "UnauthRoleName"
     },
     "interpretType": "interpretText",
-    "type": "SENTIMENT",
+    "type": "ALL",
     "access": "auth"
 }

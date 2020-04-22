@@ -190,7 +190,7 @@ export default class AllScreenView extends React.Component {
                                 <Form.Input disabled={this.state.currentClassroom === undefined}  placeholder='Message' onChange={(event)=>this.updateMessageToAllStudents(event)}/>
                                 <Form.Button disabled={this.state.currentClassroom === undefined} onClick={() => this.sendMessageToAllStudentsHandler()}>Message all students</Form.Button>
                                 <CallOuts disabled={this.state.currentClassroom === undefined} studentEmails={this.state.studentEmails} message={this.state.message} text="Call all students"/>
-                                <Form.Button disabled={this.state.currentClassroom === undefined} onClick={() =>{ this.setState({ modalQuestionViewOpen: true })}}>Quzze</Form.Button>
+                                <Form.Button disabled={this.state.currentClassroom === undefined} onClick={() =>{ this.setState({ modalQuestionViewOpen: true })}}>Quiz</Form.Button>
                                 {this.state.currentClassroom && this.state.referesh? (
                                     <CallOuts disabled={this.state.currentClassroom === undefined} studentAttendanceRecords={this.state.studentAttendanceRecords} text="Call absent students"/>
                                 ) : ""}

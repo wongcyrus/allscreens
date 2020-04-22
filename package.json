@@ -7,7 +7,7 @@
     "@testing-library/jest-dom": "^5.5.0",
     "@testing-library/react": "^10.0.2",
     "@testing-library/user-event": "^10.0.1",
-    "aws-amplify": "^3.0.7",
+    "aws-amplify": "^3.0.8",
     "aws-amplify-react": "^4.1.6",
     "aws-sdk": "^2.656.0",
     "es6-promise": "^4.2.8",
