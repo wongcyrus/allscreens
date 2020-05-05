@@ -4,6 +4,7 @@
     "resourceNameTruncated": "allscr59d1a2d8",
     "userPoolName": "allscreens59d1a2d8_userpool_59d1a2d8",
     "autoVerifiedAttributes": [
+        "email",
         "phone_number"
     ],
     "mfaConfiguration": "OFF",

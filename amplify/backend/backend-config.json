@@ -3,7 +3,8 @@
         "allscreens59d1a2d8": {
             "service": "Cognito",
             "providerPlugin": "awscloudformation",
-            "dependsOn": [{
+            "dependsOn": [
+                {
                     "category": "function",
                     "resourceName": "allscreens59d1a2d8PreSignup",
                     "triggerProvider": "Cognito",
@@ -27,16 +28,18 @@
         "userPoolGroups": {
             "service": "Cognito-UserPool-Groups",
             "providerPlugin": "awscloudformation",
-            "dependsOn": [{
-                "category": "auth",
-                "resourceName": "allscreens59d1a2d8",
-                "attributes": [
-                    "UserPoolId",
-                    "AppClientIDWeb",
-                    "AppClientID",
-                    "IdentityPoolId"
-                ]
-            }]
+            "dependsOn": [
+                {
+                    "category": "auth",
+                    "resourceName": "allscreens59d1a2d8",
+                    "attributes": [
+                        "UserPoolId",
+                        "AppClientIDWeb",
+                        "AppClientID",
+                        "IdentityPoolId"
+                    ]
+                }
+            ]
         }
     },
     "function": {
@@ -65,7 +68,8 @@
         "screenshots": {
             "service": "S3",
             "providerPlugin": "awscloudformation",
-            "dependsOn": [{
+            "dependsOn": [
+                {
                     "category": "function",
                     "resourceName": "S3Trigger4122c033",
                     "attributes": [
@@ -117,7 +121,8 @@
         "kendraApi": {
             "service": "API Gateway",
             "providerPlugin": "awscloudformation",
-            "dependsOn": [{
+            "dependsOn": [
+                {
                     "category": "function",
                     "resourceName": "searchKendra",
                     "attributes": [
@@ -151,7 +156,8 @@
     "extra": {
         "iam": {
             "providerPlugin": "awscloudformation",
-            "dependsOn": [{
+            "dependsOn": [
+                {
                     "category": "storage",
                     "resourceName": "screenshots",
                     "attributes": [

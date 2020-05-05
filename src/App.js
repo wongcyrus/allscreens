@@ -86,6 +86,7 @@ class App extends React.Component {
 
 export default withAuthenticator(App, {
   includeGreetings: true,
+  usernameAttributes: 'email',
   signUpConfig: {
     defaultCountryCode: config.defaultCountryCode
   }
