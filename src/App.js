@@ -88,6 +88,10 @@ export default withAuthenticator(App, {
   includeGreetings: true,
   usernameAttributes: 'email',
   signUpConfig: {
-    defaultCountryCode: config.defaultCountryCode
+    defaultCountryCode: config.defaultCountryCode,
+    hideDefaults: true,
+    signUpFields: [
+      { label: 'Name', key: 'name', required: true, displayOrder: 0, type: 'string' }
+    ],
   }
 });

@@ -78,7 +78,7 @@
 				"Runtime": "nodejs10.x",
 				"Timeout": "300",
 				"Code": {
-					"S3Bucket": "amplify-allscreens-production-40814-deployment",
+					"S3Bucket": "amplify-allscreens-summer-54043-deployment",
 					"S3Key": "amplify-builds/virtualtutorlex-4e306a65713437626567-build.zip"
 				}
 			}

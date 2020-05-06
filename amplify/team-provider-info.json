@@ -13,18 +13,18 @@
         },
         "categories": {
             "auth": {
-                "allscreens59d1a2d8": {},
+                "allscreens6e0c57a0": {},
                 "userPoolGroups": {}
             },
             "function": {
-                "allscreens59d1a2d8PreSignup": {
+                "allscreens6e0c57a0PreSignup": {
                     "DOMAINWHITELIST": "vtc.edu.hk,stu.vtc.edu.hk"
                 },
-                "allscreens59d1a2d8PostConfirmation": {
+                "allscreens6e0c57a0PostConfirmation": {
                     "GROUP": "students"
                 },
                 "S3Trigger4122c033": {},
-                "allscreens59d1a2d8": {},
+                "allscreens6e0c57a0": {},
                 "screenshots": {},
                 "userPoolGroups": {},
                 "searchKendra": {}
@@ -52,22 +52,95 @@
             "AmplifyAppId": "d2l221pdutuhiq"
         },
         "categories": {
+            "function": {
+                "S3Trigger4122c033": {},
+                "allscreens6e0c57a0": {},
+                "screenshots": {},
+                "userPoolGroups": {},
+                "searchKendra": {},
+                "allscreens6e0c57a0PostConfirmation": {
+                    "GROUP": "students"
+                },
+                "allscreens6e0c57a0PreSignup": {
+                    "DOMAINWHITELIST": "vtc.edu.hk,stu.vtc.edu.hk"
+                }
+            },
+            "xr": {
+                "VirtualTutor": {
+                    "url": "https://sumerian.us-east-1.amazonaws.com/20180801/projects/Drafts-assumed-role%2FCrossAccountSignin%2Fcyrus/release/authTokens?sceneId=6ee1bb051bfe4cd59c39a22f4affd16c.scene",
+                    "sceneId": "6ee1bb051bfe4cd59c39a22f4affd16c.scene",
+                    "region": "us-east-1",
+                    "projectName": "Drafts-assumed-role/CrossAccountSignin/cyrus"
+                }
+            },
             "auth": {
-                "allscreens59d1a2d8": {},
+                "allscreens6e0c57a0": {}
+            }
+        }
+    },
+    "summersem": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-allscreens-summersem-84716-authRole",
+            "UnauthRoleArn": "arn:aws:iam::467005446488:role/amplify-allscreens-summersem-84716-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::467005446488:role/amplify-allscreens-summersem-84716-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-allscreens-summersem-84716-deployment",
+            "UnauthRoleName": "amplify-allscreens-summersem-84716-unauthRole",
+            "StackName": "amplify-allscreens-summersem-84716",
+            "StackId": "arn:aws:cloudformation:us-east-1:467005446488:stack/amplify-allscreens-summersem-84716/0661a390-8ead-11ea-8196-0ef7f3f34731",
+            "AmplifyAppId": "d2l221pdutuhiq"
+        },
+        "categories": {
+            "auth": {
+                "allscreens6e0c57a0": {},
                 "userPoolGroups": {}
             },
             "function": {
-                "allscreens59d1a2d8PreSignup": {
-                    "DOMAINWHITELIST": "vtc.edu.hk,stu.vtc.edu.hk"
-                },
-                "allscreens59d1a2d8PostConfirmation": {
+                "S3Trigger4122c033": {},
+                "searchKendra": {},
+                "allscreens6e0c57a0PostConfirmation": {
                     "GROUP": "students"
                 },
+                "allscreens6e0c57a0PreSignup": {
+                    "DOMAINWHITELIST": "stu.vtc.edu.hk,vtc.edu.hk"
+                }
+            },
+            "xr": {
+                "VirtualTutor": {
+                    "url": "https://sumerian.us-east-1.amazonaws.com/20180801/projects/Drafts-assumed-role%2FCrossAccountSignin%2Fcyrus/release/authTokens?sceneId=6ee1bb051bfe4cd59c39a22f4affd16c.scene",
+                    "sceneId": "6ee1bb051bfe4cd59c39a22f4affd16c.scene",
+                    "region": "us-east-1",
+                    "projectName": "Drafts-assumed-role/CrossAccountSignin/cyrus"
+                }
+            }
+        }
+    },
+    "summer": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-allscreens-summer-54043-authRole",
+            "UnauthRoleArn": "arn:aws:iam::467005446488:role/amplify-allscreens-summer-54043-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::467005446488:role/amplify-allscreens-summer-54043-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-allscreens-summer-54043-deployment",
+            "UnauthRoleName": "amplify-allscreens-summer-54043-unauthRole",
+            "StackName": "amplify-allscreens-summer-54043",
+            "StackId": "arn:aws:cloudformation:us-east-1:467005446488:stack/amplify-allscreens-summer-54043/21897080-8f5c-11ea-97f0-12878b97cc21",
+            "AmplifyAppId": "d2l221pdutuhiq"
+        },
+        "categories": {
+            "auth": {
+                "allscreens6e0c57a0": {},
+                "userPoolGroups": {}
+            },
+            "function": {
                 "S3Trigger4122c033": {},
-                "allscreens59d1a2d8": {},
-                "screenshots": {},
-                "userPoolGroups": {},
-                "searchKendra": {}
+                "searchKendra": {},
+                "allscreens6e0c57a0PostConfirmation": {
+                    "GROUP": "students"
+                },
+                "allscreens6e0c57a0PreSignup": {
+                    "DOMAINWHITELIST": "stu.vtc.edu.hk,vtc.edu.hk"
+                }
             },
             "xr": {
                 "VirtualTutor": {

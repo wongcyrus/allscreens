@@ -11,23 +11,23 @@ Parameters:
   
   
   
-  functionallscreens59d1a2d8PreSignupArn: 
+  functionallscreens6e0c57a0PostConfirmationArn: 
     Type: String
-    Default: functionallscreens59d1a2d8PreSignupArn
+    Default: functionallscreens6e0c57a0PostConfirmationArn
   
-  functionallscreens59d1a2d8PreSignupName: 
+  functionallscreens6e0c57a0PostConfirmationName: 
     Type: String
-    Default: functionallscreens59d1a2d8PreSignupName
+    Default: functionallscreens6e0c57a0PostConfirmationName
   
   
   
-  functionallscreens59d1a2d8PostConfirmationArn: 
+  functionallscreens6e0c57a0PreSignupArn: 
     Type: String
-    Default: functionallscreens59d1a2d8PostConfirmationArn
+    Default: functionallscreens6e0c57a0PreSignupArn
   
-  functionallscreens59d1a2d8PostConfirmationName: 
+  functionallscreens6e0c57a0PreSignupName: 
     Type: String
-    Default: functionallscreens59d1a2d8PostConfirmationName
+    Default: functionallscreens6e0c57a0PreSignupName
   
   
   
@@ -105,31 +105,34 @@ Parameters:
   useDefault:
     Type: String
                       
-  userPoolGroupList:
+  usernameAttributes:
     Type: CommaDelimitedList
-              
-  dependsOn:
-    Type: CommaDelimitedList
-        
-  userPoolGroups:
-    Type: String
-              
-  adminQueries:
-    Type: String
-            
+      
   triggers:
     Type: String
-                
-  hostedUI:
-    Type: String
-                  
+                      
+  userPoolGroupList:
+    Type: CommaDelimitedList
+            
   parentStack:
     Type: String
                 
   permissions:
     Type: CommaDelimitedList
+              
+  dependsOn:
+    Type: CommaDelimitedList
         
   thirdPartyAuth:
+    Type: String
+              
+  userPoolGroups:
+    Type: String
+              
+  adminQueries:
+    Type: String
+              
+  hostedUI:
     Type: String
                       
 Conditions:
@@ -143,7 +146,7 @@ Resources:
   # Created to allow the UserPool SMS Config to publish via the Simple Notification Service during MFA Process
     Type: AWS::IAM::Role
     Properties:
-      RoleName: !If [ShouldNotCreateEnvResources, 'allscr59d1a2d8_sns-role', !Join ['',[ 'sns', !Select [3, !Split ['-', !Ref 'AWS::StackName']], '-', !Ref env]]]
+      RoleName: !If [ShouldNotCreateEnvResources, 'allscr6e0c57a0_sns-role', !Join ['',[ 'sns', !Select [3, !Split ['-', !Ref 'AWS::StackName']], '-', !Ref env]]]
       AssumeRolePolicyDocument: 
         Version: "2012-10-17"
         Statement: 
@@ -155,10 +158,10 @@ Resources:
               - "sts:AssumeRole"
             Condition: 
               StringEquals:
-                sts:ExternalId: allscr59d1a2d8_role_external_id
+                sts:ExternalId: allscr6e0c57a0_role_external_id
       Policies: 
         - 
-          PolicyName: allscr59d1a2d8-sns-policy
+          PolicyName: allscr6e0c57a0-sns-policy
           PolicyDocument: 
             Version: "2012-10-17"
             Statement: 
@@ -196,11 +199,11 @@ Resources:
         
         
         
-          PostConfirmation: !Ref functionallscreens59d1a2d8PostConfirmationArn
+          PostConfirmation: !Ref functionallscreens6e0c57a0PostConfirmationArn
         
         
         
-          PreSignUp: !Ref functionallscreens59d1a2d8PreSignupArn
+          PreSignUp: !Ref functionallscreens6e0c57a0PreSignupArn
         
         
         
@@ -219,12 +222,14 @@ Resources:
           RequireNumbers: true
           RequireSymbols: true
           RequireUppercase: true
+      
+      UsernameAttributes: !Ref usernameAttributes
           
       MfaConfiguration: !Ref mfaConfiguration
       SmsVerificationMessage: !Ref smsVerificationMessage
       SmsConfiguration: 
         SnsCallerArn: !GetAtt SNSRole.Arn
-        ExternalId: allscr59d1a2d8_role_external_id
+        ExternalId: allscr6e0c57a0_role_external_id
     
   
     
@@ -238,7 +243,7 @@ Resources:
     Properties: 
       Action: "lambda:invokeFunction"
       Principal: "cognito-idp.amazonaws.com"
-      FunctionName: !Ref functionallscreens59d1a2d8PostConfirmationName
+      FunctionName: !Ref functionallscreens6e0c57a0PostConfirmationName
       SourceArn: !GetAtt UserPool.Arn
     
   
@@ -249,7 +254,7 @@ Resources:
     Properties: 
       Action: "lambda:invokeFunction"
       Principal: "cognito-idp.amazonaws.com"
-      FunctionName: !Ref functionallscreens59d1a2d8PreSignupName
+      FunctionName: !Ref functionallscreens6e0c57a0PreSignupName
       SourceArn: !GetAtt UserPool.Arn
   
    
@@ -257,10 +262,10 @@ Resources:
   # Updating lambda role with permissions to Cognito
   
   
-  allscreens59d1a2d8PostConfirmationAddToGroupCognito:
+  allscreens6e0c57a0PostConfirmationAddToGroupCognito:
     Type: AWS::IAM::Policy
     Properties:
-      PolicyName: allscreens59d1a2d8PostConfirmationAddToGroupCognito
+      PolicyName: allscreens6e0c57a0PostConfirmationAddToGroupCognito
       PolicyDocument:
         Version: '2012-10-17'
         Statement:
@@ -285,7 +290,7 @@ Resources:
             
 
       Roles:
-        - !Join ['',["allscreens59d1a2d8PostConfirmation", '-', !Ref env]]
+        - !Join ['',["allscreens6e0c57a0PostConfirmation", '-', !Ref env]]
   
   
   
@@ -294,7 +299,7 @@ Resources:
   # Depends on UserPool for ID reference
     Type: "AWS::Cognito::UserPoolClient"
     Properties:
-      ClientName: allscr59d1a2d8_app_clientWeb
+      ClientName: allscr6e0c57a0_app_clientWeb
       
       ReadAttributes: !Ref userpoolClientReadAttributes
       WriteAttributes: !Ref userpoolClientWriteAttributes
@@ -307,7 +312,7 @@ Resources:
   # Depends on UserPool for ID reference
     Type: "AWS::Cognito::UserPoolClient"
     Properties:
-      ClientName: allscr59d1a2d8_app_client
+      ClientName: allscr6e0c57a0_app_client
       
       ReadAttributes: !Ref userpoolClientReadAttributes
       WriteAttributes: !Ref userpoolClientWriteAttributes
@@ -375,7 +380,7 @@ Resources:
   # Marked as depending on UserPoolClientRole for easier to understand CFN sequencing
     Type: 'AWS::IAM::Policy'
     Properties:
-      PolicyName: allscr59d1a2d8_userpoolclient_lambda_iam_policy
+      PolicyName: allscr6e0c57a0_userpoolclient_lambda_iam_policy
       Roles: 
         - !Ref UserPoolClientRole
       PolicyDocument:
@@ -392,7 +397,7 @@ Resources:
   # Marked as depending on UserPoolClientLambdaPolicy for easier to understand CFN sequencing
     Type: 'AWS::IAM::Policy'
     Properties:
-      PolicyName: allscr59d1a2d8_userpoolclient_lambda_log_policy
+      PolicyName: allscr6e0c57a0_userpoolclient_lambda_log_policy
       Roles: 
         - !Ref UserPoolClientRole
       PolicyDocument:
@@ -432,7 +437,7 @@ Resources:
   # Always created
     Type: AWS::Cognito::IdentityPool
     Properties: 
-      IdentityPoolName: !If [ShouldNotCreateEnvResources, 'allscreens59d1a2d8_identitypool_59d1a2d8', !Join ['',['allscreens59d1a2d8_identitypool_59d1a2d8', '__', !Ref env]]]
+      IdentityPoolName: !If [ShouldNotCreateEnvResources, 'allscreens6e0c57a0_identitypool_6e0c57a0', !Join ['',['allscreens6e0c57a0_identitypool_6e0c57a0', '__', !Ref env]]]
       
       CognitoIdentityProviders:
         - ClientId:  !Ref UserPoolClient

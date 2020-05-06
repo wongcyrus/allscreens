@@ -14,7 +14,7 @@
     ],
     "resourceName": "kendraApi",
     "apiName": "kendraApi",
-    "authResourceName": "allscreens59d1a2d8",
+    "authResourceName": "allscreens6e0c57a0",
     "functionArns": [
         {
             "lambdaFunction": "searchKendra"
@@ -37,7 +37,7 @@
         },
         {
             "category": "auth",
-            "resourceName": "allscreens59d1a2d8",
+            "resourceName": "allscreens6e0c57a0",
             "attributes": [
                 "UserPoolId"
             ]

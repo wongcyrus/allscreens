@@ -1,11 +1,10 @@
 {
-    "identityPoolName": "allscreens59d1a2d8_identitypool_59d1a2d8",
+    "identityPoolName": "allscreens6e0c57a0_identitypool_6e0c57a0",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "allscr59d1a2d8",
-    "userPoolName": "allscreens59d1a2d8_userpool_59d1a2d8",
+    "resourceNameTruncated": "allscr6e0c57a0",
+    "userPoolName": "allscreens6e0c57a0_userpool_6e0c57a0",
     "autoVerifiedAttributes": [
-        "email",
-        "phone_number"
+        "email"
     ],
     "mfaConfiguration": "OFF",
     "mfaTypes": [
@@ -30,23 +29,18 @@
     "userpoolClientGenerateSecret": true,
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [
+        "name",
         "email",
         "phone_number"
     ],
     "userpoolClientReadAttributes": [
         "email",
-        "family_name",
-        "middle_name",
-        "given_name",
         "name",
-        "nickname",
-        "phone_number",
-        "preferred_username",
-        "phone_number_verified"
+        "phone_number"
     ],
-    "userpoolClientLambdaRole": "allscr59d1a2d8_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "allscr6e0c57a0_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": true,
-    "resourceName": "allscreens59d1a2d8",
+    "resourceName": "allscreens6e0c57a0",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [
@@ -61,14 +55,24 @@
         ]
     },
     "useDefault": "manual",
+    "usernameAttributes": [
+        "email, phone_number"
+    ],
+    "triggers": "{\"PostConfirmation\":[\"add-to-group\"],\"PreSignup\":[\"email-filter-whitelist\"]}",
     "userPoolGroupList": [
-        "teachers",
-        "students"
+        "students",
+        "teachers"
+    ],
+    "parentStack": {
+        "Ref": "AWS::StackId"
+    },
+    "permissions": [
+        "{\"policyName\":\"AddToGroupCognito\",\"trigger\":\"PostConfirmation\",\"effect\":\"Allow\",\"actions\":[\"cognito-idp:AdminAddUserToGroup\",\"cognito-idp:GetGroup\",\"cognito-idp:CreateGroup\"],\"resource\":{\"paramType\":\"!GetAtt\",\"keys\":[\"UserPool\",\"Arn\"]}}"
     ],
     "dependsOn": [
         {
             "category": "function",
-            "resourceName": "allscreens59d1a2d8PreSignup",
+            "resourceName": "allscreens6e0c57a0PostConfirmation",
             "triggerProvider": "Cognito",
             "attributes": [
                 "Arn",
@@ -77,7 +81,7 @@
         },
         {
             "category": "function",
-            "resourceName": "allscreens59d1a2d8PostConfirmation",
+            "resourceName": "allscreens6e0c57a0PreSignup",
             "triggerProvider": "Cognito",
             "attributes": [
                 "Arn",
@@ -85,15 +89,8 @@
             ]
         }
     ],
-    "userPoolGroups": false,
+    "thirdPartyAuth": false,
+    "userPoolGroups": true,
     "adminQueries": false,
-    "triggers": "{\"PostConfirmation\":[\"add-to-group\"],\"PreSignup\":[\"email-filter-whitelist\"]}",
-    "hostedUI": false,
-    "parentStack": {
-        "Ref": "AWS::StackId"
-    },
-    "permissions": [
-        "{\"policyName\":\"AddToGroupCognito\",\"trigger\":\"PostConfirmation\",\"effect\":\"Allow\",\"actions\":[\"cognito-idp:AdminAddUserToGroup\",\"cognito-idp:GetGroup\",\"cognito-idp:CreateGroup\"],\"resource\":{\"paramType\":\"!GetAtt\",\"keys\":[\"UserPool\",\"Arn\"]}}"
-    ],
-    "thirdPartyAuth": false
+    "hostedUI": false
 }

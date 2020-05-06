@@ -6,7 +6,7 @@ Parameters:
     Type: String
   env:
     Type: String
-  authallscreens59d1a2d8UserPoolId:
+  authallscreens6e0c57a0UserPoolId:
     Type: String
   authuserPoolGroupsteachersGroupRole:
     Type: String
@@ -27,7 +27,7 @@ Resources:
       Roles:
       - Fn::Join:
         - ''
-        - - Ref: authallscreens59d1a2d8UserPoolId
+        - - Ref: authallscreens6e0c57a0UserPoolId
           - "-studentsGroupRole"
       PolicyDocument:
         Version: '2012-10-17'
@@ -62,7 +62,7 @@ Resources:
     Properties:
       PolicyName: teacher-group-extra-policy
       Roles:
-        - !Sub '${authallscreens59d1a2d8UserPoolId}-teachersGroupRole'
+        - !Sub '${authallscreens6e0c57a0UserPoolId}-teachersGroupRole'
       PolicyDocument:
         Version: '2012-10-17'
         Statement:
@@ -82,4 +82,4 @@ Resources:
             - cognito-idp:ListUsers
             - cognito-idp:GetUser
           Resource:
-            - !Sub arn:aws:cognito-idp:${AWS::Region}:${AWS::AccountId}:userpool/${authallscreens59d1a2d8UserPoolId} 
+            - !Sub arn:aws:cognito-idp:${AWS::Region}:${AWS::AccountId}:userpool/${authallscreens6e0c57a0UserPoolId} 

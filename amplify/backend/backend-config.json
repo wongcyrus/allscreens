@@ -1,12 +1,12 @@
 {
     "auth": {
-        "allscreens59d1a2d8": {
+        "allscreens6e0c57a0": {
             "service": "Cognito",
             "providerPlugin": "awscloudformation",
             "dependsOn": [
                 {
                     "category": "function",
-                    "resourceName": "allscreens59d1a2d8PreSignup",
+                    "resourceName": "allscreens6e0c57a0PostConfirmation",
                     "triggerProvider": "Cognito",
                     "attributes": [
                         "Arn",
@@ -15,15 +15,14 @@
                 },
                 {
                     "category": "function",
-                    "resourceName": "allscreens59d1a2d8PostConfirmation",
+                    "resourceName": "allscreens6e0c57a0PreSignup",
                     "triggerProvider": "Cognito",
                     "attributes": [
                         "Arn",
                         "Name"
                     ]
                 }
-            ],
-            "customAuth": false
+            ]
         },
         "userPoolGroups": {
             "service": "Cognito-UserPool-Groups",
@@ -31,7 +30,7 @@
             "dependsOn": [
                 {
                     "category": "auth",
-                    "resourceName": "allscreens59d1a2d8",
+                    "resourceName": "allscreens6e0c57a0",
                     "attributes": [
                         "UserPoolId",
                         "AppClientIDWeb",
@@ -43,16 +42,6 @@
         }
     },
     "function": {
-        "allscreens59d1a2d8PreSignup": {
-            "service": "Lambda",
-            "providerPlugin": "awscloudformation",
-            "build": true
-        },
-        "allscreens59d1a2d8PostConfirmation": {
-            "service": "Lambda",
-            "providerPlugin": "awscloudformation",
-            "build": true
-        },
         "S3Trigger4122c033": {
             "service": "Lambda",
             "providerPlugin": "awscloudformation",
@@ -62,6 +51,16 @@
             "service": "Lambda",
             "providerPlugin": "awscloudformation",
             "build": true
+        },
+        "allscreens6e0c57a0PostConfirmation": {
+            "build": true,
+            "providerPlugin": "awscloudformation",
+            "service": "Lambda"
+        },
+        "allscreens6e0c57a0PreSignup": {
+            "build": true,
+            "providerPlugin": "awscloudformation",
+            "service": "Lambda"
         }
     },
     "storage": {
@@ -80,7 +79,7 @@
                 },
                 {
                     "category": "auth",
-                    "resourceName": "allscreens59d1a2d8",
+                    "resourceName": "allscreens6e0c57a0",
                     "attributes": [
                         "UserPoolId"
                     ]
@@ -112,7 +111,7 @@
                     "defaultAuthentication": {
                         "authenticationType": "AMAZON_COGNITO_USER_POOLS",
                         "userPoolConfig": {
-                            "userPoolId": "authallscreens59d1a2d8"
+                            "userPoolId": "authallscreens6e0c57a0"
                         }
                     }
                 }
@@ -132,7 +131,7 @@
                 },
                 {
                     "category": "auth",
-                    "resourceName": "allscreens59d1a2d8",
+                    "resourceName": "allscreens6e0c57a0",
                     "attributes": [
                         "UserPoolId"
                     ]
@@ -166,7 +165,7 @@
                 },
                 {
                     "category": "auth",
-                    "resourceName": "allscreens59d1a2d8",
+                    "resourceName": "allscreens6e0c57a0",
                     "attributes": [
                         "UserPoolId"
                     ]

@@ -1,23 +1,23 @@
 {
     "AWSTemplateFormatVersion": "2010-09-09",
     "Parameters": {
-        "authallscreens59d1a2d8UserPoolId": {
+        "authallscreens6e0c57a0UserPoolId": {
             "Type": "String",
-            "Default": "authallscreens59d1a2d8UserPoolId"
+            "Default": "authallscreens6e0c57a0UserPoolId"
         },
         
-        "authallscreens59d1a2d8IdentityPoolId": {
+        "authallscreens6e0c57a0IdentityPoolId": {
             "Type": "String",
-            "Default": "authallscreens59d1a2d8IdentityPoolId"
+            "Default": "authallscreens6e0c57a0IdentityPoolId"
         },
         
-        "authallscreens59d1a2d8AppClientID": {
+        "authallscreens6e0c57a0AppClientID": {
             "Type": "String",
-            "Default": "authallscreens59d1a2d8AppClientID"
+            "Default": "authallscreens6e0c57a0AppClientID"
         },
-        "authallscreens59d1a2d8AppClientIDWeb": {
+        "authallscreens6e0c57a0AppClientIDWeb": {
             "Type": "String",
-            "Default": "authallscreens59d1a2d8AppClientIDWeb"
+            "Default": "authallscreens6e0c57a0AppClientIDWeb"
         },
         "AuthRoleArn": {
             "Type": "String"
@@ -41,65 +41,11 @@
     },
     "Resources": {
     
-        "teachersGroup": {
-          "Type" : "AWS::Cognito::UserPoolGroup",
-          "Properties" : {
-              "GroupName" : "teachers",
-              "Precedence" : 1,
-              
-              "RoleArn" : {
-                "Fn::GetAtt": [
-                    "teachersGroupRole",
-                    "Arn"
-                ]
-              },
-              
-              "UserPoolId" : {
-                "Ref": "authallscreens59d1a2d8UserPoolId"
-              } 
-            }
-        },
-        
-        "teachersGroupRole": {
-            "Type": "AWS::IAM::Role",
-            "Properties": {
-                "RoleName":{
-                    "Fn::Join": [
-                        "",
-                        [
-                          {
-                            "Ref": "authallscreens59d1a2d8UserPoolId"
-                          },
-                          "-teachersGroupRole"
-                        ]
-                    ]
-                },
-                "AssumeRolePolicyDocument": {
-                    "Version": "2012-10-17",
-                    "Statement": [
-                        {
-                            "Sid": "",
-                            "Effect": "Allow",
-                            "Principal": {
-                                "Federated": "cognito-identity.amazonaws.com"
-                            },
-                            "Action": "sts:AssumeRoleWithWebIdentity",
-                            "Condition": {
-                              "StringEquals": {"cognito-identity.amazonaws.com:aud": {"Ref":"authallscreens59d1a2d8IdentityPoolId"}},
-                              "ForAnyValue:StringLike": {"cognito-identity.amazonaws.com:amr": "authenticated"}
-                            }
-                        }
-                    ]
-                }
-            }
-        },
-     
-    
         "studentsGroup": {
           "Type" : "AWS::Cognito::UserPoolGroup",
           "Properties" : {
               "GroupName" : "students",
-              "Precedence" : 2,
+              "Precedence" : 1,
               
               "RoleArn" : {
                 "Fn::GetAtt": [
@@ -109,7 +55,7 @@
               },
               
               "UserPoolId" : {
-                "Ref": "authallscreens59d1a2d8UserPoolId"
+                "Ref": "authallscreens6e0c57a0UserPoolId"
               } 
             }
         },
@@ -122,7 +68,7 @@
                         "",
                         [
                           {
-                            "Ref": "authallscreens59d1a2d8UserPoolId"
+                            "Ref": "authallscreens6e0c57a0UserPoolId"
                           },
                           "-studentsGroupRole"
                         ]
@@ -139,7 +85,61 @@
                             },
                             "Action": "sts:AssumeRoleWithWebIdentity",
                             "Condition": {
-                              "StringEquals": {"cognito-identity.amazonaws.com:aud": {"Ref":"authallscreens59d1a2d8IdentityPoolId"}},
+                              "StringEquals": {"cognito-identity.amazonaws.com:aud": {"Ref":"authallscreens6e0c57a0IdentityPoolId"}},
+                              "ForAnyValue:StringLike": {"cognito-identity.amazonaws.com:amr": "authenticated"}
+                            }
+                        }
+                    ]
+                }
+            }
+        },
+     
+    
+        "teachersGroup": {
+          "Type" : "AWS::Cognito::UserPoolGroup",
+          "Properties" : {
+              "GroupName" : "teachers",
+              "Precedence" : 2,
+              
+              "RoleArn" : {
+                "Fn::GetAtt": [
+                    "teachersGroupRole",
+                    "Arn"
+                ]
+              },
+              
+              "UserPoolId" : {
+                "Ref": "authallscreens6e0c57a0UserPoolId"
+              } 
+            }
+        },
+        
+        "teachersGroupRole": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+                "RoleName":{
+                    "Fn::Join": [
+                        "",
+                        [
+                          {
+                            "Ref": "authallscreens6e0c57a0UserPoolId"
+                          },
+                          "-teachersGroupRole"
+                        ]
+                    ]
+                },
+                "AssumeRolePolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Sid": "",
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Federated": "cognito-identity.amazonaws.com"
+                            },
+                            "Action": "sts:AssumeRoleWithWebIdentity",
+                            "Condition": {
+                              "StringEquals": {"cognito-identity.amazonaws.com:aud": {"Ref":"authallscreens6e0c57a0IdentityPoolId"}},
                               "ForAnyValue:StringLike": {"cognito-identity.amazonaws.com:amr": "authenticated"}
                             }
                         }
@@ -165,7 +165,7 @@
                                 "",
                                 [
                                   
-                                  "allscreens59d1a2d8",
+                                  "allscreens6e0c57a0",
                                   "-ExecutionRole-",
                                   {
                                     "Ref": "env"
@@ -324,16 +324,16 @@
                     "Ref": "UnauthRoleArn"
                 },
                 "identityPoolId": {
-                    "Ref": "authallscreens59d1a2d8IdentityPoolId"
+                    "Ref": "authallscreens6e0c57a0IdentityPoolId"
                 },
                 "userPoolId": {
-                    "Ref": "authallscreens59d1a2d8UserPoolId"
+                    "Ref": "authallscreens6e0c57a0UserPoolId"
                 },
                 "appClientIDWeb": {
-                    "Ref": "authallscreens59d1a2d8AppClientIDWeb"
+                    "Ref": "authallscreens6e0c57a0AppClientIDWeb"
                 },
                 "appClientID": {
-                    "Ref": "authallscreens59d1a2d8AppClientID"
+                    "Ref": "authallscreens6e0c57a0AppClientID"
                 },
                 "region": {
                     "Ref": "AWS::Region"
@@ -349,10 +349,10 @@
     
     "Outputs": {
       
-        "teachersGroupRole": {
+        "studentsGroupRole": {
             "Value": {
                 "Fn::GetAtt": [
-                    "teachersGroupRole",
+                    "studentsGroupRole",
                     "Arn"
                 ]
             }
@@ -360,10 +360,10 @@
         },
         
       
-        "studentsGroupRole": {
+        "teachersGroupRole": {
             "Value": {
                 "Fn::GetAtt": [
-                    "studentsGroupRole",
+                    "teachersGroupRole",
                     "Arn"
                 ]
             }

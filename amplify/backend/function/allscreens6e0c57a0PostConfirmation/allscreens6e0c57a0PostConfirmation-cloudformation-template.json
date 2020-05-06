@@ -61,12 +61,12 @@
 				"FunctionName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"allscreens59d1a2d8PostConfirmation",
+						"allscreens6e0c57a0PostConfirmation",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"allscreens59d1a2d8PostConfirmation",
+									"allscreens6e0c57a0PostConfirmation",
 									"-",
 									{
 										"Ref": "env"
@@ -101,8 +101,8 @@
 				"Runtime": "nodejs10.x",
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "amplify-allscreens-production-40814-deployment",
-					"S3Key": "amplify-builds/allscreens59d1a2d8PostConfirmation-4545514f645a37564343-build.zip"
+					"S3Bucket": "amplify-allscreens-summer-54043-deployment",
+					"S3Key": "amplify-builds/allscreens6e0c57a0PostConfirmation-667350774f56656b687a-build.zip"
 				}
 			}
 		},
@@ -112,12 +112,12 @@
 				"RoleName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"allscreens59d1a2d8PostConfirmation",
+						"allscreens6e0c57a0PostConfirmation",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"allscreens59d1a2d8PostConfirmation",
+									"allscreens6e0c57a0PostConfirmation",
 									"-",
 									{
 										"Ref": "env"

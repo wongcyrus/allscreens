@@ -83,9 +83,9 @@
         "triggerFunction": {
             "Type": "String"
         },
-        "authallscreens59d1a2d8UserPoolId": {
+        "authallscreens6e0c57a0UserPoolId": {
             "Type": "String",
-            "Default": "authallscreens59d1a2d8UserPoolId"
+            "Default": "authallscreens6e0c57a0UserPoolId"
         },
         "authuserPoolGroupsteachersGroupRole": {
             "Type": "String",
@@ -738,7 +738,7 @@
                             "",
                             [
                                 {
-                                    "Ref": "authallscreens59d1a2d8UserPoolId"
+                                    "Ref": "authallscreens6e0c57a0UserPoolId"
                                 },
                                 "-teachersGroupRole"
                             ]
@@ -785,7 +785,7 @@
                             "",
                             [
                                 {
-                                    "Ref": "authallscreens59d1a2d8UserPoolId"
+                                    "Ref": "authallscreens6e0c57a0UserPoolId"
                                 },
                                 "-studentsGroupRole"
                             ]
