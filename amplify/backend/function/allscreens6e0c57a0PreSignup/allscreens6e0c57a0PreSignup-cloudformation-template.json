@@ -108,7 +108,7 @@
 				"Runtime": "nodejs10.x",
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "amplify-allscreens-summer-54043-deployment",
+					"S3Bucket": "amplify-allscreens-summer-01540-deployment",
 					"S3Key": "amplify-builds/allscreens6e0c57a0PreSignup-6e554372575171437948-build.zip"
 				}
 			}

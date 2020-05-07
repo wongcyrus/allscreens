@@ -5,12 +5,12 @@
     ],
     "parentResource": "allscreens6e0c57a0",
     "functionName": "allscreens6e0c57a0PreSignup",
-    "resourceName": "allscreens6e0c57a0PreSignup",
     "parentStack": "auth",
-    "triggerEnvs": [],
+    "triggerEnvs": "[]",
     "triggerDir": "/home/ec2-user/.nvm/versions/node/v12.16.1/lib/node_modules/@aws-amplify/cli/node_modules/amplify-category-auth/provider-utils/awscloudformation/utils/../triggers/PreSignup",
-    "triggerTemplate": "PreSignup.json.ejs",
     "roleName": "allscreens6e0c57a0PreSignup",
+    "triggerTemplate": "PreSignup.json.ejs",
+    "triggerEventPath": "PreSignup.event.json",
     "skipEdit": true,
-    "DOMAINWHITELIST": "stu.vtc.edu.hk,vtc.edu.hk"
+    "resourceName": "allscreens6e0c57a0PreSignup"
 }

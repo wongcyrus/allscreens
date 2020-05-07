@@ -24,6 +24,7 @@
     ],
     "requiredAttributes": [
         "email",
+        "name",
         "phone_number"
     ],
     "userpoolClientGenerateSecret": true,
