@@ -9,7 +9,7 @@
     "@testing-library/user-event": "^10.1.0",
     "aws-amplify": "^3.0.10",
     "aws-amplify-react": "^4.1.9",
-    "aws-sdk": "^2.669.0",
+    "aws-sdk": "^2.671.0",
     "es6-promise": "^4.2.8",
     "face-api.js": "^0.22.2",
     "isomorphic-fetch": "^2.2.1",

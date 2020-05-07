@@ -30,7 +30,6 @@ export default class ScreenSharing extends React.Component {
     async componentDidMount() {
         const user = await Auth.currentAuthenticatedUser();
         const email = user.attributes.email;
-        console.log(email);
 
         this.onCreateScreenSharingTicketSubscription = API.graphql(
             graphqlOperation(subscriptions.onCreateScreenSharingTicket, { email })
@@ -45,6 +44,7 @@ export default class ScreenSharing extends React.Component {
                 }
             }
         });
+        console.log("ScreenSharing componentDidMount " + email);
     }
 
     componentWillUnmount() {

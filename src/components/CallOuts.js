@@ -16,7 +16,7 @@ export default class CallOuts extends React.Component {
 
         const getEmailAndUserMap = users => new Map(users.map(s => [
             s.Attributes.find(c => c.Name === "email").Value,
-            { username: s.Username, phone: s.Attributes.find(c => c.Name === "phone_number").Value }
+            { username: s.Attributes.find(c => c.Name === "name").Value, phone: s.Attributes.find(c => c.Name === "phone_number").Value }
         ]));
 
         console.log(this.props);
