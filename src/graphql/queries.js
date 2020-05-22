@@ -7,6 +7,8 @@ export const getClassRoom = /* GraphQL */ `
       name
       kendraIndexId
       studentEmails
+      createdAt
+      updatedAt
       owner
     }
   }
@@ -30,6 +32,8 @@ export const listClassRooms = /* GraphQL */ `
         name
         kendraIndexId
         studentEmails
+        createdAt
+        updatedAt
         owner
       }
       nextToken
@@ -42,6 +46,8 @@ export const getScreenSharingTicket = /* GraphQL */ `
       email
       kendraIndexId
       activeUntil
+      createdAt
+      updatedAt
     }
   }
 `;
@@ -64,6 +70,8 @@ export const listScreenSharingTickets = /* GraphQL */ `
         email
         kendraIndexId
         activeUntil
+        createdAt
+        updatedAt
       }
       nextToken
     }
@@ -74,6 +82,8 @@ export const getMessage = /* GraphQL */ `
     getMessage(email: $email) {
       email
       content
+      createdAt
+      updatedAt
     }
   }
 `;
@@ -95,6 +105,8 @@ export const listMessages = /* GraphQL */ `
       items {
         email
         content
+        createdAt
+        updatedAt
       }
       nextToken
     }

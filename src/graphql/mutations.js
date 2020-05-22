@@ -10,6 +10,8 @@ export const createClassRoom = /* GraphQL */ `
       name
       kendraIndexId
       studentEmails
+      createdAt
+      updatedAt
       owner
     }
   }
@@ -23,6 +25,8 @@ export const updateClassRoom = /* GraphQL */ `
       name
       kendraIndexId
       studentEmails
+      createdAt
+      updatedAt
       owner
     }
   }
@@ -36,6 +40,8 @@ export const deleteClassRoom = /* GraphQL */ `
       name
       kendraIndexId
       studentEmails
+      createdAt
+      updatedAt
       owner
     }
   }
@@ -49,6 +55,8 @@ export const createScreenSharingTicket = /* GraphQL */ `
       email
       kendraIndexId
       activeUntil
+      createdAt
+      updatedAt
     }
   }
 `;
@@ -61,6 +69,8 @@ export const updateScreenSharingTicket = /* GraphQL */ `
       email
       kendraIndexId
       activeUntil
+      createdAt
+      updatedAt
     }
   }
 `;
@@ -73,6 +83,8 @@ export const deleteScreenSharingTicket = /* GraphQL */ `
       email
       kendraIndexId
       activeUntil
+      createdAt
+      updatedAt
     }
   }
 `;
@@ -84,6 +96,8 @@ export const createMessage = /* GraphQL */ `
     createMessage(input: $input, condition: $condition) {
       email
       content
+      createdAt
+      updatedAt
     }
   }
 `;
@@ -95,6 +109,8 @@ export const updateMessage = /* GraphQL */ `
     updateMessage(input: $input, condition: $condition) {
       email
       content
+      createdAt
+      updatedAt
     }
   }
 `;
@@ -106,6 +122,8 @@ export const deleteMessage = /* GraphQL */ `
     deleteMessage(input: $input, condition: $condition) {
       email
       content
+      createdAt
+      updatedAt
     }
   }
 `;

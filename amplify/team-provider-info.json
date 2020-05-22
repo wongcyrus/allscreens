@@ -1,15 +1,15 @@
 {
-    "test": {
+    "summer": {
         "awscloudformation": {
-            "AuthRoleName": "amplify-allscreens-test-121919-authRole",
-            "UnauthRoleArn": "arn:aws:iam::467005446488:role/amplify-allscreens-test-121919-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::467005446488:role/amplify-allscreens-test-121919-authRole",
+            "AuthRoleName": "amplify-allscreens-summer-20114-authRole",
+            "UnauthRoleArn": "arn:aws:iam::111964674713:role/amplify-allscreens-summer-20114-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::111964674713:role/amplify-allscreens-summer-20114-authRole",
             "Region": "us-east-1",
-            "DeploymentBucketName": "amplify-allscreens-test-121919-deployment",
-            "UnauthRoleName": "amplify-allscreens-test-121919-unauthRole",
-            "StackName": "amplify-allscreens-test-121919",
-            "StackId": "arn:aws:cloudformation:us-east-1:467005446488:stack/amplify-allscreens-test-121919/e2322dd0-56ff-11ea-b5ae-12c5c4f78283",
-            "AmplifyAppId": "d2l221pdutuhiq"
+            "DeploymentBucketName": "amplify-allscreens-summer-20114-deployment",
+            "UnauthRoleName": "amplify-allscreens-summer-20114-unauthRole",
+            "StackName": "amplify-allscreens-summer-20114",
+            "StackId": "arn:aws:cloudformation:us-east-1:111964674713:stack/amplify-allscreens-summer-20114/1f206120-9bd0-11ea-8789-1246411399d1",
+            "AmplifyAppId": "d1kr4uecab7pxw"
         },
         "categories": {
             "auth": {
@@ -17,100 +17,21 @@
                 "userPoolGroups": {}
             },
             "function": {
-                "allscreens6e0c57a0PreSignup": {
-                    "DOMAINWHITELIST": "vtc.edu.hk,stu.vtc.edu.hk"
-                },
-                "allscreens6e0c57a0PostConfirmation": {
-                    "GROUP": "students"
-                },
                 "S3Trigger4122c033": {},
-                "allscreens6e0c57a0": {},
-                "screenshots": {},
-                "userPoolGroups": {},
-                "searchKendra": {}
-            },
-            "xr": {
-                "VirtualTutor": {
-                    "url": "https://sumerian.us-east-1.amazonaws.com/20180801/projects/Drafts-assumed-role%2FCrossAccountSignin%2Fcyrus/release/authTokens?sceneId=6ee1bb051bfe4cd59c39a22f4affd16c.scene",
-                    "sceneId": "6ee1bb051bfe4cd59c39a22f4affd16c.scene",
-                    "region": "us-east-1",
-                    "projectName": "Drafts-assumed-role/CrossAccountSignin/cyrus"
-                }
-            }
-        }
-    },
-    "production": {
-        "awscloudformation": {
-            "AuthRoleName": "amplify-allscreens-production-40814-authRole",
-            "UnauthRoleArn": "arn:aws:iam::467005446488:role/amplify-allscreens-production-40814-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::467005446488:role/amplify-allscreens-production-40814-authRole",
-            "Region": "us-east-1",
-            "DeploymentBucketName": "amplify-allscreens-production-40814-deployment",
-            "UnauthRoleName": "amplify-allscreens-production-40814-unauthRole",
-            "StackName": "amplify-allscreens-production-40814",
-            "StackId": "arn:aws:cloudformation:us-east-1:467005446488:stack/amplify-allscreens-production-40814/724cd940-5784-11ea-ad32-0a28f59d0ab4",
-            "AmplifyAppId": "d2l221pdutuhiq"
-        },
-        "categories": {
-            "function": {
-                "S3Trigger4122c033": {},
-                "allscreens6e0c57a0": {},
-                "screenshots": {},
-                "userPoolGroups": {},
                 "searchKendra": {},
                 "allscreens6e0c57a0PostConfirmation": {
                     "GROUP": "students"
                 },
                 "allscreens6e0c57a0PreSignup": {
-                    "DOMAINWHITELIST": "vtc.edu.hk,stu.vtc.edu.hk"
-                }
-            },
-            "xr": {
-                "VirtualTutor": {
-                    "url": "https://sumerian.us-east-1.amazonaws.com/20180801/projects/Drafts-assumed-role%2FCrossAccountSignin%2Fcyrus/release/authTokens?sceneId=6ee1bb051bfe4cd59c39a22f4affd16c.scene",
-                    "sceneId": "6ee1bb051bfe4cd59c39a22f4affd16c.scene",
-                    "region": "us-east-1",
-                    "projectName": "Drafts-assumed-role/CrossAccountSignin/cyrus"
-                }
-            },
-            "auth": {
-                "allscreens6e0c57a0": {}
-            }
-        }
-    },
-    "summer": {
-        "awscloudformation": {
-            "AuthRoleName": "amplify-allscreens-summer-01540-authRole",
-            "UnauthRoleArn": "arn:aws:iam::467005446488:role/amplify-allscreens-summer-01540-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::467005446488:role/amplify-allscreens-summer-01540-authRole",
-            "Region": "us-east-1",
-            "DeploymentBucketName": "amplify-allscreens-summer-01540-deployment",
-            "UnauthRoleName": "amplify-allscreens-summer-01540-unauthRole",
-            "StackName": "amplify-allscreens-summer-01540",
-            "StackId": "arn:aws:cloudformation:us-east-1:467005446488:stack/amplify-allscreens-summer-01540/e3e52200-8ff7-11ea-9220-0e91a2a31d14",
-            "AmplifyAppId": "d2l221pdutuhiq"
-        },
-        "categories": {
-            "function": {
-                "allscreens6e0c57a0PostConfirmation": {
-                    "GROUP": "students"
-                },
-                "allscreens6e0c57a0PreSignup": {
                     "DOMAINWHITELIST": "stu.vtc.edu.hk,vtc.edu.hk"
-                },
-                "S3Trigger4122c033": {},
-                "searchKendra": {}
-            },
-            "auth": {
-                "allscreens6e0c57a0": {},
-                "userPoolGroups": {}
+                }
             },
             "xr": {
                 "VirtualTutor": {
-                    "url": "https://sumerian.us-east-1.amazonaws.com/20180801/projects/Drafts-assumed-role%2FCrossAccountSignin%2Fcyrus/release/authTokens?sceneId=6ee1bb051bfe4cd59c39a22f4affd16c.scene",
-                    "sceneId": "6ee1bb051bfe4cd59c39a22f4affd16c.scene",
+                    "url": "https://sumerian.us-east-1.amazonaws.com/20180801/projects/Drafts-user%2Fcyrus/release/authTokens?sceneId=403d3609087647d983cfd588f214370f.scene",
+                    "sceneId": "403d3609087647d983cfd588f214370f.scene",
                     "region": "us-east-1",
-                    "projectName": "Drafts-assumed-role/CrossAccountSignin/cyrus"
+                    "projectName": "Drafts-user/cyrus"
                 }
             }
         }

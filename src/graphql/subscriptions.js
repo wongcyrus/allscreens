@@ -7,6 +7,8 @@ export const onCreateScreenSharingTicket = /* GraphQL */ `
       email
       kendraIndexId
       activeUntil
+      createdAt
+      updatedAt
     }
   }
 `;
@@ -15,6 +17,8 @@ export const onCreateMessage = /* GraphQL */ `
     onCreateMessage(email: $email) {
       email
       content
+      createdAt
+      updatedAt
     }
   }
 `;
@@ -24,6 +28,8 @@ export const onCreateClassRoom = /* GraphQL */ `
       name
       kendraIndexId
       studentEmails
+      createdAt
+      updatedAt
       owner
     }
   }
@@ -34,6 +40,8 @@ export const onUpdateClassRoom = /* GraphQL */ `
       name
       kendraIndexId
       studentEmails
+      createdAt
+      updatedAt
       owner
     }
   }
@@ -44,6 +52,8 @@ export const onDeleteClassRoom = /* GraphQL */ `
       name
       kendraIndexId
       studentEmails
+      createdAt
+      updatedAt
       owner
     }
   }
