@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Header, Segment, Grid, Message, Button } from 'semantic-ui-react';
+import { Header, Segment, Grid, Message, Button, Confirm } from 'semantic-ui-react';
 
 import { Auth, Storage } from 'aws-amplify';
 import API, { graphqlOperation } from '@aws-amplify/api';
@@ -19,7 +19,8 @@ export default class ScreenSharing extends React.Component {
             chunks: [],
             status: 'Inactive',
             recording: null,
-            ticket: null
+            ticket: null,
+            open: false
         };
 
         this.screen = React.createRef();
@@ -141,7 +142,15 @@ export default class ScreenSharing extends React.Component {
         });
     }
 
+    show = () => this.setState({ open: true })
+    handleConfirm = () => {
+        this.setState({ open: false });
+        this._startCapturing();
+    }
+    handleCancel = () => this.setState({ open: false })
+
     render() {
+        const { open } = this.state;
         return (
             <Segment>
                 <Grid>
@@ -151,9 +160,15 @@ export default class ScreenSharing extends React.Component {
                     <img ref={this.imageView} style={{display: 'none' }} alt="Right click to save" />
                     <video ref={this.screen} autoPlay style={{display: 'none' }}></video>
                     <Message>Status: {this.state.status}</Message>
-                    <Button disabled = {!this.state.enableStartCapture} onClick={() => this._startCapturing()}>Start screen sharing</Button>
+                    <Button disabled = {!this.state.enableStartCapture} onClick={this.show}>Start screen sharing</Button>
                     <Button disabled = {!this.state.enableStopCapture} onClick={() => this._stopCapturing()}>Stop screen sharing</Button>
                 </Grid>
+        <Confirm
+          open={open}
+          onCancel={this.handleCancel}
+          onConfirm={this.handleConfirm}
+          content="Your screen will share to your teacher. Are you sure?"
+        />
             </Segment>
         );
     }
