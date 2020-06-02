@@ -1,0 +1,9 @@
+{
+    "permissions": {
+        "auth": {
+            "allscreens6e0c57a0": [
+                "read"
+            ]
+        }
+    }
+}

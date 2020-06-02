@@ -35,5 +35,44 @@
                 }
             }
         }
+    },
+    "maskalert": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-allscreens-maskalert-60852-authRole",
+            "UnauthRoleArn": "arn:aws:iam::111964674713:role/amplify-allscreens-maskalert-60852-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::111964674713:role/amplify-allscreens-maskalert-60852-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-allscreens-maskalert-60852-deployment",
+            "UnauthRoleName": "amplify-allscreens-maskalert-60852-unauthRole",
+            "StackName": "amplify-allscreens-maskalert-60852",
+            "StackId": "arn:aws:cloudformation:us-east-1:111964674713:stack/amplify-allscreens-maskalert-60852/88fbed10-a497-11ea-a2fb-0a9564c9a859",
+            "AmplifyAppId": "d1kr4uecab7pxw"
+        },
+        "categories": {
+            "auth": {
+                "allscreens6e0c57a0": {},
+                "userPoolGroups": {}
+            },
+            "function": {
+                "S3Trigger4122c033": {},
+                "searchKendra": {},
+                "allscreens6e0c57a0PostConfirmation": {
+                    "GROUP": "students"
+                },
+                "allscreens6e0c57a0PreSignup": {
+                    "DOMAINWHITELIST": "stu.vtc.edu.hk,vtc.edu.hk"
+                },
+                "faceMask": {},
+                "allscreens6e0c57a0": {}
+            },
+            "xr": {
+                "VirtualTutor": {
+                    "url": "https://sumerian.us-east-1.amazonaws.com/20180801/projects/Drafts-user%2Fcyrus/release/authTokens?sceneId=403d3609087647d983cfd588f214370f.scene",
+                    "sceneId": "403d3609087647d983cfd588f214370f.scene",
+                    "region": "us-east-1",
+                    "projectName": "Drafts-user/cyrus"
+                }
+            }
+        }
     }
 }

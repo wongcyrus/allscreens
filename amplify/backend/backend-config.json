@@ -61,6 +61,20 @@
             "build": true,
             "providerPlugin": "awscloudformation",
             "service": "Lambda"
+        },
+        "faceMask": {
+            "build": true,
+            "providerPlugin": "awscloudformation",
+            "service": "Lambda",
+            "dependsOn": [
+                {
+                    "category": "auth",
+                    "resourceName": "allscreens6e0c57a0",
+                    "attributes": [
+                        "UserPoolId"
+                    ]
+                }
+            ]
         }
     },
     "storage": {
@@ -141,6 +155,41 @@
                     "resourceName": "userPoolGroups",
                     "attributes": [
                         "studentsGroupRole"
+                    ]
+                }
+            ]
+        },
+        "facemaskApi": {
+            "service": "API Gateway",
+            "providerPlugin": "awscloudformation",
+            "dependsOn": [
+                {
+                    "category": "function",
+                    "resourceName": "faceMask",
+                    "attributes": [
+                        "Name",
+                        "Arn"
+                    ]
+                },
+                {
+                    "category": "auth",
+                    "resourceName": "allscreens6e0c57a0",
+                    "attributes": [
+                        "UserPoolId"
+                    ]
+                },
+                {
+                    "category": "auth",
+                    "resourceName": "userPoolGroups",
+                    "attributes": [
+                        "studentsGroupRole"
+                    ]
+                },
+                {
+                    "category": "auth",
+                    "resourceName": "userPoolGroups",
+                    "attributes": [
+                        "teachersGroupRole"
                     ]
                 }
             ]

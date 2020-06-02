@@ -1,0 +1,64 @@
+{
+    "paths": [
+        {
+            "name": "/images",
+            "lambdaFunction": "faceMask",
+            "privacy": {
+                "userPoolGroups": {
+                    "students": [
+                        "/POST"
+                    ],
+                    "teachers": [
+                        "/POST"
+                    ]
+                }
+            }
+        }
+    ],
+    "resourceName": "facemaskApi",
+    "apiName": "facemaskApi",
+    "authResourceName": "allscreens6e0c57a0",
+    "functionArns": [
+        {
+            "lambdaFunction": "faceMask"
+        }
+    ],
+    "privacy": {
+        "auth": 0,
+        "unauth": 0,
+        "authRoleName": "amplify-allscreens-summer-20114-authRole",
+        "unAuthRoleName": "amplify-allscreens-summer-20114-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "faceMask",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "auth",
+            "resourceName": "allscreens6e0c57a0",
+            "attributes": [
+                "UserPoolId"
+            ]
+        },
+        {
+            "category": "auth",
+            "resourceName": "userPoolGroups",
+            "attributes": [
+                "studentsGroupRole"
+            ]
+        },
+        {
+            "category": "auth",
+            "resourceName": "userPoolGroups",
+            "attributes": [
+                "teachersGroupRole"
+            ]
+        }
+    ],
+    "uuid": "d77d032e"
+}

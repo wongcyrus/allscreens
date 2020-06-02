@@ -1,5 +1,5 @@
 import React from "react";
-import { Auth } from 'aws-amplify';
+import { Auth, Storage } from 'aws-amplify';
 import Webcam from "react-webcam";
 import { Button } from 'semantic-ui-react';
 import * as faceapi from 'face-api.js';
@@ -18,7 +18,8 @@ export default class WebCam extends React.Component {
             isStudent: false,
             webcamEnabled: false,
             preferredCameraDeviceId: "",
-            skipCounter: 0
+            skipCounter: 0,
+            email: "",
         };
 
         this.webcamRef = React.createRef();
@@ -32,6 +33,8 @@ export default class WebCam extends React.Component {
         const user = await Auth.currentAuthenticatedUser();
         const email = user.attributes.email;
         console.log(email);
+
+        this.setState({ email });
 
         const group = user.signInUserSession.accessToken.payload["cognito:groups"][0];
         console.log(group);
@@ -77,6 +80,17 @@ export default class WebCam extends React.Component {
         clearInterval(this.intervalId);
     }
 
+    async postImage(dataUrl) {
+        const apiName = 'facemaskApi';
+        const path = '/images';
+        const myInit = {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: { dataUrl }
+        };
+        return await API.post(apiName, path, myInit);
+    }
     async captureWebcam() {
         const imageSrc = this.webcamRef.current.getScreenshot();
         this.image.current.src = imageSrc;
@@ -87,39 +101,57 @@ export default class WebCam extends React.Component {
             return;
         }
 
-        try {
-            let detectionsWithLandmarks = await faceapi
-                .detectAllFaces(this.image.current)
-                .withFaceLandmarks();
+        if (this.props.mode === "mask") {
+            const data = await this.postImage(imageSrc);
+            window.postMessage({ VideoScreen2: imageSrc });
 
-            console.log(detectionsWithLandmarks);
-            detectionsWithLandmarks = detectionsWithLandmarks.filter(c => c.detection.score > 0.6);
+            console.log("noMask", data);
 
-            if (detectionsWithLandmarks.length > 0) {
-                const numberOfFace = detectionsWithLandmarks.length;
-                console.log("With student!" + detectionsWithLandmarks.length);
+            if (data.noMask) {
+                this.setState({ skipCounter: 10 });
+                window.postMessage("Please wear your mask!");
+            }
+
+            Storage.put("upload/" + this.state.email + "/screenshot.txt", imageSrc)
+                .then(result => console.log(result))
+                .catch(err => console.log(err));
+        }
+        else if (this.props.mode === "alone") {
+            try {
+                let detectionsWithLandmarks = await faceapi
+                    .detectAllFaces(this.image.current)
+                    .withFaceLandmarks();
+
                 console.log(detectionsWithLandmarks);
-                let ctx = this.canvas.current.getContext("2d");
-                ctx.drawImage(this.image.current, 0, 0, 1280, 720);
-                const resizedResults = faceapi.resizeResults(detectionsWithLandmarks, { width: 1280, height: 720 });
-                faceapi.draw.drawDetections(this.canvas.current, resizedResults);
-                faceapi.draw.drawFaceLandmarks(this.canvas.current, resizedResults);
-                let dataUrl = this.canvas.current.toDataURL();
-                window.postMessage({ VideoScreen2: dataUrl });
+                detectionsWithLandmarks = detectionsWithLandmarks.filter(c => c.detection.score > 0.6);
 
-                if (numberOfFace > 1) {
-                    this.setState({ skipCounter: 10 });
-                    window.postMessage("You have to work on your text alone!");
+                if (detectionsWithLandmarks.length > 0) {
+                    const numberOfFace = detectionsWithLandmarks.length;
+                    console.log("With student!" + detectionsWithLandmarks.length);
+                    console.log(detectionsWithLandmarks);
+                    let ctx = this.canvas.current.getContext("2d");
+                    ctx.drawImage(this.image.current, 0, 0, 1280, 720);
+                    const resizedResults = faceapi.resizeResults(detectionsWithLandmarks, { width: 1280, height: 720 });
+                    faceapi.draw.drawDetections(this.canvas.current, resizedResults);
+                    faceapi.draw.drawFaceLandmarks(this.canvas.current, resizedResults);
+                    let dataUrl = this.canvas.current.toDataURL();
+                    window.postMessage({ VideoScreen2: dataUrl });
+
+                    if (numberOfFace > 1) {
+                        this.setState({ skipCounter: 10 });
+                        window.postMessage("You have to work on your text alone!");
+                    }
+                }
+                else {
+                    console.log("No student!");
+                    window.postMessage({ VideoScreen2: imageSrc });
                 }
             }
-            else {
-                console.log("No student!");
-                window.postMessage({ VideoScreen2: imageSrc });
+            catch (err) {
+                console.error(err);
             }
         }
-        catch (err) {
-            console.error(err);
-        }
+
     }
     enableWebcam = () => {
         this.setState({ webcamEnabled: true });
@@ -144,7 +176,7 @@ export default class WebCam extends React.Component {
             return (
                 <div>
                     <Button onClick={this.disableWebcam}>
-                        Disable webcam
+                        Disable Webcam {this.props.text}
                     </Button>
                     <Webcam
                         audio={false}
@@ -162,7 +194,7 @@ export default class WebCam extends React.Component {
         else return (
             <div>
                 <Button onClick={()=>this.enableWebcam()}>
-                    Enable webcam
+                    Enable Webcam {this.props.text}
                 </Button>
             </div>
         );

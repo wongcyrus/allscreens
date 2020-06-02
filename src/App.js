@@ -59,7 +59,8 @@ class App extends React.Component {
             <Grid.Row>
               <Grid.Column>
                 <Route path="/" exact component={ScreenSharing}/>
-                <WebCam/>
+                <WebCam mode="alone" text="Work Alone"/>
+                <WebCam mode="mask" text="No Facemask Alert"/>
                 <Chatbot/>
                 <VirtualTutor/>
               </Grid.Column>
