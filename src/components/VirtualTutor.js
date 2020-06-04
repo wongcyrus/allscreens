@@ -10,7 +10,7 @@ export default class VirtualTutor extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {isStudent: false };
+        this.state = { isStudent: false };
     }
 
     async componentDidMount() {
@@ -37,7 +37,7 @@ export default class VirtualTutor extends React.Component {
         this.onCreateMessage.unsubscribe();
     }
     render() {
-        if(this.state.isStudent)
+        if (this.state.isStudent)
             return (
                 <SumerianScene sceneName="VirtualTutor" />
             );

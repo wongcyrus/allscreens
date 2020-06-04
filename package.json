@@ -14,6 +14,7 @@
     "face-api.js": "^0.22.2",
     "isomorphic-fetch": "^2.2.1",
     "microphone-stream": "^5.0.1",
+    "moment": "^2.26.0",
     "moment-timezone": "^0.5.31",
     "react": "^16.13.1",
     "react-data-export": "^0.6.0",

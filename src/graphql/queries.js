@@ -4,6 +4,7 @@
 export const getClassRoom = /* GraphQL */ `
   query GetClassRoom($name: String!) {
     getClassRoom(name: $name) {
+      teacherEmail
       name
       kendraIndexId
       studentEmails
@@ -29,6 +30,7 @@ export const listClassRooms = /* GraphQL */ `
       sortDirection: $sortDirection
     ) {
       items {
+        teacherEmail
         name
         kendraIndexId
         studentEmails
@@ -44,6 +46,7 @@ export const getScreenSharingTicket = /* GraphQL */ `
   query GetScreenSharingTicket($email: AWSEmail!) {
     getScreenSharingTicket(email: $email) {
       email
+      teacherEmail
       kendraIndexId
       activeUntil
       createdAt
@@ -68,6 +71,7 @@ export const listScreenSharingTickets = /* GraphQL */ `
     ) {
       items {
         email
+        teacherEmail
         kendraIndexId
         activeUntil
         createdAt
@@ -82,6 +86,7 @@ export const getMessage = /* GraphQL */ `
     getMessage(email: $email) {
       email
       content
+      command
       createdAt
       updatedAt
     }
@@ -105,6 +110,7 @@ export const listMessages = /* GraphQL */ `
       items {
         email
         content
+        command
         createdAt
         updatedAt
       }

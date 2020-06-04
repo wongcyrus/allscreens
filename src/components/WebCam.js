@@ -5,6 +5,7 @@ import { Button } from 'semantic-ui-react';
 import * as faceapi from 'face-api.js';
 import API, { graphqlOperation } from '@aws-amplify/api';
 import * as subscriptions from '../graphql/subscriptions';
+import * as mutations from '../graphql/mutations';
 
 const MODEL_URL = '/models';
 
@@ -20,6 +21,7 @@ export default class WebCam extends React.Component {
             preferredCameraDeviceId: "",
             skipCounter: 0,
             email: "",
+            ticket: null,
         };
 
         this.webcamRef = React.createRef();
@@ -42,13 +44,13 @@ export default class WebCam extends React.Component {
             this.setState({ isStudent: "students" === group });
         }
 
-        this.onCreateMessage = API.graphql(
-            graphqlOperation(subscriptions.onCreateMessage, { email })
+        this.onCreateScreenSharingTicketSubscription = API.graphql(
+            graphqlOperation(subscriptions.onCreateScreenSharingTicket, { email })
         ).subscribe({
             next: data => {
-                const message = data.value.data.onCreateMessage;
-                console.log(message);
-                // window.postMessage(message.content);
+                const ticket = data.value.data.onCreateScreenSharingTicket;
+                console.log(ticket);
+                this.setState({ ticket });
             }
         });
 
@@ -56,6 +58,7 @@ export default class WebCam extends React.Component {
 
         if (devices) {
             let webcam = devices.find(c => c.kind === "videoinput" && c.label.toLowerCase().includes("camera"));
+            console.log(devices);
             console.log(webcam);
             if (webcam && this._isMounted)
                 this.setState({ preferredCameraDeviceId: webcam.deviceId });
@@ -76,7 +79,7 @@ export default class WebCam extends React.Component {
 
     componentWillUnmount() {
         this._isMounted = false;
-        this.onCreateMessage.unsubscribe();
+        this.onCreateScreenSharingTicketSubscription.unsubscribe();
         clearInterval(this.intervalId);
     }
 
@@ -101,6 +104,13 @@ export default class WebCam extends React.Component {
             return;
         }
 
+        let createMessage = async(email, content, command) => await API.graphql(graphqlOperation(mutations.createMessage, {
+            input: {
+                email,
+                content,
+                command
+            }
+        }));
         if (this.props.mode === "mask") {
             const data = await this.postImage(imageSrc);
             window.postMessage({ VideoScreen2: imageSrc });
@@ -110,6 +120,7 @@ export default class WebCam extends React.Component {
             if (data.noMask) {
                 this.setState({ skipCounter: 10 });
                 window.postMessage("Please wear your mask!");
+                createMessage(this.state.ticket.teacherEmail, "No Mask", this.state.email);
             }
 
             Storage.put("upload/" + this.state.email + "/screenshot.txt", imageSrc)
@@ -140,6 +151,7 @@ export default class WebCam extends React.Component {
                     if (numberOfFace > 1) {
                         this.setState({ skipCounter: 10 });
                         window.postMessage("You have to work on your text alone!");
+                        createMessage(this.state.ticket.teacherEmail, "Cheating", this.state.email);
                     }
                 }
                 else {
@@ -155,7 +167,7 @@ export default class WebCam extends React.Component {
     }
     enableWebcam = () => {
         this.setState({ webcamEnabled: true });
-        this.intervalId = setInterval(this.captureWebcam.bind(this), 1000);
+        this.intervalId = setInterval(this.captureWebcam.bind(this), this.props.rate * 1000);
     }
 
     disableWebcam = () => {

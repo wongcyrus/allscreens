@@ -20,7 +20,9 @@ export default class ClassRoom extends React.Component {
 
     async componentDidMount() {
         const { username } = await Auth.currentAuthenticatedUser();
-
+        const user = await Auth.currentAuthenticatedUser();
+        const teacherEmail = user.attributes.email;
+        this.setState({ teacherEmail });
         let { data } = await API.graphql(graphqlOperation(queries.listClassRooms, { owner: username }));
         console.log(data);
         this.setState({ classrooms: data.listClassRooms.items });
@@ -67,7 +69,7 @@ export default class ClassRoom extends React.Component {
     handleSubmit = async(event) => {
         event.preventDefault();
         try {
-            let { name, kendraIndexId, emails } = this.state;
+            let { teacherEmail, name, kendraIndexId, emails } = this.state;
 
             kendraIndexId = kendraIndexId || "null";
 
@@ -77,6 +79,7 @@ export default class ClassRoom extends React.Component {
             if (this.state.classrooms.find(c => c.name === name)) {
                 let result = await API.graphql(graphqlOperation(mutations.updateClassRoom, {
                     input: {
+                        teacherEmail,
                         name,
                         kendraIndexId,
                         studentEmails: emailsList
@@ -87,6 +90,7 @@ export default class ClassRoom extends React.Component {
             else {
                 let result = await API.graphql(graphqlOperation(mutations.createClassRoom, {
                     input: {
+                        teacherEmail,
                         name,
                         kendraIndexId,
                         studentEmails: emailsList

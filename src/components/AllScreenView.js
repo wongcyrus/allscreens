@@ -1,5 +1,5 @@
 import React from "react";
-import { Storage } from 'aws-amplify';
+import { Auth, Storage } from 'aws-amplify';
 import { S3Album, S3Image } from 'aws-amplify-react';
 import { Button, Header, Icon, Modal, Container, Segment, Form } from 'semantic-ui-react';
 
@@ -11,6 +11,7 @@ import * as mutations from '../graphql/mutations';
 import OnlineReport from './OnlineReport';
 import CallOuts from "./CallOuts";
 import CallQuzz from "./CallQuzz";
+import Message from "./Message";
 
 export default class AllScreenView extends React.Component {
 
@@ -34,6 +35,11 @@ export default class AllScreenView extends React.Component {
     }
 
     async componentDidMount() {
+
+        const user = await Auth.currentAuthenticatedUser();
+        const teacherEmail = user.attributes.email;
+        this.setState({ teacherEmail });
+
         this.interval = setInterval(() => {
             if (this.state.referesh)
                 this.setState(({ count }) => ({ count: count + 1 }));
@@ -116,13 +122,14 @@ export default class AllScreenView extends React.Component {
     }
 
     generateScreenSharingTickets = async() => {
-        const studentEmails = this.state.studentEmails;
-        const kendraIndexId = this.state.kendraIndexId;
+        const { studentEmails, kendraIndexId, teacherEmail } = this.state;
+
         let expire = new Date();
         expire.setHours(expire.getHours() + 3);
 
         let create3HoursTickets = async(email) => await API.graphql(graphqlOperation(mutations.createScreenSharingTicket, {
             input: {
+                teacherEmail,
                 email,
                 kendraIndexId,
                 activeUntil: expire
@@ -137,7 +144,7 @@ export default class AllScreenView extends React.Component {
     }
 
     sendMessageToAllStudentsHandler = async(event) => {
-        this.sendMessageToAllStudents(this.state.studentEmails,this.state.message);
+        this.sendMessageToAllStudents(this.state.studentEmails, this.state.message);
     }
 
     sendMessageToAllStudents = async(studentEmails, message) => {
@@ -210,6 +217,7 @@ export default class AllScreenView extends React.Component {
                         filter={(item)=>this.filter(item)}
                         sort={(item)=>this.sort(item)}
                     />
+                    <Message></Message>
                     <Modal
                         open={this.state.modalLargeViewOpen}
                         onClose={() => this.setState({ modalLargeViewOpen: false })}

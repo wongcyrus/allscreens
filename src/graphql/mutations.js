@@ -7,6 +7,7 @@ export const createClassRoom = /* GraphQL */ `
     $condition: ModelClassRoomConditionInput
   ) {
     createClassRoom(input: $input, condition: $condition) {
+      teacherEmail
       name
       kendraIndexId
       studentEmails
@@ -22,6 +23,7 @@ export const updateClassRoom = /* GraphQL */ `
     $condition: ModelClassRoomConditionInput
   ) {
     updateClassRoom(input: $input, condition: $condition) {
+      teacherEmail
       name
       kendraIndexId
       studentEmails
@@ -37,6 +39,7 @@ export const deleteClassRoom = /* GraphQL */ `
     $condition: ModelClassRoomConditionInput
   ) {
     deleteClassRoom(input: $input, condition: $condition) {
+      teacherEmail
       name
       kendraIndexId
       studentEmails
@@ -53,6 +56,7 @@ export const createScreenSharingTicket = /* GraphQL */ `
   ) {
     createScreenSharingTicket(input: $input, condition: $condition) {
       email
+      teacherEmail
       kendraIndexId
       activeUntil
       createdAt
@@ -67,6 +71,7 @@ export const updateScreenSharingTicket = /* GraphQL */ `
   ) {
     updateScreenSharingTicket(input: $input, condition: $condition) {
       email
+      teacherEmail
       kendraIndexId
       activeUntil
       createdAt
@@ -81,6 +86,7 @@ export const deleteScreenSharingTicket = /* GraphQL */ `
   ) {
     deleteScreenSharingTicket(input: $input, condition: $condition) {
       email
+      teacherEmail
       kendraIndexId
       activeUntil
       createdAt
@@ -96,6 +102,7 @@ export const createMessage = /* GraphQL */ `
     createMessage(input: $input, condition: $condition) {
       email
       content
+      command
       createdAt
       updatedAt
     }
@@ -109,6 +116,7 @@ export const updateMessage = /* GraphQL */ `
     updateMessage(input: $input, condition: $condition) {
       email
       content
+      command
       createdAt
       updatedAt
     }
@@ -122,6 +130,7 @@ export const deleteMessage = /* GraphQL */ `
     deleteMessage(input: $input, condition: $condition) {
       email
       content
+      command
       createdAt
       updatedAt
     }
