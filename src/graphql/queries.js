@@ -85,6 +85,7 @@ export const getMessage = /* GraphQL */ `
   query GetMessage($email: AWSEmail!) {
     getMessage(email: $email) {
       email
+      from
       content
       command
       createdAt
@@ -109,6 +110,7 @@ export const listMessages = /* GraphQL */ `
     ) {
       items {
         email
+        from
         content
         command
         createdAt

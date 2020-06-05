@@ -17,6 +17,7 @@ export const onCreateMessage = /* GraphQL */ `
   subscription OnCreateMessage($email: AWSEmail!) {
     onCreateMessage(email: $email) {
       email
+      from
       content
       command
       createdAt

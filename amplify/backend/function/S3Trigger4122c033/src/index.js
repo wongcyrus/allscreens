@@ -13,6 +13,7 @@ const imageDataURI = require('image-data-uri');
 const AWS = require('aws-sdk');
 const S3 = new AWS.S3({ signatureVersion: 'v4' });
 const fs = require('fs');
+const path = require('path')
 const { promisify } = require('util');
 const readFileAsync = promisify(fs.readFile);
 
@@ -113,12 +114,13 @@ async function processRecord(record) {
 
   const originalPhoto = await S3.getObject({ Bucket: bucketName, Key: key }).promise();
 
-  if (key.endsWith(".txt")) {
+  if (path.extname(key) === ".txt") {
     let dataURI = originalPhoto.Body.toString('utf-8');
-    const filePath = '/tmp/screenshot.png';
+    const fileName = path.basename(key).replace(".txt", ".png");
+    const filePath = '/tmp/' + fileName;
     await imageDataURI.outputFile(dataURI, filePath);
     const email = key.split("/")[2];
-    let result = await uploadFile(filePath, bucketName, "upload/" + email + "/screenshot.png");
+    let result = await uploadFile(filePath, bucketName, "upload/" + email + "/" + fileName);
     console.log("Text to png", result);
   }
   else {

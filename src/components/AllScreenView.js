@@ -108,7 +108,9 @@ export default class AllScreenView extends React.Component {
     }
 
     clearAllScreenshots = async(event) => {
-        const result = this.state.studentEmails.map(c => 'resized/' + c + "/screenshot.png");
+        const result = [...this.state.studentEmails.map(c => 'resized/' + c + "/screenshot.png"),
+            ...this.state.studentEmails.map(c => 'resized/' + c + "/webcam.png")
+        ];
         result.map(Storage.remove);
     }
 
@@ -153,7 +155,9 @@ export default class AllScreenView extends React.Component {
         let createMessage = async(email) => await API.graphql(graphqlOperation(mutations.createMessage, {
             input: {
                 email,
-                content
+                from: this.state.teacherEmail,
+                content,
+                command: "Sumerian"
             }
         }));
         studentEmails.map(createMessage);
@@ -172,7 +176,9 @@ export default class AllScreenView extends React.Component {
         await API.graphql(graphqlOperation(mutations.createMessage, {
             input: {
                 email,
-                content
+                from: this.state.teacherEmail,
+                content,
+                command: "Sumerian"
             }
         }));
     }

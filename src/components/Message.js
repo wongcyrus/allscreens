@@ -46,7 +46,7 @@ export default class Message extends React.Component {
             <List.Item key={message.command + message.time} >
               <List.Icon name='envelope square' size='large' verticalAlign='middle' />
               <List.Content>
-                <List.Header as='a'>{message.command} {message.content}</List.Header>
+                <List.Header as='a'>{message.command} {message.from} {message.content}</List.Header>
                 <List.Description as='a'>{moment(message.time).fromNow()}</List.Description>
               </List.Content>
             </List.Item>

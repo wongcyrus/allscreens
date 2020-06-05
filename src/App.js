@@ -15,7 +15,7 @@ import AllScreenView from './components/AllScreenView';
 import ClassRoom from './components/ClassRoom';
 import VirtualTutor from './components/VirtualTutor';
 import Chatbot from './components/Chatbot';
-import WebCam from "./components/WebCam";
+
 
 
 Amplify.configure(aws_exports);
@@ -59,8 +59,6 @@ class App extends React.Component {
             <Grid.Row>
               <Grid.Column>
                 <Route path="/" exact component={ScreenSharing}/>
-                <WebCam mode="alone" text="Work Alone" rate="1"/>
-                <WebCam mode="mask" text="No Facemask Alert" rate="5"/>
                 <Chatbot/>
                 <VirtualTutor/>
               </Grid.Column>

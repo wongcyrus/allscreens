@@ -22,6 +22,7 @@ export default class WebCam extends React.Component {
             skipCounter: 0,
             email: "",
             ticket: null,
+            enableWebcamSharingButton: false
         };
 
         this.webcamRef = React.createRef();
@@ -49,7 +50,9 @@ export default class WebCam extends React.Component {
         ).subscribe({
             next: data => {
                 const ticket = data.value.data.onCreateScreenSharingTicket;
+
                 console.log(ticket);
+                this.setState({ enableWebcamSharingButton: true });
                 this.setState({ ticket });
             }
         });
@@ -104,9 +107,10 @@ export default class WebCam extends React.Component {
             return;
         }
 
-        let createMessage = async(email, content, command) => await API.graphql(graphqlOperation(mutations.createMessage, {
+        let createMessage = async(to, from, content, command) => await API.graphql(graphqlOperation(mutations.createMessage, {
             input: {
-                email,
+                email: to,
+                from,
                 content,
                 command
             }
@@ -118,12 +122,12 @@ export default class WebCam extends React.Component {
             console.log("noMask", data);
 
             if (data.noMask) {
-                this.setState({ skipCounter: 10 });
+                this.setState({ skipCounter: 5 });
                 window.postMessage("Please wear your mask!");
-                createMessage(this.state.ticket.teacherEmail, "No Mask", this.state.email);
+                createMessage(this.state.ticket.teacherEmail, this.state.email, "No Mask", "Alert");
             }
 
-            Storage.put("upload/" + this.state.email + "/screenshot.txt", imageSrc)
+            Storage.put("upload/" + this.state.email + "/webcam.txt", imageSrc)
                 .then(result => console.log(result))
                 .catch(err => console.log(err));
         }
@@ -205,7 +209,7 @@ export default class WebCam extends React.Component {
             );
         else return (
             <div>
-                <Button onClick={()=>this.enableWebcam()}>
+                <Button onClick={()=>this.enableWebcam()} disabled = {!this.state.enableWebcamSharingButton}>
                     Enable Webcam {this.props.text}
                 </Button>
             </div>

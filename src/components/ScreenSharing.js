@@ -1,11 +1,12 @@
 import React from "react";
 
-import { Header, Segment, Grid, Message, Button, Confirm } from 'semantic-ui-react';
+import { Segment, Grid, Message, Button, Confirm } from 'semantic-ui-react';
 
 import { Auth, Storage } from 'aws-amplify';
 import API, { graphqlOperation } from '@aws-amplify/api';
 
 import * as subscriptions from '../graphql/subscriptions';
+import WebCam from "./WebCam";
 
 // Source from https://webrtc.github.io/samples/src/content/getusermedia/getdisplaymedia/js/main.js
 export default class ScreenSharing extends React.Component {
@@ -154,14 +155,15 @@ export default class ScreenSharing extends React.Component {
         return (
             <Segment>
                 <Grid>
-                    <Header as="h1">
-                      Share you computer screen and let work on lab exercise together online!
-                    </Header>
                     <img ref={this.imageView} style={{display: 'none' }} alt="Right click to save" />
                     <video ref={this.screen} autoPlay style={{display: 'none' }}></video>
-                    <Message>Status: {this.state.status}</Message>
-                    <Button disabled = {!this.state.enableStartCapture} onClick={this.show}>Start screen sharing</Button>
-                    <Button disabled = {!this.state.enableStopCapture} onClick={() => this._stopCapturing()}>Stop screen sharing</Button>
+                    <div>
+                        Status: {this.state.status}
+                        <Button disabled = {!this.state.enableStartCapture} onClick={this.show}>Start screen sharing</Button>
+                        <Button disabled = {!this.state.enableStopCapture} onClick={() => this._stopCapturing()}>Stop screen sharing</Button>
+                    </div>
+                    <WebCam mode="alone" text="Work Alone" rate="1"/>
+                    <WebCam mode="mask" text="No face mask alert" rate="5"/>
                 </Grid>
         <Confirm
           open={open}

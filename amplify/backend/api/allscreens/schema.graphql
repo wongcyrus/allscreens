@@ -32,6 +32,7 @@ type Message
     {allow: groups, groups: ["students"], groupClaim: "user_groups", operations: [read]}
 ]) {
     email: AWSEmail!
+    from: String!
     content: String!
     command: String!
 }
