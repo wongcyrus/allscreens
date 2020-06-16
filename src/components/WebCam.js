@@ -123,7 +123,7 @@ class WebCam extends React.Component {
             console.log("noMask", data);
 
             if (data.noMask) {
-                this.setState({ skipCounter: 5 });
+                this.setState({ skipCounter: 3 });
                 window.postMessage("Please wear your mask!");
                 const command = { action: "Alert", data: { type: "NoMask", latitude: this.props.coords.latitude, longitude: this.props.coords.longitude } };
                 console.log(command);

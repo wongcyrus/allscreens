@@ -75,7 +75,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-allscreens-maskalert-60852-deployment",
-					"S3Key": "amplify-builds/faceMask-624e306572554c726b64-build.zip"
+					"S3Key": "amplify-builds/faceMask-61647662516957786470-build.zip"
 				}
 			}
 		},
@@ -160,7 +160,7 @@
 						{
 							"Effect": "Allow",
 							"Action": [
-								"rekognition:DetectLabels"
+								"rekognition:*"
 							],
 							"Resource": "*"
 						}
