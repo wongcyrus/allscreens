@@ -1,7 +1,7 @@
 import React from "react";
 import { Auth, Storage } from 'aws-amplify';
 import { S3Album, S3Image } from 'aws-amplify-react';
-import { Button, Header, Icon, Modal, Container, Segment, Form } from 'semantic-ui-react';
+import { Button, Header, Icon, Modal, Container, Segment, Form, Grid } from 'semantic-ui-react';
 
 import API, { graphqlOperation } from '@aws-amplify/api';
 
@@ -224,11 +224,19 @@ export default class AllScreenView extends React.Component {
                         filter={(item)=>this.filter(item)}
                         sort={(item)=>this.sort(item)}
                     />
-                    <Message></Message>
-                    <MapView 
-                        onSuccess = { position => this.setState({coords: position.coords}) }
-                        coords = { this.state.coords || "" }
-                    ></MapView>
+                  
+                    <Grid columns='equal'>
+                      <Grid.Column width={10}>
+                        <MapView 
+                            onSuccess = { position => this.setState({coords: position.coords}) }
+                            coords = { this.state.coords || "" }
+                        ></MapView>
+                      </Grid.Column>
+                      <Grid.Column >
+                        <Message></Message>
+                      </Grid.Column>
+                     </Grid>
+                 
                     <Modal
                         open={this.state.modalLargeViewOpen}
                         onClose={() => this.setState({ modalLargeViewOpen: false })}
