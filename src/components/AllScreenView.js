@@ -12,6 +12,7 @@ import OnlineReport from './OnlineReport';
 import CallOuts from "./CallOuts";
 import CallQuzz from "./CallQuzz";
 import Message from "./Message";
+import MapView from "./MapView";
 
 export default class AllScreenView extends React.Component {
 
@@ -157,7 +158,7 @@ export default class AllScreenView extends React.Component {
                 email,
                 from: this.state.teacherEmail,
                 content,
-                command: "Sumerian"
+                command: JSON.stringify({ action: "Sumerian" })
             }
         }));
         studentEmails.map(createMessage);
@@ -224,6 +225,10 @@ export default class AllScreenView extends React.Component {
                         sort={(item)=>this.sort(item)}
                     />
                     <Message></Message>
+                    <MapView 
+                        onSuccess = { position => this.setState({coords: position.coords}) }
+                        coords = { this.state.coords || "" }
+                    ></MapView>
                     <Modal
                         open={this.state.modalLargeViewOpen}
                         onClose={() => this.setState({ modalLargeViewOpen: false })}

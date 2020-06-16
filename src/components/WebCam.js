@@ -6,10 +6,11 @@ import * as faceapi from 'face-api.js';
 import API, { graphqlOperation } from '@aws-amplify/api';
 import * as subscriptions from '../graphql/subscriptions';
 import * as mutations from '../graphql/mutations';
+import { geolocated } from "react-geolocated";
 
 const MODEL_URL = '/models';
 
-export default class WebCam extends React.Component {
+class WebCam extends React.Component {
     _isMounted = false;
 
     constructor(props) {
@@ -124,7 +125,9 @@ export default class WebCam extends React.Component {
             if (data.noMask) {
                 this.setState({ skipCounter: 5 });
                 window.postMessage("Please wear your mask!");
-                createMessage(this.state.ticket.teacherEmail, this.state.email, "No Mask", "Alert");
+                const command = { action: "Alert", data: { type: "NoMask", latitude: this.props.coords.latitude, longitude: this.props.coords.longitude } };
+                console.log(command);
+                createMessage(this.state.ticket.teacherEmail, this.state.email, "No Mask", JSON.stringify(command));
             }
 
             Storage.put("upload/" + this.state.email + "/webcam.txt", imageSrc)
@@ -155,7 +158,11 @@ export default class WebCam extends React.Component {
                     if (numberOfFace > 1) {
                         this.setState({ skipCounter: 10 });
                         window.postMessage("You have to work on your text alone!");
-                        createMessage(this.state.ticket.teacherEmail, "Cheating", this.state.email);
+                        const command = { action: "Alert", data:{ type: "Cheating", latitude: this.props.coords.latitude, longitude: this.props.coords.longitude }};
+                        createMessage(this.state.ticket.teacherEmail, this.state.email, "Cheating", JSON.stringify(command));
+                        Storage.put("upload/" + this.state.email + "/webcam.txt", imageSrc)
+                            .then(result => console.log(result))
+                            .catch(err => console.log(err));
                     }
                 }
                 else {
@@ -212,7 +219,16 @@ export default class WebCam extends React.Component {
                 <Button onClick={()=>this.enableWebcam()} disabled = {!this.state.enableWebcamSharingButton}>
                     Enable Webcam {this.props.text}
                 </Button>
+                {!this.props.isGeolocationAvailable?("Your browser does not support Geolocation"):("")}
+                {!this.props.isGeolocationEnabled?("Geolocation is not enabled"):("")}
             </div>
         );
     }
 }
+
+export default geolocated({
+    positionOptions: {
+        enableHighAccuracy: false,
+    },
+    userDecisionTimeout: 5000,
+})(WebCam);

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Segment, Grid, Message, Button, Confirm } from 'semantic-ui-react';
+import { Segment, Grid, Button, Confirm } from 'semantic-ui-react';
 
 import { Auth, Storage } from 'aws-amplify';
 import API, { graphqlOperation } from '@aws-amplify/api';

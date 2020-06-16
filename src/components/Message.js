@@ -28,7 +28,7 @@ export default class Message extends React.Component {
                 console.log(message);
                 this.setState(state => {
                     message.time = Date.now();
-                    const messages = [message, ...state.messages];
+                    const messages = [message, ...state.messages].filter(m => moment().diff(m.time, 'seconds') < 10);
                     return {
                         messages
                     };
@@ -43,7 +43,7 @@ export default class Message extends React.Component {
 
     render() {
         const MessageItems = this.state.messages.map(message =>
-            <List.Item key={message.command + message.time} >
+            <List.Item key = { message.command + message.time } >
               <List.Icon name='envelope square' size='large' verticalAlign='middle' />
               <List.Content>
                 <List.Header as='a'>{message.command} {message.from} {message.content}</List.Header>
