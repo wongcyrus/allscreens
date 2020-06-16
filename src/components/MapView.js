@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Header, Icon, Modal } from 'semantic-ui-react';
+import { Button, Header, Icon, Modal, Form } from 'semantic-ui-react';
 
 import { Auth } from 'aws-amplify';
 import API, { graphqlOperation } from '@aws-amplify/api';
@@ -9,6 +9,8 @@ import { geolocated } from "react-geolocated";
 import moment from "moment";
 
 import * as subscriptions from '../graphql/subscriptions';
+import * as mutations from '../graphql/mutations';
+import CallOuts from "./CallOuts";
 
 class MapView extends React.Component {
 
@@ -24,7 +26,8 @@ class MapView extends React.Component {
     async componentDidMount() {
         const user = await Auth.currentAuthenticatedUser();
         const email = user.attributes.email;
-        console.log(email);
+        const teacherEmail = user.attributes.email;
+        this.setState({ teacherEmail });
 
         this.onCreateMessage = API.graphql(
             graphqlOperation(subscriptions.onCreateMessage, { email })
@@ -53,6 +56,23 @@ class MapView extends React.Component {
         this.setState({ modalLargeViewOpen: true });
     }
 
+    updatePrivateMessage = (event) => {
+        console.log(event.target.value);
+        this.setState({ privateMessage: event.target.value });
+    }
+    sendPrivateMessageToStudent = async(event) => {
+        const email = this.state.email;
+        const content = this.state.privateMessage;
+        console.log("sendPrivateMessageToStudent");
+        await API.graphql(graphqlOperation(mutations.createMessage, {
+            input: {
+                email,
+                from: this.state.teacherEmail,
+                content,
+                command: "Sumerian"
+            }
+        }));
+    }
     render() {
         const Marker = ({ text, imgKey, lat, lng, from }) =>
             <div
@@ -112,6 +132,13 @@ class MapView extends React.Component {
                     >
                         <Header icon='browser' content={this.state.email} />
                         <Modal.Content>
+                            <Form>
+                                <Form.Group>
+                                    <Form.Input style={{width: "500px"}} placeholder='Message' onChange={(event)=>this.updatePrivateMessage(event)}/>
+                                    <Form.Button onClick={() => this.sendPrivateMessageToStudent()}>Send Message</Form.Button>
+                                    <CallOuts message={this.state.privateMessage} email={this.state.email} text="Call"/>
+                                </Form.Group>
+                            </Form> 
                             <S3Image 
                                 level="public" 
                                 imgKey={this.state.fullSizeKey} 

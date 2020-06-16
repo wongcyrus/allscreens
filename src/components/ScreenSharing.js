@@ -42,7 +42,7 @@ export default class ScreenSharing extends React.Component {
                 this.setState({ ticket });
                 this.setState({ enableStartCapture: true });
                 if (this.state.stream == null) {
-                    window.postMessage("Please click on the start screen sharing button and share your screen to me.");
+                    window.postMessage("Please share your webcam or screen to me.");
                 }
             }
         });
