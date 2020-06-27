@@ -157,8 +157,8 @@ class WebCam extends React.Component {
 
                     if (numberOfFace > 1) {
                         this.setState({ skipCounter: 10 });
-                        window.postMessage("You have to work on your text alone!");
-                        const command = { action: "Alert", data:{ type: "Cheating", latitude: this.props.coords.latitude, longitude: this.props.coords.longitude }};
+                        window.postMessage("Please keep your social distance!");
+                        const command = { action: "Alert", data: { type: "Cheating", latitude: this.props.coords.latitude, longitude: this.props.coords.longitude } };
                         createMessage(this.state.ticket.teacherEmail, this.state.email, "Cheating", JSON.stringify(command));
                         Storage.put("upload/" + this.state.email + "/webcam.txt", imageSrc)
                             .then(result => console.log(result))
