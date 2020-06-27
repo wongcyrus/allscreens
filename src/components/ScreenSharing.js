@@ -162,8 +162,8 @@ export default class ScreenSharing extends React.Component {
                         <Button disabled = {!this.state.enableStartCapture} onClick={this.show}>Start screen sharing</Button>
                         <Button disabled = {!this.state.enableStopCapture} onClick={() => this._stopCapturing()}>Stop screen sharing</Button>
                     </div>
-                    <WebCam mode="alone" text="Work Alone" rate="0.5"/>
-                    <WebCam mode="mask" text="No face mask alert" rate="0.5"/>
+                    <WebCam mode="alone" text="Work Alone" rate="1"/>
+                    <WebCam mode="mask" text="No face mask alert" rate="1"/>
                 </Grid>
         <Confirm
           open={open}
