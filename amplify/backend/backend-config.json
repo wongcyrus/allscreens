@@ -68,13 +68,35 @@
             "service": "Lambda",
             "dependsOn": [
                 {
-                    "category": "auth",
-                    "resourceName": "allscreens6e0c57a0",
+                    "category": "function",
+                    "resourceName": "faceMaskLayer",
                     "attributes": [
-                        "UserPoolId"
+                        "Arn"
                     ]
                 }
             ]
+        },
+        "faceMaskLayer": {
+            "runtimes": [
+                {
+                    "value": "nodejs",
+                    "name": "NodeJS",
+                    "layerExecutablePath": "nodejs/node_modules",
+                    "cloudTemplateValue": "nodejs12.x"
+                }
+            ],
+            "layerVersionMap": {
+                "1": {
+                    "permissions": [
+                        {
+                            "type": "private"
+                        }
+                    ]
+                }
+            },
+            "providerPlugin": "awscloudformation",
+            "service": "LambdaLayer",
+            "build": true
         }
     },
     "storage": {

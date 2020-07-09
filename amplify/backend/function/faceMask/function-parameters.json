@@ -1,9 +1,16 @@
 {
-    "permissions": {
-        "auth": {
-            "allscreens6e0c57a0": [
-                "read"
-            ]
-        }
+  "permissions": {
+    "auth": {
+      "allscreens6e0c57a0": [
+        "read"
+      ]
     }
+  },
+  "lambdaLayers": [
+    {
+      "type": "ProjectLayer",
+      "resourceName": "faceMaskLayer",
+      "version": 1
+    }
+  ]
 }

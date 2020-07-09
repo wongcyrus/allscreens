@@ -3,13 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "dependencies": {
-    "atob": "^2.1.2",
-    "aws-sdk": "^2.697.0",
-    "aws-serverless-express": "^3.3.5",
-    "body-parser": "^1.17.1",
-    "express": "^4.15.2"
-  },
+  "dependencies": {},
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
