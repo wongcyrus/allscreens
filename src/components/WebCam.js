@@ -120,14 +120,21 @@ class WebCam extends React.Component {
             const data = await this.postImage(imageSrc);
             window.postMessage({ VideoScreen2: imageSrc });
 
-            console.log("noMask", data);
+            console.log("Mask Result", data);
 
-            if (data.noMask) {
+            if (data.result.noMask) {
                 this.setState({ skipCounter: 3 });
                 window.postMessage("Please wear your mask!");
                 const command = { action: "Alert", data: { type: "NoMask", latitude: this.props.coords.latitude, longitude: this.props.coords.longitude } };
                 console.log(command);
                 createMessage(this.state.ticket.teacherEmail, this.state.email, "No Mask", JSON.stringify(command));
+            }
+            else if (data.result.wearMaskImproperly) {
+                this.setState({ skipCounter: 3 });
+                window.postMessage("Please wear your mask properly!");
+                const command = { action: "Alert", data: { type: "NoMask", latitude: this.props.coords.latitude, longitude: this.props.coords.longitude } };
+                console.log(command);
+                createMessage(this.state.ticket.teacherEmail, this.state.email, "improperly Mask", JSON.stringify(command));
             }
 
             Storage.put("upload/" + this.state.email + "/webcam.txt", imageSrc)
