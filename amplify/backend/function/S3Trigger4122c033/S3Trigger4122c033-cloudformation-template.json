@@ -60,7 +60,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-allscreens-maskalert-60852-deployment",
-					"S3Key": "amplify-builds/S3Trigger4122c033-69453841536672712f4d-build.zip"
+					"S3Key": "amplify-builds/S3Trigger4122c033-3056464264384e636733-build.zip"
 				}
 			}
 		},
