@@ -30,8 +30,8 @@
     "userpoolClientGenerateSecret": true,
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [
-        "name",
         "email",
+        "name",
         "phone_number"
     ],
     "userpoolClientReadAttributes": [
