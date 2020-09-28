@@ -21,13 +21,49 @@
 					"S3Bucket": "amplify-allscreens-cdca-15104-deployment",
 					"S3Key": "amplify-builds/faceMaskLayer-build.zip"
 				},
-				"Description": "Lambda layer version 1",
+				"Description": "Lambda layer version 3",
 				"LayerName": "faceMaskLayer"
 			},
 			"DeletionPolicy": "Retain",
 			"UpdateReplacePolicy": "Retain"
 		},
 		"LambdaLayerPermissionprivate1": {
+			"Type": "AWS::Lambda::LayerVersionPermission",
+			"Properties": {
+				"Action": "lambda:GetLayerVersion",
+				"LayerVersionArn": {
+					"Fn::Sub": [
+						"arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:layer:${layerName}:${layerVersion}",
+						{
+							"layerName": "faceMaskLayer",
+							"layerVersion": "1"
+						}
+					]
+				},
+				"Principal": {
+					"Ref": "AWS::AccountId"
+				}
+			}
+		},
+		"LambdaLayerPermissionprivate2": {
+			"Type": "AWS::Lambda::LayerVersionPermission",
+			"Properties": {
+				"Action": "lambda:GetLayerVersion",
+				"LayerVersionArn": {
+					"Fn::Sub": [
+						"arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:layer:${layerName}:${layerVersion}",
+						{
+							"layerName": "faceMaskLayer",
+							"layerVersion": "2"
+						}
+					]
+				},
+				"Principal": {
+					"Ref": "AWS::AccountId"
+				}
+			}
+		},
+		"LambdaLayerPermissionprivate3": {
 			"Type": "AWS::Lambda::LayerVersionPermission",
 			"Properties": {
 				"Action": "lambda:GetLayerVersion",

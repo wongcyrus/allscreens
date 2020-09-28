@@ -1,292 +1,292 @@
 {
-    "auth": {
-        "allscreens6e0c57a0": {
-            "service": "Cognito",
-            "providerPlugin": "awscloudformation",
-            "dependsOn": [
-                {
-                    "category": "function",
-                    "resourceName": "allscreens6e0c57a0PostConfirmation",
-                    "triggerProvider": "Cognito",
-                    "attributes": [
-                        "Arn",
-                        "Name"
-                    ]
-                },
-                {
-                    "category": "function",
-                    "resourceName": "allscreens6e0c57a0PreSignup",
-                    "triggerProvider": "Cognito",
-                    "attributes": [
-                        "Arn",
-                        "Name"
-                    ]
-                }
-            ]
+  "auth": {
+    "allscreens6e0c57a0": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "allscreens6e0c57a0PostConfirmation",
+          "triggerProvider": "Cognito",
+          "attributes": [
+            "Arn",
+            "Name"
+          ]
         },
-        "userPoolGroups": {
-            "service": "Cognito-UserPool-Groups",
-            "providerPlugin": "awscloudformation",
-            "dependsOn": [
-                {
-                    "category": "auth",
-                    "resourceName": "allscreens6e0c57a0",
-                    "attributes": [
-                        "UserPoolId",
-                        "AppClientIDWeb",
-                        "AppClientID",
-                        "IdentityPoolId"
-                    ]
-                }
-            ]
+        {
+          "category": "function",
+          "resourceName": "allscreens6e0c57a0PreSignup",
+          "triggerProvider": "Cognito",
+          "attributes": [
+            "Arn",
+            "Name"
+          ]
         }
+      ]
     },
-    "function": {
-        "S3Trigger4122c033": {
-            "service": "Lambda",
-            "providerPlugin": "awscloudformation",
-            "build": true
-        },
-        "searchKendra": {
-            "service": "Lambda",
-            "providerPlugin": "awscloudformation",
-            "build": true
-        },
-        "allscreens6e0c57a0PostConfirmation": {
-            "build": true,
-            "providerPlugin": "awscloudformation",
-            "service": "Lambda"
-        },
-        "allscreens6e0c57a0PreSignup": {
-            "build": true,
-            "providerPlugin": "awscloudformation",
-            "service": "Lambda"
-        },
-        "faceMask": {
-            "build": true,
-            "providerPlugin": "awscloudformation",
-            "service": "Lambda",
-            "dependsOn": [
-                {
-                    "category": "function",
-                    "resourceName": "faceMaskLayer",
-                    "attributes": [
-                        "Arn"
-                    ]
-                }
-            ]
-        },
-        "faceMaskLayer": {
-            "runtimes": [
-                {
-                    "value": "nodejs",
-                    "name": "NodeJS",
-                    "layerExecutablePath": "nodejs/node_modules",
-                    "cloudTemplateValue": "nodejs12.x"
-                }
-            ],
-            "layerVersionMap": {
-                "1": {
-                    "permissions": [
-                        {
-                            "type": "private"
-                        }
-                    ]
-                }
-            },
-            "providerPlugin": "awscloudformation",
-            "service": "LambdaLayer",
-            "build": true
+    "userPoolGroups": {
+      "service": "Cognito-UserPool-Groups",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "allscreens6e0c57a0",
+          "attributes": [
+            "UserPoolId",
+            "AppClientIDWeb",
+            "AppClientID",
+            "IdentityPoolId"
+          ]
         }
-    },
-    "storage": {
-        "screenshots": {
-            "service": "S3",
-            "providerPlugin": "awscloudformation",
-            "dependsOn": [
-                {
-                    "category": "function",
-                    "resourceName": "S3Trigger4122c033",
-                    "attributes": [
-                        "Name",
-                        "Arn",
-                        "LambdaExecutionRole"
-                    ]
-                },
-                {
-                    "category": "auth",
-                    "resourceName": "allscreens6e0c57a0",
-                    "attributes": [
-                        "UserPoolId"
-                    ]
-                },
-                {
-                    "category": "auth",
-                    "resourceName": "userPoolGroups",
-                    "attributes": [
-                        "teachersGroupRole"
-                    ]
-                },
-                {
-                    "category": "auth",
-                    "resourceName": "userPoolGroups",
-                    "attributes": [
-                        "studentsGroupRole"
-                    ]
-                }
-            ]
-        }
-    },
-    "api": {
-        "allscreens": {
-            "service": "AppSync",
-            "providerPlugin": "awscloudformation",
-            "output": {
-                "authConfig": {
-                    "additionalAuthenticationProviders": [],
-                    "defaultAuthentication": {
-                        "authenticationType": "AMAZON_COGNITO_USER_POOLS",
-                        "userPoolConfig": {
-                            "userPoolId": "authallscreens6e0c57a0"
-                        }
-                    }
-                }
-            }
-        },
-        "kendraApi": {
-            "service": "API Gateway",
-            "providerPlugin": "awscloudformation",
-            "dependsOn": [
-                {
-                    "category": "function",
-                    "resourceName": "searchKendra",
-                    "attributes": [
-                        "Name",
-                        "Arn"
-                    ]
-                },
-                {
-                    "category": "auth",
-                    "resourceName": "allscreens6e0c57a0",
-                    "attributes": [
-                        "UserPoolId"
-                    ]
-                },
-                {
-                    "category": "auth",
-                    "resourceName": "userPoolGroups",
-                    "attributes": [
-                        "studentsGroupRole"
-                    ]
-                }
-            ]
-        },
-        "facemaskApi": {
-            "service": "API Gateway",
-            "providerPlugin": "awscloudformation",
-            "dependsOn": [
-                {
-                    "category": "function",
-                    "resourceName": "faceMask",
-                    "attributes": [
-                        "Name",
-                        "Arn"
-                    ]
-                },
-                {
-                    "category": "auth",
-                    "resourceName": "allscreens6e0c57a0",
-                    "attributes": [
-                        "UserPoolId"
-                    ]
-                },
-                {
-                    "category": "auth",
-                    "resourceName": "userPoolGroups",
-                    "attributes": [
-                        "studentsGroupRole"
-                    ]
-                },
-                {
-                    "category": "auth",
-                    "resourceName": "userPoolGroups",
-                    "attributes": [
-                        "teachersGroupRole"
-                    ]
-                }
-            ]
-        }
-    },
-    "xr": {
-        "VirtualTutor": {
-            "service": "Sumerian",
-            "providerPlugin": "awscloudformation"
-        }
-    },
-    "extra": {
-        "iam": {
-            "providerPlugin": "awscloudformation",
-            "dependsOn": [
-                {
-                    "category": "storage",
-                    "resourceName": "screenshots",
-                    "attributes": [
-                        "BucketName"
-                    ]
-                },
-                {
-                    "category": "auth",
-                    "resourceName": "allscreens6e0c57a0",
-                    "attributes": [
-                        "UserPoolId"
-                    ]
-                },
-                {
-                    "category": "auth",
-                    "resourceName": "userPoolGroups",
-                    "attributes": [
-                        "teachersGroupRole"
-                    ]
-                },
-                {
-                    "category": "auth",
-                    "resourceName": "userPoolGroups",
-                    "attributes": [
-                        "studentsGroupRole"
-                    ]
-                },
-                {
-                    "category": "interactions",
-                    "resourceName": "virtualtutorlex",
-                    "attributes": [
-                        "BotName"
-                    ]
-                }
-            ]
-        }
-    },
-    "predictions": {
-        "transscribequestion": {
-            "providerPlugin": "awscloudformation",
-            "service": "Transcribe",
-            "convertType": "transcription"
-        },
-        "interprettextmessage": {
-            "providerPlugin": "awscloudformation",
-            "service": "Comprehend",
-            "interpretType": "interpretText"
-        },
-        "translatemessage": {
-            "providerPlugin": "awscloudformation",
-            "service": "Translate",
-            "convertType": "translateText"
-        }
-    },
-    "interactions": {
-        "virtualtutorlex": {
-            "service": "Lex",
-            "providerPlugin": "awscloudformation",
-            "build": true
-        }
+      ]
     }
+  },
+  "function": {
+    "S3Trigger4122c033": {
+      "service": "Lambda",
+      "providerPlugin": "awscloudformation",
+      "build": true
+    },
+    "searchKendra": {
+      "service": "Lambda",
+      "providerPlugin": "awscloudformation",
+      "build": true
+    },
+    "allscreens6e0c57a0PostConfirmation": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "allscreens6e0c57a0PreSignup": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "faceMask": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "faceMaskLayer",
+          "attributes": [
+            "Arn"
+          ]
+        }
+      ]
+    },
+    "faceMaskLayer": {
+      "runtimes": [
+        {
+          "value": "nodejs",
+          "name": "NodeJS",
+          "layerExecutablePath": "nodejs/node_modules",
+          "cloudTemplateValue": "nodejs12.x"
+        }
+      ],
+      "layerVersionMap": {
+        "1": {
+          "permissions": [
+            {
+              "type": "private"
+            }
+          ]
+        }
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "LambdaLayer",
+      "build": true
+    }
+  },
+  "storage": {
+    "screenshots": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "S3Trigger4122c033",
+          "attributes": [
+            "Name",
+            "Arn",
+            "LambdaExecutionRole"
+          ]
+        },
+        {
+          "category": "auth",
+          "resourceName": "allscreens6e0c57a0",
+          "attributes": [
+            "UserPoolId"
+          ]
+        },
+        {
+          "category": "auth",
+          "resourceName": "userPoolGroups",
+          "attributes": [
+            "teachersGroupRole"
+          ]
+        },
+        {
+          "category": "auth",
+          "resourceName": "userPoolGroups",
+          "attributes": [
+            "studentsGroupRole"
+          ]
+        }
+      ]
+    }
+  },
+  "api": {
+    "allscreens": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "output": {
+        "authConfig": {
+          "additionalAuthenticationProviders": [],
+          "defaultAuthentication": {
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authallscreens6e0c57a0"
+            }
+          }
+        }
+      }
+    },
+    "kendraApi": {
+      "service": "API Gateway",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "searchKendra",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        },
+        {
+          "category": "auth",
+          "resourceName": "allscreens6e0c57a0",
+          "attributes": [
+            "UserPoolId"
+          ]
+        },
+        {
+          "category": "auth",
+          "resourceName": "userPoolGroups",
+          "attributes": [
+            "studentsGroupRole"
+          ]
+        }
+      ]
+    },
+    "facemaskApi": {
+      "service": "API Gateway",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "faceMask",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        },
+        {
+          "category": "auth",
+          "resourceName": "allscreens6e0c57a0",
+          "attributes": [
+            "UserPoolId"
+          ]
+        },
+        {
+          "category": "auth",
+          "resourceName": "userPoolGroups",
+          "attributes": [
+            "studentsGroupRole"
+          ]
+        },
+        {
+          "category": "auth",
+          "resourceName": "userPoolGroups",
+          "attributes": [
+            "teachersGroupRole"
+          ]
+        }
+      ]
+    }
+  },
+  "xr": {
+    "VirtualTutor": {
+      "service": "Sumerian",
+      "providerPlugin": "awscloudformation"
+    }
+  },
+  "extra": {
+    "iam": {
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "storage",
+          "resourceName": "screenshots",
+          "attributes": [
+            "BucketName"
+          ]
+        },
+        {
+          "category": "auth",
+          "resourceName": "allscreens6e0c57a0",
+          "attributes": [
+            "UserPoolId"
+          ]
+        },
+        {
+          "category": "auth",
+          "resourceName": "userPoolGroups",
+          "attributes": [
+            "teachersGroupRole"
+          ]
+        },
+        {
+          "category": "auth",
+          "resourceName": "userPoolGroups",
+          "attributes": [
+            "studentsGroupRole"
+          ]
+        },
+        {
+          "category": "interactions",
+          "resourceName": "virtualtutorlex",
+          "attributes": [
+            "BotName"
+          ]
+        }
+      ]
+    }
+  },
+  "predictions": {
+    "transscribequestion": {
+      "providerPlugin": "awscloudformation",
+      "service": "Transcribe",
+      "convertType": "transcription"
+    },
+    "interprettextmessage": {
+      "providerPlugin": "awscloudformation",
+      "service": "Comprehend",
+      "interpretType": "interpretText"
+    },
+    "translatemessage": {
+      "providerPlugin": "awscloudformation",
+      "service": "Translate",
+      "convertType": "translateText"
+    }
+  },
+  "interactions": {
+    "virtualtutorlex": {
+      "service": "Lex",
+      "providerPlugin": "awscloudformation",
+      "build": true
+    }
+  }
 }

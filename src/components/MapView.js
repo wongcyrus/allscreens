@@ -11,6 +11,7 @@ import moment from "moment";
 import * as subscriptions from '../graphql/subscriptions';
 import * as mutations from '../graphql/mutations';
 import CallOuts from "./CallOuts";
+import config from '../config';
 
 class MapView extends React.Component {
 
@@ -28,7 +29,7 @@ class MapView extends React.Component {
         const email = user.attributes.email;
         const teacherEmail = user.attributes.email;
         this.setState({ teacherEmail });
-
+        console.log(config.GoogleMapKey);
         this.onCreateMessage = API.graphql(
             graphqlOperation(subscriptions.onCreateMessage, { email })
         ).subscribe({
@@ -116,7 +117,7 @@ class MapView extends React.Component {
             return (
                 <div style={{ height: '70vh', width: '100%' }}>
                     <GoogleMapReact
-                      bootstrapURLKeys={{ key: "AIzaSyCgHP4b57aXthnugLON0PtM7VdajVpUh3s" }}
+                      bootstrapURLKeys={{ key: config.GoogleMapKey }}
                       defaultCenter={center}
                       defaultZoom={12}
                       onGoogleApiLoaded={({map, maps}) => console.log(map, maps)}
