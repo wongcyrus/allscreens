@@ -6,3 +6,4 @@ An AWS Amplify React Web App using most of the Amazon AI services and Amazon Sum
 ## For more details:
 [How to build an online learning platform that engages and educates students at scale with Amazon Kendra, Amazon Comprehend, Amazon Translate,and more.](https://www.linkedin.com/pulse/how-build-online-learning-platform-engages-educates-wong/)
 
+[How to build a Virtual Health and Safety Officer at scale with Amazon Rekognition - Personal Protective Equipment (PPE) detection](https://www.linkedin.com/pulse/how-build-virtual-health-safety-officer-scale-amazon-wong/)
