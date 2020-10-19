@@ -78,14 +78,10 @@
         "Runtime": "nodejs12.x",
         "Timeout": "25",
         "Code": {
-          "S3Bucket": "amplify-allscreens-cdca-15104-deployment",
-          "S3Key": "amplify-builds/faceMask-30586f53694651375373-build.zip"
+          "S3Bucket": "amplify-allscreens-maskalert-60852-deployment",
+          "S3Key": "amplify-builds/faceMask-66583543783452627a77-build.zip"
         },
-        "Layers": [
-          {
-            "Fn::Sub": "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:layer:faceMaskLayer:3"
-          }
-        ]
+        "Layers": []
       }
     },
     "LambdaExecutionRole": {

@@ -6,11 +6,5 @@
       ]
     }
   },
-  "lambdaLayers": [
-    {
-      "type": "ProjectLayer",
-      "resourceName": "faceMaskLayer",
-      "version": 3
-    }
-  ]
+  "lambdaLayers": []
 }

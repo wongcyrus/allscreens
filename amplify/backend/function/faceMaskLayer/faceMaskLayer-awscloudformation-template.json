@@ -1,105 +1,132 @@
 {
-	"AWSTemplateFormatVersion": "2010-09-09",
-	"Description": "Lambda layer resource stack creation using Amplify CLI",
-	"Parameters": {
-		"layerVersion": {
-			"Type": "String",
-			"Default": "1"
-		},
-		"env": {
-			"Type": "String"
-		}
-	},
-	"Resources": {
-		"LambdaLayer": {
-			"Type": "AWS::Lambda::LayerVersion",
-			"Properties": {
-				"CompatibleRuntimes": [
-					"nodejs12.x"
-				],
-				"Content": {
-					"S3Bucket": "amplify-allscreens-cdca-15104-deployment",
-					"S3Key": "amplify-builds/faceMaskLayer-build.zip"
-				},
-				"Description": "Lambda layer version 3",
-				"LayerName": "faceMaskLayer"
-			},
-			"DeletionPolicy": "Retain",
-			"UpdateReplacePolicy": "Retain"
-		},
-		"LambdaLayerPermissionprivate1": {
-			"Type": "AWS::Lambda::LayerVersionPermission",
-			"Properties": {
-				"Action": "lambda:GetLayerVersion",
-				"LayerVersionArn": {
-					"Fn::Sub": [
-						"arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:layer:${layerName}:${layerVersion}",
-						{
-							"layerName": "faceMaskLayer",
-							"layerVersion": "1"
-						}
-					]
-				},
-				"Principal": {
-					"Ref": "AWS::AccountId"
-				}
-			}
-		},
-		"LambdaLayerPermissionprivate2": {
-			"Type": "AWS::Lambda::LayerVersionPermission",
-			"Properties": {
-				"Action": "lambda:GetLayerVersion",
-				"LayerVersionArn": {
-					"Fn::Sub": [
-						"arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:layer:${layerName}:${layerVersion}",
-						{
-							"layerName": "faceMaskLayer",
-							"layerVersion": "2"
-						}
-					]
-				},
-				"Principal": {
-					"Ref": "AWS::AccountId"
-				}
-			}
-		},
-		"LambdaLayerPermissionprivate3": {
-			"Type": "AWS::Lambda::LayerVersionPermission",
-			"Properties": {
-				"Action": "lambda:GetLayerVersion",
-				"LayerVersionArn": {
-					"Ref": "LambdaLayer"
-				},
-				"Principal": {
-					"Ref": "AWS::AccountId"
-				}
-			}
-		}
-	},
-	"Conditions": {
-		"HasEnvironmentParameter": {
-			"Fn::Not": [
-				{
-					"Fn::Equals": [
-						{
-							"Ref": "env"
-						},
-						"NONE"
-					]
-				}
-			]
-		}
-	},
-	"Outputs": {
-		"Arn": {
-			"Value": {
-				"Ref": "LambdaLayer"
-			}
-		},
-		"Region": {
-			"Value": {
-				"Ref": "AWS::Region"
-			}
-		}
-	}
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Lambda layer resource stack creation using Amplify CLI",
+  "Parameters": {
+    "layerVersion": {
+      "Type": "String",
+      "Default": "1"
+    },
+    "env": {
+      "Type": "String"
+    }
+  },
+  "Resources": {
+    "LambdaLayer": {
+      "Type": "AWS::Lambda::LayerVersion",
+      "Properties": {
+        "CompatibleRuntimes": [
+          "nodejs12.x"
+        ],
+        "Content": {
+          "S3Bucket": "amplify-allscreens-maskalert-60852-deployment",
+          "S3Key": "amplify-builds/faceMaskLayer-build.zip"
+        },
+        "Description": {
+          "Fn::Sub": [
+            "Lambda layer version ${latestVersion}",
+            {
+              "latestVersion": {
+                "Ref": "layerVersion"
+              }
+            }
+          ]
+        },
+        "LayerName": "faceMaskLayer"
+      },
+      "DeletionPolicy": "Retain",
+      "UpdateReplacePolicy": "Retain"
+    },
+    "LambdaLayerPermissionprivate1": {
+      "Type": "AWS::Lambda::LayerVersionPermission",
+      "Properties": {
+        "Action": "lambda:GetLayerVersion",
+        "LayerVersionArn": {
+          "Fn::Sub": [
+            "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:layer:${layerName}:${layerVersion}",
+            {
+              "layerName": "faceMaskLayer",
+              "layerVersion": "1"
+            }
+          ]
+        },
+        "Principal": {
+          "Ref": "AWS::AccountId"
+        }
+      }
+    },
+    "LambdaLayerPermissionprivate2": {
+      "Type": "AWS::Lambda::LayerVersionPermission",
+      "Properties": {
+        "Action": "lambda:GetLayerVersion",
+        "LayerVersionArn": {
+          "Fn::Sub": [
+            "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:layer:${layerName}:${layerVersion}",
+            {
+              "layerName": "faceMaskLayer",
+              "layerVersion": "2"
+            }
+          ]
+        },
+        "Principal": {
+          "Ref": "AWS::AccountId"
+        }
+      }
+    },
+    "LambdaLayerPermissionprivate3": {
+      "Type": "AWS::Lambda::LayerVersionPermission",
+      "Properties": {
+        "Action": "lambda:GetLayerVersion",
+        "LayerVersionArn": {
+          "Fn::Sub": [
+            "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:layer:${layerName}:${layerVersion}",
+            {
+              "layerName": "faceMaskLayer",
+              "layerVersion": "3"
+            }
+          ]
+        },
+        "Principal": {
+          "Ref": "AWS::AccountId"
+        }
+      }
+    },
+    "LambdaLayerPermissionprivate4": {
+      "Type": "AWS::Lambda::LayerVersionPermission",
+      "Properties": {
+        "Action": "lambda:GetLayerVersion",
+        "LayerVersionArn": {
+          "Ref": "LambdaLayer"
+        },
+        "Principal": {
+          "Ref": "AWS::AccountId"
+        }
+      }
+    }
+  },
+  "Conditions": {
+    "HasEnvironmentParameter": {
+      "Fn::Not": [
+        {
+          "Fn::Equals": [
+            {
+              "Ref": "env"
+            },
+            "NONE"
+          ]
+        }
+      ]
+    }
+  },
+  "Outputs": {
+    "Arn": {
+      "Value": {
+        "Ref": "LambdaLayer"
+      }
+    },
+    "Region": {
+      "Value": {
+        "Ref": "AWS::Region"
+      }
+    }
+  }
 }
