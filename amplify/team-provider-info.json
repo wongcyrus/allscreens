@@ -28,8 +28,8 @@
       },
       "xr": {
         "VirtualTutor": {
-          "url": "https://sumerian.us-east-1.amazonaws.com/20180801/projects/Drafts-user%2Fcyrus/release/authTokens?sceneId=403d3609087647d983cfd588f214370f.scene",
-          "sceneId": "403d3609087647d983cfd588f214370f.scene",
+          "url": "https://sumerian.us-east-1.amazonaws.com/20180801/projects/Drafts-user%2Fcyrus/release/authTokens?sceneId=538cfc9335504179acbe84f93262feea.scene",
+          "sceneId": "538cfc9335504179acbe84f93262feea.scene",
           "region": "us-east-1",
           "projectName": "Drafts-user/cyrus"
         }
@@ -107,8 +107,8 @@
       },
       "xr": {
         "VirtualTutor": {
-          "url": "https://sumerian.us-east-1.amazonaws.com/20180801/projects/Drafts-user%2Fcyrus/release/authTokens?sceneId=403d3609087647d983cfd588f214370f.scene",
-          "sceneId": "403d3609087647d983cfd588f214370f.scene",
+          "url": "https://sumerian.us-east-1.amazonaws.com/20180801/projects/Drafts-user%2Fcyrus/release/authTokens?sceneId=538cfc9335504179acbe84f93262feea.scene",
+          "sceneId": "538cfc9335504179acbe84f93262feea.scene",
           "region": "us-east-1",
           "projectName": "Drafts-user/cyrus"
         }
