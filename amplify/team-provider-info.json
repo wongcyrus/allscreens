@@ -114,5 +114,40 @@
         }
       }
     }
+  },
+  "yc": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-allscreens-yc-22224-authRole",
+      "UnauthRoleArn": "arn:aws:iam::111964674713:role/amplify-allscreens-yc-22224-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::111964674713:role/amplify-allscreens-yc-22224-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-allscreens-yc-22224-deployment",
+      "UnauthRoleName": "amplify-allscreens-yc-22224-unauthRole",
+      "StackName": "amplify-allscreens-yc-22224",
+      "StackId": "arn:aws:cloudformation:us-east-1:111964674713:stack/amplify-allscreens-yc-22224/e5755900-2944-11eb-a4b5-0a7162bf9a3d",
+      "AmplifyAppId": "d1kr4uecab7pxw"
+    },
+    "categories": {
+      "auth": {
+        "allscreens6e0c57a0": {},
+        "userPoolGroups": {}
+      },
+      "function": {
+        "S3Trigger4122c033": {},
+        "searchKendra": {},
+        "allscreens6e0c57a0PostConfirmation": {},
+        "allscreens6e0c57a0PreSignup": {},
+        "faceMask": {},
+        "faceMaskLayer": {}
+      },
+      "xr": {
+        "VirtualTutor": {
+          "url": "https://sumerian.us-east-1.amazonaws.com/20180801/projects/Drafts-user%2Fcyrus/release/authTokens?sceneId=538cfc9335504179acbe84f93262feea.scene",
+          "sceneId": "538cfc9335504179acbe84f93262feea.scene",
+          "region": "us-east-1",
+          "projectName": "Drafts-user/cyrus"
+        }
+      }
+    }
   }
 }
