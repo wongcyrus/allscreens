@@ -110,7 +110,8 @@
         "Code": {
           "S3Bucket": "amplify-allscreens-yc-22224-deployment",
           "S3Key": "amplify-builds/allscreens6e0c57a0PreSignup-6e554372575171437948-build.zip"
-        }
+        },
+        "Layers": []
       }
     },
     "LambdaExecutionRole": {

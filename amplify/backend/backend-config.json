@@ -60,7 +60,8 @@
     "allscreens6e0c57a0PreSignup": {
       "build": true,
       "providerPlugin": "awscloudformation",
-      "service": "Lambda"
+      "service": "Lambda",
+      "dependsOn": []
     },
     "faceMask": {
       "build": true,

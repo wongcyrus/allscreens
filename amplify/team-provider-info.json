@@ -135,8 +135,12 @@
       "function": {
         "S3Trigger4122c033": {},
         "searchKendra": {},
-        "allscreens6e0c57a0PostConfirmation": {},
-        "allscreens6e0c57a0PreSignup": {},
+        "allscreens6e0c57a0PostConfirmation": {
+          "GROUP": "students"
+        },
+        "allscreens6e0c57a0PreSignup": {
+          "DOMAINWHITELIST": "vtc.edu.hk,stu.vtc.edu.hk"
+        },
         "faceMask": {},
         "faceMaskLayer": {}
       },

@@ -7,10 +7,11 @@
   "functionName": "allscreens6e0c57a0PreSignup",
   "parentStack": "auth",
   "triggerEnvs": "[]",
-  "triggerDir": "/home/ec2-user/.nvm/versions/node/v10.19.0/lib/node_modules/@aws-amplify/cli/node_modules/amplify-category-auth/provider-utils/awscloudformation/utils/../triggers/PreSignup",
+  "triggerDir": "/home/ec2-user/.nvm/versions/node/v10.19.0/lib/node_modules/@aws-amplify/cli/node_modules/amplify-category-auth/provider-utils/awscloudformation/triggers/PreSignup",
   "roleName": "allscreens6e0c57a0PreSignup",
   "triggerTemplate": "PreSignup.json.ejs",
   "triggerEventPath": "PreSignup.event.json",
   "skipEdit": true,
-  "resourceName": "allscreens6e0c57a0PreSignup"
+  "resourceName": "allscreens6e0c57a0PreSignup",
+  "lambdaLayers": []
 }

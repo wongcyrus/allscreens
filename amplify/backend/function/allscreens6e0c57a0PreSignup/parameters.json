@@ -1,1 +1,3 @@
-{"modules":"email-filter-whitelist"}
+{
+  "modules": "email-filter-whitelist"
+}
