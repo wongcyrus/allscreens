@@ -210,7 +210,7 @@ export default class Chatbot extends React.Component {
     else {
       console.log(this.state.kendraIndexId);
       if (this.state.kendraIndexId && this.state.kendraIndexId !== "null") {
-        window.postMessage("Let me check your question with kendra!");
+        window.postMessage("Let me check your question with Amazon Kendra!");
         let answer = await this.getAnswerFromKendra(this.state.kendraIndexId, message);
         console.log(answer);
         this.setState({ reply: answer.message });
