@@ -39,6 +39,14 @@
         }
       ],
       "hash": "zlmGe2N5/tX9uT6LHwGqdZjFk/M/ZeaU5rGGFbvPK5g="
+    },
+    "6": {
+      "permissions": [
+        {
+          "type": "private"
+        }
+      ],
+      "hash": "sNkcyKnStfHXlNaPSxGvG7y+8QI13fvrckEb7leA2K4="
     }
   },
   "runtimes": [
